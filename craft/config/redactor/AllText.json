@@ -1,0 +1,7 @@
+{
+  buttons: ['html','formatting','bold','italic','deleted','unorderedlist','orderedlist','link'],
+  formattingTags: ['p', 'h2', 'h3', 'h4', 'h5', 'h6', 'blockquote'],
+  plugins: ['fullscreen'],
+  toolbarFixedBox: true,
+  tabFocus: false
+}

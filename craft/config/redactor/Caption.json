@@ -1,0 +1,7 @@
+{
+  buttons: ['html','bold','italic','link'],
+  allowedTags: ['p', 'strong', 'em', 'a'],
+  plugins: ['fullscreen'],
+  toolbarFixedBox: true,
+  tabFocus: false
+}
