@@ -608,7 +608,7 @@ h1 .display, .as-h1 .display {
   }
 }
 
-h2, .as-h2 {
+h2, .as-h2, .block-pullquote .b-quote p {
   font-family: "GT Sectra", "Georgia", serif;
   font-size: 1.33333em;
   font-weight: 700;
@@ -617,7 +617,7 @@ h2, .as-h2 {
   color: #111111;
 }
 @media (min-width: 46.75em) {
-  h2, .as-h2 {
+  h2, .as-h2, .block-pullquote .b-quote p {
     font-size: 1.5em;
     line-height: 1.16666666667;
     margin-bottom: 0.91667em;
@@ -2137,6 +2137,56 @@ body {
 /* =======================================================
     Blocks
    ======================================================= */
+.block-picture {
+  background-color: #f5f5f5;
+}
+.block-picture figcaption {
+  margin-top: 0;
+  padding: 0.6875rem;
+  font-size: 0.875em;
+  background-color: #f5f5f5;
+}
+.block-picture.pos-left {
+  width: 25%;
+  float: left;
+  margin-right: 12.5%;
+  margin-right: 4%;
+}
+.block-picture.pos-right {
+  width: 25%;
+  float: right;
+  margin-right: 0;
+  margin-left: 4%;
+}
+
+.block-pullquote {
+  border: 1px solid #1dc898;
+  border-right-width: 0;
+  padding: 1.375rem;
+}
+.block-pullquote .b-quote p {
+  margin: 0;
+  font-weight: 400;
+  color: #1dc898;
+}
+.block-pullquote .b-source p {
+  margin: 0;
+  font-weight: 700;
+  color: #1dc898;
+}
+@media (min-width: 46.75em) {
+  .block-pullquote {
+    margin-top: 2.0625rem;
+    margin-bottom: 2.0625rem;
+  }
+}
+@media (min-width: 60em) {
+  .block-pullquote {
+    margin-top: 2.75rem;
+    margin-bottom: 2.75rem;
+  }
+}
+
 .block-media {
   position: relative;
   display: -webkit-box;
@@ -2272,128 +2322,6 @@ body {
   color: #1538e6;
 }
 
-/*
-  <div class="block-media">
-    <img class="b-figure" src="{{ "fpo-user-photo.png" | asset_url }}" height="80" width="80">
-    <div class="b-body">
-      First Lastname
-      title
-    </div>
-  </div>
-*/
-/*
-[class*='block'] {
-  @include clearfix;
-
-  p:last-child {
-    margin-bottom: 0;
-  }
-
-}
-*/
-/*
-.b-thumb {
-  img {
-    display: block;
-  }
-}
-
-// Text
-
-.b-text {
-  .headline {
-    margin-bottom: $space-quarter;
-  }
-}
-
-// Body
-
-.b-body {
-  //
-}
-
-*/
-/*
-.block-switch {
-
-  .b-thumb {
-    //@include float-span(1);
-  }
-
-  .b-text {
-    //@include float-span(3,'last');
-  }
-
-  @include breakpoint($bp-med) {
-
-    .b-thumb {
-      float: none;
-      margin: 0;
-      width: 100%;
-      img {
-        margin-bottom: $space-quarter;
-      }
-    }
-    .b-text {
-      float: none;
-      margin: 0;
-      width: 100%;
-    }
-  }
-}
-*/
-/*
-.block-inset {
-  position: relative;
-
-  .b-thumb {
-    position: relative;
-    z-index: 0;
-
-    img {
-      margin-bottom: $space-half;
-    }
-  }
-}
-*/
-/*
-.block-thumb {
-  .b-thumb {
-    //@include float-span(1);
-  }
-  .b-text {
-    //@include float-span(3,'last');
-  }
-
-  @include breakpoint($bp-med) {
-    .b-thumb {
-      //@include float-span(1);
-    }
-    .b-text {
-      //@include float-span(5,'last');
-    }
-  }
-}
-*/
-/*
-.block-hero {
-  margin-bottom: $space;
-
-  @include breakpoint($bp-large) {
-    position: relative;
-
-    .b-text {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      background: $overlay-dark;
-      color: $white;
-      padding: $pad-and-half;
-    }
-  }
-}
-*/
 /* =======================================================
     Buttons
    ======================================================= */

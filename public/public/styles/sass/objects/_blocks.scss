@@ -3,6 +3,72 @@
    ======================================================= */
 
 //
+// Picture block
+//
+
+.block-picture {
+
+  background-color: $gray-light;
+
+  figcaption {
+    margin-top: 0;
+    padding: $space-half;
+    font-size: $font-size-small;
+    background-color: $gray-light;
+  }
+
+  &.pos-left {
+    @include span(1 of 3);
+    margin-right: gutter(4%);
+  }
+
+  &.pos-right {
+    @include span(last 1 of 3);
+    margin-left: gutter(4%);
+  }
+
+}
+
+//
+// Pullquote block
+//
+
+.block-pullquote {
+
+  border: $border-width $border-style $green;
+  border-right-width: 0;
+  padding: $space;
+
+  .b-quote p {
+    @extend .as-h2;
+    margin: 0;
+    font-weight: $font-weight-body;
+    color: $green;
+  }
+
+  .b-source p {
+    margin: 0;
+    font-weight: $font-weight-headline;
+    color: $green;
+  }
+
+  @include breakpoint($bp-med) {
+    margin: {
+      top: $space-and-half;
+      bottom: $space-and-half;
+    }
+  }
+
+  @include breakpoint($bp-large) {
+    margin: {
+      top: $space-double;
+      bottom: $space-double;
+    }
+  }
+
+}
+
+//
 //  Media block
 //
 
@@ -131,143 +197,5 @@
     @include incognitolink;
   }
 }
-
-/*
-  <div class="block-media">
-    <img class="b-figure" src="{{ "fpo-user-photo.png" | asset_url }}" height="80" width="80">
-    <div class="b-body">
-      First Lastname
-      title
-    </div>
-  </div>
-*/
-
-// Generic block element
-
-/*
-[class*='block'] {
-  @include clearfix;
-
-  p:last-child {
-    margin-bottom: 0;
-  }
-
-}
-*/
-
-// Thumbnail
-
-/*
-.b-thumb {
-  img {
-    display: block;
-  }
-}
-
-// Text
-
-.b-text {
-  .headline {
-    margin-bottom: $space-quarter;
-  }
-}
-
-// Body
-
-.b-body {
-  //
-}
-
-*/
-// Switchable block
-// This block swaps between an image floated left and full width
-
-/*
-.block-switch {
-
-  .b-thumb {
-    //@include float-span(1);
-  }
-
-  .b-text {
-    //@include float-span(3,'last');
-  }
-
-  @include breakpoint($bp-med) {
-
-    .b-thumb {
-      float: none;
-      margin: 0;
-      width: 100%;
-      img {
-        margin-bottom: $space-quarter;
-      }
-    }
-    .b-text {
-      float: none;
-      margin: 0;
-      width: 100%;
-    }
-  }
-}
-*/
-
-// Inset block
-/*
-.block-inset {
-  position: relative;
-
-  .b-thumb {
-    position: relative;
-    z-index: 0;
-
-    img {
-      margin-bottom: $space-half;
-    }
-  }
-}
-*/
-
-// Thumbnail block
-/*
-.block-thumb {
-  .b-thumb {
-    //@include float-span(1);
-  }
-  .b-text {
-    //@include float-span(3,'last');
-  }
-
-  @include breakpoint($bp-med) {
-    .b-thumb {
-      //@include float-span(1);
-    }
-    .b-text {
-      //@include float-span(5,'last');
-    }
-  }
-}
-*/
-
-// Hero block
-/*
-.block-hero {
-  margin-bottom: $space;
-
-  @include breakpoint($bp-large) {
-    position: relative;
-
-    .b-text {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      background: $overlay-dark;
-      color: $white;
-      padding: $pad-and-half;
-    }
-  }
-}
-*/
 
 // End blocks

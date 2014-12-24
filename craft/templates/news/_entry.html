@@ -3,14 +3,6 @@
 {% set bodyClass = 'sec-news sec-news-front l-2col-rev' %}
 {% set imageInfoLink = "http://amazon.com" %}
 
-{% block content %}
-	<article>
-		<h1>{{ entry.title }}</h1>
-		<p>Posted on {{ entry.postDate.format('F d, Y') }}</p>
-		{{ entry.body }}
-	</article>
-{% endblock %}
-
 {% block main %}
 <div class="l-main">
 
@@ -31,16 +23,35 @@
     </footer>
   </div>
 
+  {# Set parameters for prev/next elements list #}
+  {% set params = craft.entries.section('news').order('postDate asc') %}
+
+  {# Get the prev/next elements #}
+  {% set prevEntry = entry.getPrev(params) %}
+  {% set nextEntry = entry.getNext(params) %}
+
+  {% if prevEntry or nextEntry %}
+
   <div class="band band-snug">
     <div class="main">
       <nav class="nav brick-nav brick-nav-full brick-nav-flush">
         <ul>
-          <li class="brick-left"><a href="#"><span class="arrow">&larr;</span> Prev</a></li>
-          <li class="brick-right"><a href="#">Next <span class="arrow">&rarr;</span></a></li>
+          {% if prevEntry %}
+            <li class="brick-left"><a href="{{ prevEntry.url }}"><span class="arrow">&larr;</span> Prev</a></li>
+          {% else %}
+            <li class="brick-left is-disabled"><a href="#"><span class="arrow">&larr;</span> Prev</a></li>
+          {% endif %}
+          {% if nextEntry %}
+            <li class="brick-right"><a href="{{ nextEntry.url }}">Next <span class="arrow">&rarr;</span></a></li>
+          {% else %}
+            <li class="brick-right is-disabled"><a href="#">Next <span class="arrow">&rarr;</span></a></li>
+          {% endif %}
         </ul>
       </nav>
     </div>
   </div>
+
+  {% endif %}
 
 </div>
 <!--/.l-main-->

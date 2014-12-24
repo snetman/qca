@@ -1,27 +1,58 @@
-{#
- # News index template
- # -------------------
- #
- # This template is loaded whenever http://example.com/news is
- # requested, because it is located at news/index.html in your
- # craft/templates/ folder.
- #
- # See this page for more details on how Craft routes requests:
- # http://buildwithcraft.com/docs/routing
- #}
+{% extends "_layout-reversed" %}
+{% if entry.displayTitle %}
+  {% set title = entry.displayTitle %}
+{% else %}
+  {% set title = entry.title %}
+{% endif %}
+{% set bodyClass = 'sec-news sec-news-front l-2col-rev' %}
+{% set imageInfoLink = "http://amazon.com" %}
 
-{% extends "_layout" %}
-{% set title = "News" %}
+{% block main %}
+<div class="l-main">
 
-{% block content %}
-	<h1>News</h1>
+  <header class="page-header">
+    <div class="main">
+      <h1>{{ title }}{% if entry.pageSubtitle|length %} <small>{{ entry.pageSubtitle }}</small>{% endif %}</h1>
+    </div>
+  </header>
 
-	{% for entry in craft.entries.section('news').find() %}
-		<article>
-			<h3><a href="{{ entry.url }}">{{ entry.title }}</a></h3>
-			<p>Posted on {{ entry.postDate.format('F d, Y') }}</p>
-			{{ entry.body.getPage(1) }}
-			<p><a href="{{ entry.url }}">Continue reading</a></p>
-		</article>
-	{% endfor %}
+  <div class="page page-inset-large news-listing">
+    <header>
+      <h2><a href="news-detail">News item title here lorem ipsum dolor sit amet consecutat velo</a></h2>
+    </header>
+    <div class="body">
+      <figure>
+
+      </figure>
+      <p>News item summary here lorem ipsum dolor sit amet consecutat velorem dolor. Adipiscing elit lorem ipsum dolor sit amet consecutat velorem dolor. <a href="news-detail">More</a></p>
+    </div>
+    <footer>
+      <span class="date">12.08.14</span>
+      <ul class="inline-list has-commas">
+        <li><a href="news-tag-listing">Tag name here</a>,</li>
+        <li><a href="news-tag-listing">Tag here</a></li>
+      </ul>
+    </footer>
+  </div>
+
+  <div class="band band-snug">
+    <div class="main">
+      <nav class="nav brick-nav brick-nav-full brick-nav-flush">
+        <ul>
+          <li class="brick-left"><a class="is-disabled" href="#"><span class="arrow">&larr;</span> Prev</a></li>
+          <li class="brick-right"><a href="#">Next <span class="arrow">&rarr;</span></a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+
+</div>
+<!--/.l-main-->
+{% endblock %}
+
+{% block aside %}
+<div class="l-aside">
+  {% include 'includes/_nav-news.html' %}
+</div>
+<!--/.l-aside-->
 {% endblock %}
