@@ -1,0 +1,13 @@
+//
+// Art label
+//
+
+.art-label {
+  max-width: 800px;
+  background-color: $gray-light;
+
+  .title,
+  .artist {
+    margin-bottom: 0;
+  }
+}

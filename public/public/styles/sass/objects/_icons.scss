@@ -1,0 +1,55 @@
+/* =======================================================
+    Icons
+   ======================================================= */
+
+//
+// Standard icon
+//
+
+$icon-size: 32px;
+
+[class*="icon--"] {
+  display: inline-block;
+  vertical-align: middle;
+  background-image: url('../images/qca-icons-32-white.png');
+  background-repeat: no-repeat;
+  height: $icon-size;
+  width: $icon-size;
+}
+
+//
+// Theming
+//
+
+[class*="icon--"].reversable {
+  background-image: url('../images/qca-icons-32-black.png');
+}
+.theme-light [class*="icon--"].reversable {
+  background-image: url('../images/qca-icons-32-white.png');
+}
+
+// Individual icons
+
+.icon--info {
+  background-position: 0 0;
+}
+
+.icon--menu {
+  background-position: (-1 * $icon-size) 0;
+}
+
+.icon--arrow-up {
+  background-position: (-2 * $icon-size) 0;
+}
+
+.icon--arrow-down {
+  background-position: (-3 * $icon-size) 0;
+}
+
+.icon--arrow-right {
+  background-position: (-4 * $icon-size) 0;
+}
+
+.icon--arrow-left {
+  background-position: (-5 * $icon-size) 0;
+}

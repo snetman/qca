@@ -1,0 +1,17 @@
+{# Story blocks #}
+{% for block in entry.storyBlocks %}
+
+  {% switch block.type %}
+
+    {% case "textBlock" %}
+      {% include 'includes/story-blocks/_block-text.html' %}
+
+    {% case "pictureBlock" %}
+      {% include 'includes/story-blocks/_block-picture.html' %}
+
+    {% case "pullquoteBlock" %}
+      {% include 'includes/story-blocks/_block-pullquote.html' %}
+
+  {% endswitch %}
+
+{% endfor %}

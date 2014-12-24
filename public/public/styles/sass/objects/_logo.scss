@@ -1,0 +1,57 @@
+//
+// Logo
+//
+
+#logo {
+  @include zero;
+  position: relative;
+
+  a {
+    @include hide-text;
+    display: block;
+    background: {
+      image: url('../images/qca-logo-large.svg');
+      position: top left;
+      size: contain;
+      repeat: no-repeat;
+    }
+
+    @include transition(all, .3s, ease-in-out);
+
+    // Layout
+
+    // width: 168px;
+    // height: 80px;
+    // margin: 20px 0 12px -12px;
+    width: 128px;
+    height: 60px;
+    margin: 20px 0 10px -10px;
+
+    @include breakpoint($bp-med) {
+      // width: 380px;
+      // height: 184px;
+      // margin: -24px 0 30px -24px;
+      height: 120px;
+      width: 250px;
+      margin: 72px 0 18px -18px;
+    }
+  }
+}
+
+// Special layouts and design for the homepage
+
+.sec-home #logo a {
+
+  margin-top: 40px;
+  @include breakpoint($bp-med) {
+    width: 600px;
+    height: 280px;
+    margin: 128px 0 30px -40px;
+  }
+}
+
+// Use the reverse logo when called for
+
+.theme-light #logo a {
+  background-image: url('../images/qca-logo-large-rev.svg');
+}

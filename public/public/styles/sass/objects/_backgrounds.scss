@@ -1,0 +1,19 @@
+//
+// Background images
+//
+
+body {
+
+  background: {
+    repeat: no-repeat;
+    position: center center;
+    attachment: fixed;
+  }
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+
+  background-color: $gray-medium;
+
+}

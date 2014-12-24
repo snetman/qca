@@ -1,0 +1,15 @@
+/* =======================================================
+    Member profile
+   ======================================================= */
+
+.interview {
+  dt {
+    color: $headline-color;
+  }
+  dd {
+    margin-bottom: $space;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}

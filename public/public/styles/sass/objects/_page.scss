@@ -1,0 +1,27 @@
+/* =======================================================
+    Page
+   ======================================================= */
+
+.page {
+  //padding: $space-half;
+  background-color: $white;
+  &-inset {
+    padding: .8*$space $space-half $space;
+    @include breakpoint($bp-med) {
+      padding: .8*$space $space $space;
+    }
+  }
+  &-inset-small {
+    padding: .8*$space-half $space-half $space-half;
+  }
+  &-inset-large {
+    padding: .8*$space $space-half $space;
+    @include breakpoint($bp-med) {
+      padding: .8*$space-double $space $space-double;
+    }
+  }
+
+  + .page {
+    margin-top: 2px;
+  }
+}

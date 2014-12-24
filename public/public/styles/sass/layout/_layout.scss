@@ -1,0 +1,205 @@
+/* =======================================================
+    Layouts
+   ======================================================= */
+
+// Layout container
+
+.lc {
+  @include container;
+  position: relative;
+  // clear: both;
+  max-width: $grid-max;
+  margin: 0 auto;
+  padding: 0;// $grid-padding;
+
+  @include breakpoint($bp-med) {
+    padding: {
+      left: 0;//$grid-padding-med;
+      right: 0;//$grid-padding-med;
+    }
+  }
+
+  @include breakpoint($bp-large) {
+    padding: {
+      left: 0;//$grid-padding-large;
+      right: 0;//$grid-padding-large;
+    }
+  }
+}
+
+// Main containers
+
+#outer-wrap {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+
+#inner-wrap {
+  position: relative;
+  width: 100%;
+}
+
+
+//
+//  Templates
+//
+
+// One column layout
+
+.l-1col {
+  .l-main {
+    @include span(last 12.5);
+  }
+
+  @include breakpoint($bp-med) {
+    .l-main {
+      @include span(last 12);
+    }
+  }
+
+}
+
+.l-1col-narrow {
+  .l-main {
+    @include span(last 12.5);
+    @include suffix(1.5 of 12.5 narrow);
+  }
+
+  @include breakpoint($bp-med) {
+    .l-main {
+      @include span(last 12);
+      @include suffix(2 of 12 narrow);
+    }
+  }
+}
+
+.l-2col {
+  .l-aside {
+    margin-bottom: $space;
+    @include span(last 12.5);
+  }
+  .l-main {
+    @include span(last 12.5);
+  }
+  @include breakpoint($bp-med) {
+    .l-main {
+      @include span(9);
+      @include pre(2);
+    }
+    .l-aside {
+      @include span(last 3);
+      margin-bottom: 0;
+    }
+  }
+}
+
+.l-2col-rev {
+  .l-aside {
+    margin-top: $space;
+    @include span(last 12.5);
+  }
+  .l-main {
+    @include span(last 12.5);
+  }
+  @include breakpoint($bp-med) {
+    .l-main {
+      @include span(9);
+      @include pre(2);
+    }
+    .l-aside {
+      @include span(last 3);
+      margin-top: 0;
+    }
+  }
+}
+
+/*
+.l-1col-full {
+  .l-main {
+    @include full;
+  }
+}
+*/
+
+// Two Column Layout
+// Standard two column layout with main and sidebar column
+
+/*
+.l-2col {
+  @include clearfix;
+
+  .l-aside {
+    margin-bottom: $space;
+  }
+
+  @include breakpoint($bp-med) {
+    .l-main {
+      @include span(9);
+      @include prefix(1);
+      @include last;
+    }
+
+    .l-aside {
+      @include span(3);
+      margin-bottom: 0;
+    }
+  }
+
+  @include breakpoint($bp-large) {
+    .l-main {
+      @include span(8);
+      @include prefix(1);
+    }
+
+    .l-aside {
+      @include span(2);
+    }
+  }
+
+}
+*/
+
+// Reversed Two Column Layout
+// Two column layout with main sidebar to right but first in source
+
+/*
+.l-2col-rev {
+  @include clearfix;
+
+  .l-aside {
+    margin-bottom: $space;
+  }
+
+  @include breakpoint($bp-med $bp-large) {
+    .l-main {
+      @include span(isolate 9 at 2);
+    }
+
+    .l-aside {
+      @include span(isolate 3 at 11);
+      margin-bottom: 0;
+    }
+  }
+
+  @include breakpoint($bp-large) {
+    .l-main {
+      @include span(isolate 9 at 2);
+    }
+
+    .l-aside {
+      @include span(isolate 2 at 12);
+    }
+  }
+
+}
+*/
+
+.l-blank {
+  padding: 60px;
+  background: #000;
+
+  &.neutral-bkg {
+    background: $gray-medium;
+  }
+}

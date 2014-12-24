@@ -1,0 +1,22 @@
+/* =======================================================
+    Image info
+   ======================================================= */
+
+.image-info {
+  background-color: $black;
+  background-image: none !important;
+
+  #image-info-link {
+    display: none;
+  }
+
+  .info {
+    position: relative;
+    padding-right: $space-double;
+    .icon {
+      position: absolute;
+      top: $space-half;
+      right: $space-half;
+    }
+  }
+}

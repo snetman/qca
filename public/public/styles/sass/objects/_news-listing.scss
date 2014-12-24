@@ -1,0 +1,125 @@
+//
+// News listings
+//
+
+/*
+Markup:
+
+<div class="news-listing">
+  <header>
+    <h4>News item title here</h4>
+  </header>
+  <div class="body">
+    <p>News item summary here lorem ipsum dolor sit amet consecutat velorem dolor.</p>
+  </div>
+  <footer>
+    <span class="date">4 April 2014</span>
+    <ul class="inline-list">
+      <li><a href="#">Category 1</a></li>
+      <li><a href="#">Category 2</a></li>
+    </ul>
+  </footer>
+</div>
+<!--/.news-listing-->
+*/
+
+.news-listing {
+  @include clearfix;
+
+  // The header
+
+  header {
+    margin-bottom: $space-half;
+    h1, h2, h3, h4, h5, h6 {
+      @include zero;
+      max-width: $max-measure;
+    }
+    a {
+      @include incognitolink;
+    }
+  }
+
+  // The body
+
+  > .body {
+    p {
+      @include zero;
+      + p {
+        margin-top: $space;
+      }
+    }
+    figure:first-child {
+      margin-top: $space;
+    }
+  }
+
+  // The footer
+
+  footer {
+    margin-top: $space;
+    line-height: 1.2;
+    color: $gray;
+
+    a {
+      @include incognitolink;
+      color: $gray;
+    }
+
+    .date {
+      float: left;
+      margin-right: 1em;
+    }
+  }
+
+}
+
+.news-article {
+  @include clearfix;
+
+  // The header
+
+  header {
+    margin-bottom: $space-half;
+    h1, h2, h3, h4, h5, h6 {
+      @include zero;
+      max-width: $max-measure;
+    }
+    a {
+      @include incognitolink;
+    }
+  }
+
+  // The body
+
+  > .body {
+    figure:first-child {
+      margin-top: $space;
+    }
+  }
+
+  // The footer
+
+  footer {
+    margin-top: $space;
+    line-height: 1.2;
+    color: $gray;
+
+    a {
+      @include incognitolink;
+      color: $gray;
+    }
+
+    .date {
+      float: left;
+      margin-right: 1em;
+    }
+  }
+
+}
+
+// The date
+
+.date {
+  font-weight: $font-weight-headline;
+  color: $green;
+}

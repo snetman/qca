@@ -1,0 +1,125 @@
+/* =======================================================
+    Homepage
+   ======================================================= */
+
+.sec-home {
+
+  .hero {
+    //margin-bottom: $space;
+    @include breakpoint($bp-med) {
+      @include full;
+      @include flexbox;
+    }
+  }
+
+  .positioning {
+    @include page($black, $space);
+    // @include page($green, $space);
+    @include rounded;
+    > h1 {
+      @include zero;
+      color: $green;
+      // color: $black;
+    }
+    @include breakpoint($bp-med) {
+      @include flex(2);
+      @include rounded-large;
+      padding: $space $space $space-double $space;
+    }
+  }
+
+  .promo {
+    position: relative;
+    display: block;
+    @include page($blue, $space ($space * 2.5) $space $space);
+    margin-top: 2px;
+    color: $white;
+    @include transition(.2s all linear);
+
+    // The icon
+
+    .icon {
+      position: absolute;
+      bottom: 50%;
+      right: ($space * .625);
+      margin-bottom: -16px;
+    }
+
+    &:hover {
+      background-color: $black;
+      color: $white;
+      text-decoration: none;
+    }
+
+    @include breakpoint($bp-med) {
+      width: 33.25%;
+      margin-left: 2px;
+      margin-top: 0;
+      padding: $space $space ($space * 2.5);
+
+      .icon {
+        bottom: $space-half;
+        left: ($space * .9);
+        right: auto;
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .news {
+    @include full;
+    position: relative;
+    margin-bottom: $space;
+
+    > ul {
+      @include zero;
+      list-style: none;
+    }
+
+    .news-listing {
+      @include zero;
+      @include page($white, $space*.75);
+      margin-bottom: 2px;
+    }
+
+    @include breakpoint($bp-med) {
+
+      > ul {
+        @include flexbox;
+      }
+
+      .news-listing {
+        @include flex(1);
+        margin: {
+          left: 2px;
+          bottom: 0;
+        }
+        &:first-child {
+          margin-left: 0;
+        }
+
+        @include flexbox;
+        @include flex-direction(column);
+        .body {
+          @include flex(1);
+        }
+      }
+
+    }
+
+  }
+
+}
+
+//
+// Theming
+//
+
+.theme-light .positioning {
+  background-color: $white;
+  // background-color: $green;
+  > h1 {
+    color: $green;
+    // color: $white;
+  }
+}

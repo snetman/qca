@@ -1,0 +1,21 @@
+//
+// Membership
+//
+
+.mem-price {
+  display: block;
+  width: 3em;
+  height: 3em;
+  border-radius: 3em;
+  font-family: $font-headline;
+  font-size: pem(20,15);
+  font-weight: $font-weight-headline;
+  line-height: 3em;
+  text-align: center;
+  background-color: $green;
+  color: $white;
+
+  @include breakpoint($bp-med) {
+    font-size: pem(24,16);
+  }
+}

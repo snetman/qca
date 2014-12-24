@@ -1,0 +1,13 @@
+{% if entry.newsTags|length %}
+
+  <ul class="inline-list has-commas">
+
+    {% for tag in entry.newsTags %}
+
+      <li><a href="{{ url('news/tags')}}/{{ tag.name | url_encode }}">{{ tag.name }}{% if not loop.last %},{% endif %}</a></li>
+
+    {% endfor %}
+
+  </ul>
+
+{% endif %}

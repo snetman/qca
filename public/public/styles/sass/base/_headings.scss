@@ -1,0 +1,134 @@
+/* =======================================================
+    Headings
+   ======================================================= */
+
+/*Further Reading: http:/csswizardry.com/2012/02/pragmatic-practical-font-sizing-in-css/ */
+
+// Common settings
+
+h1,h2,h3,h4,h5,h6 {
+  margin-top: 0;
+  margin-bottom: $space;
+  color: $black;
+}
+
+// Basic heading hierarchy
+
+h1, .as-h1{
+  font-family: $font-headline;
+  font-size: pem(24,15);
+  font-weight: $font-weight-headline;
+  line-height: 1.25;  // 30
+  margin-bottom: pem(20,24);
+  color: $headline-color;
+
+  .display {
+    font-size: pem(36,15);
+    line-height: 1;
+  }
+
+  @include breakpoint($bp-med) {
+
+    font-size: pem(32,16);
+    line-height: 1.03125; // 33
+    margin-bottom: pem(22,32);
+
+    .display {
+      font-size: pem(48,16);
+      line-height: 1.14583333333; // 55
+    }
+  }
+}
+
+h2, .as-h2{
+  font-family: $font-headline;
+  font-size: pem(20,15);
+  font-weight: $font-weight-headline;
+  line-height: 1.2; // 24
+  margin-bottom: 1em;
+  color: $headline-color;
+
+  @include breakpoint($bp-med) {
+    font-size: pem(24,16);
+    line-height: 1.16666666667; // 28
+    margin-bottom: pem(22,24)
+  }
+}
+
+h3, .as-h3{
+  font-family: $font-headline;
+  font-size: pem(16,15);
+  font-weight: $font-weight-headline;
+  line-height: 1.25; // 20
+  margin-bottom: 1.25em;
+  color: $headline-color;
+
+  @include breakpoint($bp-med) {
+    font-size: pem(18,16);
+    line-height: 1.22222222222; // 22
+    margin-bottom: pem(22,18);
+  }
+}
+
+h4, .as-h4{
+  font-family: $font-body;
+  font-size: 1em;
+  font-weight: $font-weight-headline;
+  line-height: 1.33333333333;
+  margin-bottom: 0;
+  color: $headline-color;
+
+  @include breakpoint($bp-med) {
+    line-height: 1.375; // 22
+  }
+}
+
+h5, .as-h5{
+  font-family: $font-body;
+  font-size: 1em;
+  font-weight: $font-weight-body;
+  line-height: 1.33333333333;
+  margin-bottom: 0;
+  color: $headline-color;
+
+  @include breakpoint($bp-med) {
+    line-height: 1.375; // 22
+  }
+}
+
+h6, .as-h6{
+  font-family: $font-body;
+  font-size: 1em;
+  font-style: italic;
+  font-weight: $font-weight-body;
+  line-height: 1.33333333333;
+  margin-bottom: 0;
+  color: $body-color;
+
+  @include breakpoint($bp-med) {
+    line-height: 1.375; // 22
+  }
+}
+
+// Heading groups
+
+hgroup {
+  margin-bottom: $space;
+
+  h1,h2,h3,h4,h5,h6 {
+    margin-bottom: 0;
+    line-height: 1.2;
+  }
+}
+
+// Small text within headings
+
+h1,h2,h3,h4,h5,h6 {
+  small {
+    display: block;
+    font-weight: $font-weight-body;
+    line-height: 1.375;
+  }
+}
+
+// End headings

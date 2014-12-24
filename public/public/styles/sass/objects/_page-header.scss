@@ -1,0 +1,108 @@
+//
+// Page and section header
+//
+
+/*
+Markup:
+
+<header class="page-header">
+  <div class="main">
+    <h1>My Plans</h1>
+  </div>
+  <!-- /.main -->
+  <nav class="nav action-nav">
+    <ul>
+      <li><a href="#" class="btn btn-primary">+ New Thing</a></li>
+    </ul>
+  </nav>
+</header>
+*/
+
+.page-header,
+.section-header {
+  @include clearfix;
+  @include flexbox;
+  @include align-items(flex-end); // align items bottom (cross-axis)
+  position : relative;
+  margin-bottom: 2px;
+  @include page($black, $space-half);
+  padding-top: $space*.75;
+  padding-bottom: $space*.75;
+  color: $gray;
+
+  @include breakpoint($bp-med) {
+    @include page($black, $space);
+  }
+
+  &.menu-top {
+    @include align-items(flex-start);
+  }
+
+  > .main {
+    @include flex(1);
+  }
+
+  > h1,
+  > h2,
+  > .main > h1,
+  > .main > h2,
+  > .main > p {
+    margin-bottom: 0;
+  }
+
+  h1 {
+    color: $green;
+  }
+
+  > figure {
+    @include flex(.25);
+    margin-bottom: 0;
+  }
+
+  // Compact
+
+  &-compact {
+    margin-bottom: $space-half;
+  }
+
+  // Flush
+
+  &-flush {
+    margin-bottom: 0;
+  }
+
+  // Divided
+
+  &-divided {
+    border-bottom: $border-width $border-style $border-color;
+    padding-bottom: $space-half;
+  }
+
+}
+
+// Page header specific styles
+
+.page-header {
+
+  border-top-left-radius: $radius;
+
+  &.square {
+    border-top-left-radius: 0;
+  }
+
+  a {
+    color: $gray-medium;
+  }
+}
+
+//
+// Theming
+//
+
+.theme-light .page-header {
+  background-color: $white;
+
+  a {
+    color: $link-color;
+  }
+}

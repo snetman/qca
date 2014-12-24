@@ -1,0 +1,50 @@
+<nav id="footer-nav" class="nav">
+
+    <ul class="main-nav">
+
+      {% for item in mobileNav.navMenu %}
+
+        <li{% if item.itemId|length %} id="{{ item.itemId }}"{% endif %}>
+
+          {% if item.itemEntryLink|length %}
+            {% set itemLink = item.itemEntryLink.first().getUrl() %}
+          {% else %}
+            {% set itemLink = item.itemUrl %}
+          {% endif %}
+
+          <a href="{{ itemLink }}">{{ item.itemLabel|raw }}</a>
+
+        </li>
+
+      {% endfor %}
+
+    </ul>
+
+</nav>
+
+<footer class="site-footer">
+  <nav class="nav inline-nav">
+    <ul>
+
+      {% for item in footerNav.navMenu %}
+
+        <li{% if item.itemId|length %} id="{{ item.itemId }}"{% endif %}>
+
+          {% if item.itemEntryLink|length %}
+            {% set itemLink = item.itemEntryLink.first().getUrl() %}
+          {% else %}
+            {% set itemLink = item.itemUrl %}
+          {% endif %}
+
+          <a href="{{ itemLink }}">{{ item.itemLabel|raw }}</a>
+
+        </li>
+
+      {% endfor %}
+
+      <li id="top-link"><a class="animate-scroll" href="#Top">Back to top</a></li>
+
+    </ul>
+  </nav>
+  <p class="copyright">&copy; {{ now.year }} Queer Caucus for Art</p>
+</footer>

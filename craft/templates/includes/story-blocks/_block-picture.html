@@ -1,0 +1,31 @@
+{# Picture block #}
+{% if block.image | length %}
+
+  {% set asset = block.image.first() %}
+
+  <figure class="block-picture pos-{{ block.position }}">
+
+    {% switch block.position %}
+
+      {% case "full" %}
+
+        <image class="b-figure" src="{{ asset.getUrl('fullImage') }}" />
+
+      {% default %}
+
+        <image class="b-figure" src="{{ asset.getUrl('smallImage') }}" />
+
+    {% endswitch %}
+
+    {% if block.caption %}
+
+      <figcaption>
+        {{ block.caption }}
+      </figcaption>
+
+    {% endif %}
+
+  </figure>
+  <!--/.block-picture-->
+
+{% endif %}

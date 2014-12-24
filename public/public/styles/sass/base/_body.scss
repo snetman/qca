@@ -1,0 +1,19 @@
+//
+// Body
+//
+
+body {
+	background: $gray-medium;
+	font-family: $font-body;
+	font-size: 100%;
+	line-height: 1.333333333;
+	-webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+	color: $body-color;
+
+  @include box-sizing(content-box);
+
+  @include breakpoint($bp-med) {
+    line-height: 1.375;
+  }
+}

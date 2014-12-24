@@ -1,19 +1,7 @@
-{#
- # News entry template
- # -------------------
- #
- # This template gets loaded whenever a News entry’s URL is
- # requested. That’s because the News section’s Template setting is
- # set to “news/_entry”, the path to this template.
- #
- # When this template is loaded, it will already have an ‘entry’
- # variable, set to the requested News entry.
- #
- # See this page for more details on how Craft routes requests:
- # http://buildwithcraft.com/docs/routing
- #}
-
-{% extends "_layout" %}
+{% extends "_layout-reversed" %}
+{% set title = entry.title %}
+{% set bodyClass = 'sec-news sec-news-front l-2col-rev' %}
+{% set imageInfoLink = "http://amazon.com" %}
 
 {% block content %}
 	<article>
@@ -21,4 +9,46 @@
 		<p>Posted on {{ entry.postDate.format('F d, Y') }}</p>
 		{{ entry.body }}
 	</article>
+{% endblock %}
+
+{% block main %}
+<div class="l-main">
+
+  <div class="page page-inset-large news-article">
+    <header>
+      <h1>{{ title }}</h1>
+    </header>
+    <div class="body">
+
+    {% include 'includes/story-blocks/_story-blocks.html' %}
+
+    </div>
+    <footer>
+      <span class="date">{{ entry.postDate.format('m.d.y') }}</span>
+
+      {% include 'includes/_news-taglist.html' %}
+
+    </footer>
+  </div>
+
+  <div class="band band-snug">
+    <div class="main">
+      <nav class="nav brick-nav brick-nav-full brick-nav-flush">
+        <ul>
+          <li class="brick-left"><a href="#"><span class="arrow">&larr;</span> Prev</a></li>
+          <li class="brick-right"><a href="#">Next <span class="arrow">&rarr;</span></a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+
+</div>
+<!--/.l-main-->
+{% endblock %}
+
+{% block aside %}
+<div class="l-aside">
+  {% include 'includes/_nav-news.html' %}
+</div>
+<!--/.l-aside-->
 {% endblock %}

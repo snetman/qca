@@ -1,33 +1,79 @@
-{#
- # Homepage template
- # ---------------
- #
- # When this template gets loaded, it will be because someone has accessed
- # http://yoursite.com/ (without any URI). Craft checks to see if you have
- # a Single section set to be the Homepage (as you do, by default), and
- # loads the section’s Template (this file). A special ‘entry’ variable
- # will already be set for you, assigned to the Homepage entry.
- #
- # It's worth noting that even if you didn't have a Homepage Single section,
- # as long as this template remains at craft/templates/index.html, it
- # would still be the one to get loaded when accessing http://yoursite.com/,
- # albeit without an ‘entry’ variable already set for you.
- #
- # See this page for more details on how Craft routes requests:
- # http://buildwithcraft.com/docs/routing
- #}
-
 {% extends "_layout" %}
+{# {% set title = 'Page title here' %} #}
+{% set bodyClass = 'theme-light sec-home l-1col' %}
+{% set imageInfoLink = "http://amazon.com" %}
 
-{% block content %}
-	<h1>{{ entry.title }}</h1>
+{% block main %}
+<div class="l-main">
 
-	{{ entry.body }}
+  <div class="hero">
+    <section class="positioning">
+      <h1>{{ entry.title }}</h1>
+    </section>
 
-	<h2>Recent News</h2>
-	<ul>
-		{% for entry in craft.entries.section('news').limit(5).find() %}
-			<li><a href="{{ entry.url }}">{{ entry.title }}</a></li>
-		{% endfor %}
-	</ul>
+    {% if entry.showPromo %}
+
+      {% if entry.promoEntryLink|length %}
+        {% set promoLink = entry.promoEntryLink.first().getUrl() %}
+      {% else %}
+        {% set promoLink = entry.promoUrl %}
+      {% endif %}
+
+      <a class="promo as-h4" href="{{ promoLink }}">
+        {{ entry.promoContent }}
+        <span class="icon icon--arrow-right"></span>
+      </a>
+
+    {% endif %}
+  </div>
+  <!--/.page-->
+
+  <section class="news">
+    <header class="band">
+      <div class="main">
+        <span class="headline">Recently</a>
+      </div>
+      <a href="/news" class="action">View all</a>
+    </header>
+    <ul class="g">
+      <li class="news-listing">
+        <header>
+          <h3><a href="news-detail">News item title here lorem ipsum dolor sit amet consecutat velo</a></h3>
+        </header>
+        <div class="body">
+          <p>News item summary here lorem ipsum dolor sit amet consecutat velorem dolor.</p>
+        </div>
+        <footer>
+          <span class="date">12.10.14</span>
+        </footer>
+      </li>
+      <li class="news-listing">
+        <header>
+          <h3><a href="news-detail">News item title here</a></h3>
+        </header>
+        <div class="body">
+          <p>News item summary here lorem ipsum dolor sit amet consecutat velorem dolor.</p>
+        </div>
+        <footer>
+          <span class="date">11.30.14</span>
+        </footer>
+      </li>
+      <li class="news-listing">
+        <header>
+          <h3><a href="news-detail">News item title here lorem ipsum dolor</a></h3>
+        </header>
+        <div class="body">
+          <p>News item summary here lorem ipsum dolor sit amet consecutat velorem dolor.</p>
+        </div>
+        <footer>
+          <span class="date">11.18.14</span>
+        </footer>
+      </li>
+    </ul>
+  </section>
+
+</div>
+<!--/.l-main-->
 {% endblock %}
+
+{% block aside %}{% endblock %}

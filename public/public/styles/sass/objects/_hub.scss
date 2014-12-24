@@ -1,0 +1,132 @@
+/* =======================================================
+    Project hub
+   ======================================================= */
+
+$hub-grid-max: 100%;
+$hub-padding: 20px;
+$hub-padding-med: 40px;
+$hub-padding-large: 60px;
+
+.hub {
+
+  background: $white;
+
+  // Hub layout
+
+  .lc {
+    @include container(12);
+    position: relative;
+    // clear: both;
+    max-width: $grid-max;
+    margin: 0 auto;
+    padding: 0 $hub-padding;
+
+    @include breakpoint($bp-med) {
+      padding: {
+        left: $hub-padding-med;
+        right: $hub-padding-med;
+      }
+    }
+
+    @include breakpoint($bp-large) {
+      padding: {
+        left: $hub-padding-large;
+        right: $hub-padding-large;
+      }
+    }
+  }
+
+  // Header
+
+  .hub-header {
+    @include full;
+    padding: $space 0;
+    h1 {
+      @include zero;
+    }
+  }
+
+  // Content
+
+  #Content {
+    @include full;
+  }
+
+  // Hub footer
+
+  .hub-footer {
+    @include full;
+    margin-top: $space-triple;
+    padding: $space;
+    background-color: $gray-light;
+    font-size: $font-size-small;
+    line-height: 1.2;
+  }
+
+  // Hub layout
+
+  .l-main {
+    width: 100%;
+  }
+  .l-aside {
+    width: 100%;
+    margin-bottom: $space;
+  }
+
+  @include breakpoint ($bp-med) {
+    /*
+    .l-main {
+      @include span(last 9 at 4 of 12 .5 rtl);
+    }
+    .l-aside {
+      @include span(first 3 at 1 of 12 .5 rtl);
+    }
+    */
+    .l-main {
+      //float: left;
+      //width: 40%;
+      @include span(9);
+    }
+    .l-aside {
+      //float: right;
+      //width: 40%;
+      @include span(last 3);
+      margin-bottom: 0;
+    }
+  }
+  //
+  //  Slat lists
+  //
+
+  .slat-list {
+
+    // New items
+
+    .new {
+      position: relative;
+      &:before {
+        content: "";
+        display: block;
+        position: absolute;
+        right: 100%;
+        top: .75em;
+        border-radius: .625em;
+        margin-right: .375em;
+        height: .625em;
+        width: .625em;
+        background-color: $blue;
+        color: $blue;
+      }
+    }
+
+    //  Dates in the lists
+
+    .date {
+      display: block;
+      font-size: $font-size-small;
+      color: $gray-medium;
+    }
+
+  }
+
+}

@@ -1,0 +1,181 @@
+//
+// Site header
+//
+
+.site-header {
+  @include zero;
+  @include clearfix;
+  position: relative;
+}
+
+//
+// Main navigation
+//
+
+#nav {
+
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: $white-overlay;
+  border-bottom-left-radius: $radius;
+
+  li {
+    float: left;
+  }
+
+  a {
+    display: block;
+    padding: 0 $space-half;
+    font-weight: $font-weight-headline;
+    line-height: $space-double;
+    text-align: center;
+    background-color: transparent;
+    color: $black;
+
+    &:hover {
+      background-color: $blue;
+      color: $white;
+    }
+
+    @include transition(.2s all linear);
+  }
+
+  .main-nav {
+    display: none;
+  }
+
+  .secondary-nav {
+    li:first-child a {
+      border-bottom-left-radius: $radius;
+    }
+  }
+
+  #nav-jump-btn {
+    margin-left: 2px;
+    a {
+      position: relative;
+      line-height: 1;
+      height: $space-double;
+      width: $space-double;
+      .icon--menu {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-top: -16px;
+        margin-left: -16px;
+      }
+    }
+  }
+
+  @include breakpoint($bp-med) {
+    display: block;
+    @include span(last 12);
+    @include flexbox;
+    //border-bottom-left-radius: $radius;
+
+    .main-nav {
+      display: block;
+      @include flex(1);
+      li:first-child a {
+        border-bottom-left-radius: $radius;
+      }
+    }
+    .secondary-nav {
+      li:first-child a {
+        border-bottom-left-radius: 0;
+      }
+    }
+    #nav-jump-btn {
+      display: none;
+    }
+  }
+
+}
+
+//
+// You are here
+//
+
+.sec-about #nav-about,
+.sec-news #nav-news,
+.sec-home #nav-home,
+.sec-membership #nav-membership,
+.sec-resources #nav-resources {
+  a {
+    background-color: $white-overlay-highlight;
+    color: $green !important;
+    &:hover {
+      background-color: $blue;
+      color: $white !important;
+    }
+  }
+}
+
+//
+// Image info link
+//
+
+#image-info-link {
+  width: 48px;
+  height: 48px;
+  border-radius: 48px;
+  background-color: $blue;
+  @include transition(.2s background-color linear);
+
+  .icon--info {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -16px;
+    margin-left: -16px;
+  }
+
+  &:hover {
+    background-color: $black;
+  }
+
+  // Layout
+
+  display: none;
+
+  @include breakpoint($bp-med) {
+    display: block;
+    position: absolute;
+    right: $space-half;
+    bottom: 18px;
+
+    .sec-home & {
+      bottom: 32px;
+    }
+  }
+}
+
+.no-image-info #image-info-link {
+  display: none;
+}
+
+//
+// Theming
+//
+
+.theme-light {
+  #nav {
+    background-color: $black-overlay;
+    a {
+      color: $white;
+      &:hover {
+        color: $white;
+      }
+    }
+  }
+  &.sec-about #nav-about,
+  &.sec-news #nav-news,
+  &.sec-home #nav-home,
+  &.sec-membership #nav-membership,
+  &.sec-resources #nav-resources {
+    a {
+      background-color: $black-overlay-highlight;
+    }
+  }
+}

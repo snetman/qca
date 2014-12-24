@@ -1,0 +1,125 @@
+/* =======================================================
+    Site footer
+   ======================================================= */
+
+.site-footer {
+
+	margin: 0 0 $space 0;
+  margin: 0;
+	padding: $space $space-half;
+	background: $white-overlay;
+	color: $black;
+	position: relative;
+	z-index: 100;
+
+  .inline-nav li {
+    @include breakpoint($bp-med) {
+      + li { margin-left: .75em; }
+    }
+  }
+
+  .copyright {
+    @include zero;
+    margin-top: $space-double;
+  }
+
+	a {
+		color: $black;
+    @include transition(.2s color linear);
+    &:hover {
+      text-decoration: underline;
+    }
+	}
+
+	// Layout
+
+	@include span(last 12.5);
+
+	@include breakpoint($bp-med) {
+		@include span(last 12);
+
+    // Back to top link
+    #top-link {
+      float: right;
+    }
+	}
+}
+
+//
+// Footer nav
+//
+
+#footer-nav {
+	@include span(last 12.5);
+	position: relative;
+	z-index: 100;
+
+	@include breakpoint($bp-med) {
+		display: none;
+	}
+
+  .main-nav {
+  	width: 100%;
+
+  	li {
+  		margin-bottom: 2px;
+  	}
+
+    a {
+      display: block;
+      padding: $space-half;
+      font-weight: $font-weight-headline;
+      text-align: left;
+      background-color: $white-overlay;
+      color: $black;
+      @include transition(.2s all linear);
+      &:hover {
+        background-color: $blue;
+        color: $white;
+      }
+    }
+
+    .current,
+    .current a {
+      background-color: $white;
+      color: $green;
+      &:hover {
+        background-color: $blue;
+        color: $white;
+      }
+    }
+  }
+
+}
+
+//
+// Theming
+//
+
+.theme-light {
+  .site-footer {
+    background: $black-overlay;
+    color: $white;
+    a {
+      color: $white;
+    }
+  }
+
+  #footer-nav a {
+    background-color: $black-overlay;
+    color: $white;
+  }
+
+  #footer-nav .main-nav {
+    .current,
+    .current a {
+      background-color: $black;
+      color: $green;
+      &:hover {
+        background-color: $blue;
+        color: $white;
+      }
+    }
+  }
+
+}

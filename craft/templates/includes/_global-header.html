@@ -1,0 +1,56 @@
+<header id="top" class="site-header" role="banner">
+
+  <h1 id="logo">
+    <a href="{{ siteUrl }}" rel="home" title="Home">QCA</a>
+  </h1>
+
+  <nav id="nav" class="nav main-nav" role="navigation">
+
+    <ul class="main-nav">
+
+      {% for item in mainNav.navMenu %}
+
+        <li{% if item.itemId|length %} id="{{ item.itemId }}"{% endif %}>
+
+          {% if item.itemEntryLink|length %}
+            {% set itemLink = item.itemEntryLink.first().getUrl() %}
+          {% else %}
+            {% set itemLink = item.itemUrl %}
+          {% endif %}
+
+          <a href="{{ itemLink }}">{{ item.itemLabel|raw }}</a>
+
+        </li>
+
+      {% endfor %}
+
+    </ul>
+
+    <ul class="secondary-nav">
+
+      {% for item in secondaryNav.navMenu %}
+
+        <li{% if item.itemId|length %} id="{{ item.itemId }}"{% endif %}>
+
+          {% if item.itemEntryLink|length %}
+            {% set itemLink = item.itemEntryLink.first().getUrl() %}
+          {% else %}
+            {% set itemLink = item.itemUrl %}
+          {% endif %}
+
+          <a href="{{ itemLink }}">{{ item.itemLabel|raw }}</a>
+
+        </li>
+
+      {% endfor %}
+
+      <li id="nav-jump-btn"><a href="#footer-nav"><span class="icon--menu reversable"></span></a></li>
+
+    </ul>
+
+  </nav>
+
+  <a id="image-info-link" href="{{ imageInfoLink }}" title="Image info"><span class="icon--info"></span></a>
+
+</header>
+<!--/.site-header-->

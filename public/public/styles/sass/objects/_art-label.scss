@@ -1,0 +1,50 @@
+//
+// Art label
+//
+
+.art-label {
+  position: relative;
+  max-width: 800px;
+  //background-color: $gray-light !important;
+  padding-right: 400px;
+
+  .title,
+  .artist,
+  .details,
+  .url {
+    margin-bottom: 0;
+    margin-right: $space-double;
+  }
+
+  .icon {
+    position: absolute;
+    top: $space * .8;
+    right: $space * .8;
+    width: 48px;
+    height: 48px;
+    border-radius: 48px;
+    background-color: $green;
+    .icon--info {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin-top: -16px;
+      margin-left: -16px;
+    }
+  }
+
+  @include breakpoint(0 $bp-med) {
+    .icon {
+      display: none;
+    }
+  }
+
+}
+
+//
+// Theming
+//
+
+.theme-light .art-label {
+  background-color: $gray-light;
+}

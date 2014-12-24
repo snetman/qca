@@ -1,0 +1,79 @@
+//
+// Band
+//
+
+.band {
+  @include flexbox;
+  @include align-items(center);
+  margin: 2px 0;
+  font-size: $font-size-norm;
+  background-color: $green;//$gray-medium;//$green;
+
+  .main .headline {
+    @extend .as-h4;
+    @include zero;
+    color: $white;
+  }
+
+  > .main,
+  > .action {
+    padding: $space-half;
+    @include breakpoint($bp-med) {
+      padding: $space-half $space;
+    }
+  }
+
+  > .main {
+    @include flex(1);
+  }
+  > .action {
+    margin-left: $space-half;
+    font-weight: $font-weight-body;
+    text-decoration: none;
+    background-color: transparent;
+    color: $link-color;
+    @include transition(.2s all linear);
+    &:hover {
+      background-color: $black;
+      color: $white;
+    }
+  }
+
+  // Types of bands
+
+  &-flush {
+    margin-bottom: 0;
+    margin-top: 0;
+  }
+
+  &-flush-bottom {
+    margin-bottom: 0;
+  }
+
+  &-flush-top {
+    margin-top: -2px
+  }
+
+  &-inset-small {
+    > .main,
+    > .action {
+      @include breakpoint($bp-med) {
+        padding: $space-half;
+      }
+    }
+  }
+
+  &-snug {
+    padding: 0;
+    > .main,
+    > .action {
+      padding: 0;
+    }
+  }
+
+  &.rounded {
+    border-top-left-radius: $radius;
+  }
+
+
+}
