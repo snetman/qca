@@ -1,0 +1,72 @@
+{% extends "_layout-reversed" %}
+{% set title = "Tags" %}
+{% set bodyClass = 'sec-news sec-news-front l-2col-rev' %}
+{% set imageInfoLink = "http://amazon.com" %}
+
+{% block main %}
+<div class="l-main">
+
+  <header class="page-header">
+    <div class="main">
+      <h1>{{ title }}</h1>
+    </div>
+  </header>
+
+  {# grab the entries in the news section #}
+  {% set entries = craft.entries.section('news') %}
+
+  {# Grab the related tags for those entries #}
+  {% set allTags = craft.tags.relatedTo({
+    sourceElement: entries
+  }).order('name').limit(null) %}
+
+  {% set allTagsGrouped = allTags|group('name | first') %}
+
+  <header class="band band-snug band-flush-bottom">
+    <nav id="AlphaNav" class="nav brick-nav brick-nav-full brick-nav-flush">
+      <ul>
+        <li><a class="animate-scroll" href="#A">A–E</a></li>
+        <li><a class="animate-scroll" href="#F">F–J</a></li>
+        <li><a class="animate-scroll" href="#K">K–O</a></li>
+        <li><a class="animate-scroll" href="#P">P–T</a></li>
+        <li><a class="animate-scroll" href="#U">U–Z</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="page page-inset-large news-listing">
+
+    {% for letter, tags in allTagsGrouped %}
+
+      <ul id="{{ letter|upper }}" class="link-list bordered">
+
+        <li class="header">{{ letter|upper }}</li>
+
+        {% for tag in tags %}
+
+          <li><a href="{{ url('news/tags/') }}/{{ tag.name|url_encode }}">{{ tag.name }}</a></li>
+
+          {% if loop.last %}
+
+            <li class="footer"><a href="#AlphaNav">Top</a></li>
+
+          {% endif %}
+
+        {% endfor %}
+
+      </ul>
+
+    {% endfor %}
+
+  </div>
+
+</div>
+<!--/.l-main-->
+{% endblock %}
+
+{% block aside %}
+<div class="l-aside">
+  {% include 'includes/_nav-news.html' %}
+</div>
+<!--/.l-aside-->
+{% endblock %}

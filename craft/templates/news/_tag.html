@@ -1,22 +1,26 @@
 {% extends "_layout-reversed" %}
-{% if entry.displayTitle %}
-  {% set title = entry.displayTitle %}
-{% else %}
-  {% set title = entry.title %}
-{% endif %}
+{% set titleA = "Tagged"|translate %}
+{% set title = [titleA,tag]|join(': ')  %}
 {% set bodyClass = 'sec-news sec-news-front l-2col-rev' %}
 {% set imageInfoLink = "http://amazon.com" %}
+
+{% set tag = craft.tags.name(tag).first() %}
+
+{% if not tag %}
+    {% exit 404 %}
+{% endif %}
 
 {% block main %}
 <div class="l-main">
 
   <header class="page-header">
     <div class="main">
-      <h1>{{ title }}{% if entry.pageSubtitle|length %} <small>{{ entry.pageSubtitle }}</small>{% endif %}</h1>
+      <h3>Tagged:</h3>
+      <h1><small>Tagged:</small>{{ tag.name }}</h1>
     </div>
   </header>
 
-  {% paginate craft.entries.section('news').limit(10) as entriesOnPage %}
+  {% paginate craft.entries.section('news').relatedTo(tag).limit(10) as entriesOnPage %}
 
     {% for entry in entriesOnPage %}
 
