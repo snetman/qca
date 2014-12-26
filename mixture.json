@@ -1,27 +1,43 @@
 {
+  "autoPrefixer": null,
   "convertHtml": {
     "relativePaths": false
   },
-  "customRubyPath": false,
+  "customRuby": false,
+  "customRubyPath": null,
+  "customTodos": null,
   "debug": false,
   "domain": null,
-  "followLeader": false,
+  "followLeader": true,
+  "ignoreDir": [
+    "ignore"
+  ],
+  "less": null,
   "lintScripts": false,
   "modelSource": null,
+  "optimiseImages": true,
+  "optimiseSVG": true,
+  "password": null,
   "preprocessorLocations": [
     "public/public"
   ],
   "preprocessorScriptOutput": "public/public/scripts",
   "preprocessorStyleOutput": "public/public/styles",
-  "projectDescription": "QCA website",
-  "projectName": "qca",
+  "projectDescription": "Your project description",
+  "projectName": "QCA CMS build",
   "publishedId": null,
+  "reload": 0,
+  "remoteDebugPort": 0,
+  "routes": null,
+  "sass": null,
   "serverHostname": null,
   "serverPort": null,
+  "simpleModeFileTypes": null,
   "simpleModePartnerServer": null,
+  "sitemap": false,
   "templateDefaultLayout": "layout",
   "templateDefaultPage": "index",
   "templateDirectory": "templates",
-  "type": "simple",
+  "type": "mixture",
   "useCompass": true
 }

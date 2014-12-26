@@ -8,7 +8,15 @@
 <div class="page page-inset-small">
   <ul class="link-list bordered">
 
-    {% for tag in craft.tags.group('news').order('dateUpdated').limit(5) %}
+    {# grab the entries in the news section #}
+    {% set entries = craft.entries.section('news') %}
+
+    {# Grab the related tags for those entries #}
+    {% set allTags = craft.tags.relatedTo({
+      sourceElement: entries
+    }).order('dateUpdated').limit(5) %}
+
+    {% for tag in allTags %}
 
       <li><a href="{{ url('news/tags')}}/{{ tag.name | url_encode }}">{{ tag.name }}</a></li>
 
