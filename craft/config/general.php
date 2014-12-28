@@ -21,12 +21,12 @@ return array(
         'cacheDuration' => 'PT1S',
 
         'siteUrl' => array(
-            'en_us' => 'http://qca.dev/',
+            'en_us' => 'http://qca.craft.dev/',
         ),
 
         'environmentVariables' => array(
             'basePath'  => '/Users/snetman/sites/qca/public/',
-            'baseUrl' => 'http://qca.dev/',
+            'baseUrl' => 'http://qca.craft.dev/',
         )
     ),
 

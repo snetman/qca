@@ -29,48 +29,80 @@
   <!--/.page-->
 
   <section class="news">
+
     <header class="band">
       <div class="main">
         <span class="headline">Recently</a>
       </div>
       <a href="/news" class="action">View all</a>
     </header>
+
     <ul class="g">
+
+    {% set entriesRemaining = 3 %}
+
+    {% if entry.stickyNewsItem|length %}
+
+      {% set entry = entry.stickyNewsItem.first() %}
+
+      {% if entry.shortTitle %}
+
+        {% set entryTitle = entry.shortTitle %}
+
+      {% else %}
+
+        {% set entryTitle = entry.title %}
+
+      {% endif %}
+
       <li class="news-listing">
         <header>
-          <h3><a href="news-detail">News item title here lorem ipsum dolor sit amet consecutat velo</a></h3>
+          <h3><a href="news-detail">{{ entryTitle }}</a></h3>
         </header>
         <div class="body">
-          <p>News item summary here lorem ipsum dolor sit amet consecutat velorem dolor.</p>
+          <p>{{ entry.teaser }} <a href="{{ entry.url }}">More</a></p>
         </div>
         <footer>
-          <span class="date">12.10.14</span>
+          <span class="date">{{ entry.postDate.format('m.d.y') }}</span>
         </footer>
       </li>
+
+      {% set entriesRemaining = 2 %}
+
+    {% endif %}
+
+    {% set entries = craft.entries.section('news').limit(entriesRemaining) %}
+
+    {% for entry in entries %}
+
+      {% if entry.shortTitle %}
+
+        {% set entryTitle = entry.shortTitle %}
+
+      {% else %}
+
+        {% set entryTitle = entry.title %}
+
+      {% endif %}
+
       <li class="news-listing">
         <header>
-          <h3><a href="news-detail">News item title here</a></h3>
+          <h3><a href="news-detail">{{ entryTitle }}</a></h3>
         </header>
         <div class="body">
-          <p>News item summary here lorem ipsum dolor sit amet consecutat velorem dolor.</p>
+          <p>{{ entry.teaser }} <a href="{{ entry.url }}">More</a></p>
         </div>
         <footer>
-          <span class="date">11.30.14</span>
+          <span class="date">{{ entry.postDate.format('m.d.y') }}</span>
         </footer>
       </li>
-      <li class="news-listing">
-        <header>
-          <h3><a href="news-detail">News item title here lorem ipsum dolor</a></h3>
-        </header>
-        <div class="body">
-          <p>News item summary here lorem ipsum dolor sit amet consecutat velorem dolor.</p>
-        </div>
-        <footer>
-          <span class="date">11.18.14</span>
-        </footer>
-      </li>
+
+    {% endfor %}
+
     </ul>
+
   </section>
+
 
 </div>
 <!--/.l-main-->

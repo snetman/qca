@@ -1,0 +1,62 @@
+{% extends "_layout-reversed" %}
+{% set title = "QCA Newsletters" %}
+{% set bodyClass = 'sec-news sec-news-front l-2col-rev' %}
+{% set imageInfoLink = "http://amazon.com" %}
+
+{% block main %}
+<div class="l-main">
+
+  <header class="page-header">
+    <div class="main">
+      <h1>{{ title }} <small>Download past editions of our newsletter</small></h1>
+    </div>
+  </header>
+
+  <div class="page page-inset-large news-listing">
+    <ul class="link-list bordered bordered">
+      <li class="header">2013</li>
+      <li><a href="#">Spring edition</a></li>
+      <li><a href="#">Summer edition</a></li>
+      <li><a href="#">Fall edition</a></li>
+      <li><a href="#">Winter edition</a></li>
+    </ul>
+    <ul class="link-list bordered">
+      <li class="header">2012</li>
+      <li><a href="#">Spring edition</a></li>
+      <li><a href="#">Summer edition</a></li>
+      <li><a href="#">Fall edition</a></li>
+      <li><a href="#">Winter edition</a></li>
+    </ul>
+    <ul class="link-list bordered">
+      <li class="header">2011</li>
+      <li><a href="#">Spring edition</a></li>
+      <li><a href="#">Summer edition</a></li>
+      <li><a href="#">Fall edition</a></li>
+      <li><a href="#">Winter edition</a></li>
+    </ul>
+    <ul class="link-list bordered">
+      <li class="header">2010</li>
+      <li><a href="#">Spring edition</a></li>
+      <li><a href="#">Summer edition</a></li>
+      <li><a href="#">Fall edition</a></li>
+      <li><a href="#">Winter edition</a></li>
+    </ul>
+    <ul class="link-list bordered">
+      <li class="header">2009</li>
+      <li><a href="#">Spring edition</a></li>
+      <li><a href="#">Summer edition</a></li>
+      <li><a href="#">Fall edition</a></li>
+      <li><a href="#">Winter edition</a></li>
+    </ul>
+  </div>
+
+</div>
+<!--/.l-main-->
+{% endblock %}
+
+{% block aside %}
+<div class="l-aside">
+  {% include 'includes/_nav-news.html' %}
+</div>
+<!--/.l-aside-->
+{% endblock %}

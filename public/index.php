@@ -5,6 +5,9 @@ $craftPath = '../craft';
 
 // Tell Craft which environment we are in
 switch($_SERVER['SERVER_NAME']) {
+  case 'qca.craft.dev':
+    define('CRAFT_ENVIRONMENT', 'LOCAL');
+    break;
   case 'qca.dev':
     define('CRAFT_ENVIRONMENT', 'LOCAL');
     break;
