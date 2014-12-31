@@ -1,0 +1,96 @@
+{% extends "_layout" %}
+{% set title = "Our members" %}
+{% set bodyClass = 'sec-membership sec-membership-front l-2col' %}
+{% set imageInfoLink = "http://amazon.com" %}
+
+{% block main %}
+<div class="l-main">
+
+  <header class="page-header">
+    <div class="main">
+      <h1>Our members</h1>
+    </div>
+  </header>
+
+  {% set featuredProfile = craft.entries.section('membershipFront').first().featuredProfile.first() %}
+
+  {% include 'includes/_featured-profile.html' with {'hideAllLink':'true'} %}
+
+  {% set members = craft.users.group('members').memberIncludeMe('1').order('lastName').limit(null) %}
+
+  {% set membersGrouped = members|group('lastName|first|upper|
+    preg_replace("/[A-E]/", "A-E", 1)|
+    preg_replace("/[F-J]/", "F-J", 1)|
+    preg_replace("/[K-O]/", "K-O", 1)|
+    preg_replace("/[P-T]/", "P-T", 1)|
+    preg_replace("/[U-Z]/", "U-Z", 1)') %}
+
+  <header class="band band-snug band-flush-bottom">
+    <nav id="AlphaNav" class="nav brick-nav brick-nav-full brick-nav-flush">
+      <ul>
+        {% for letters in membersGrouped|keys %}
+
+          <li><a class="animate-scroll" href="#{{ letters }}">{{ letters }}</a></li>
+
+        {% endfor %}
+      </ul>
+    </nav>
+  </header>
+
+  <div class="page page-inset-large">
+
+    <div class="g g-6up-max">
+
+      {% for letters, members in membersGrouped %}
+
+        {# Don't insert explicit letter group headers
+        <div class="block-letters" id="{{ letters }}">
+          <h1>{{ letters }}</h1>
+          <a href="#AlphaNav" class="animate-scroll">Top</a>
+        </div>
+        #}
+
+        {% for member in members %}
+
+          <div {% if loop.first %}id="{{ letters }}" {% endif %}class="block-switch">
+            <img class="b-figure" src="{{ member.getPhotoUrl(200) }}" />
+            <dl class="b-body">
+              <dt class="headline">{{ member.fullName }}</dt>
+              {% if member.memberTitle %}
+                <dd>{{ member.memberTitle }}</dd>
+              {% endif %}
+              {% if member.memberInstitutionalAffiliation %}
+                <dd>{{ member.memberInstitutionalAffiliation }}</dd>
+              {% endif %}
+              {% if member.memberShowEmail %}
+                <dd><a href="mailto:{{ member.email }}">{{ member.email }}</a></dd>
+              {% endif %}
+              {% set profile = craft.entries.section('memberProfiles').relatedTo(member) %}
+              {% if profile|length %}
+                <dd><a href="{{ profile.first().url }}">View profile</a></dd>
+              {% endif %}
+            </dl>
+          </div>
+          <!--/.block-switch-->
+
+        {% endfor %}
+
+      {% endfor %}
+
+    </div>
+    <!--/.g-->
+
+  </div>
+  <!--/.page-->
+
+
+</div>
+<!--/.l-main-->
+{% endblock %}
+
+{% block aside %}
+<div class="l-aside">
+  {% include 'includes/_nav-membership.html' %}
+</div>
+<!--/.l-aside-->
+{% endblock %}

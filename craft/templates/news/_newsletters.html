@@ -6,48 +6,40 @@
 {% block main %}
 <div class="l-main">
 
-  <header class="page-header">
+  <header id="PageHeader" class="page-header">
     <div class="main">
       <h1>{{ title }} <small>Download past editions of our newsletter</small></h1>
     </div>
   </header>
 
   <div class="page page-inset-large news-listing">
-    <ul class="link-list bordered bordered">
-      <li class="header">2013</li>
-      <li><a href="#">Spring edition</a></li>
-      <li><a href="#">Summer edition</a></li>
-      <li><a href="#">Fall edition</a></li>
-      <li><a href="#">Winter edition</a></li>
-    </ul>
-    <ul class="link-list bordered">
-      <li class="header">2012</li>
-      <li><a href="#">Spring edition</a></li>
-      <li><a href="#">Summer edition</a></li>
-      <li><a href="#">Fall edition</a></li>
-      <li><a href="#">Winter edition</a></li>
-    </ul>
-    <ul class="link-list bordered">
-      <li class="header">2011</li>
-      <li><a href="#">Spring edition</a></li>
-      <li><a href="#">Summer edition</a></li>
-      <li><a href="#">Fall edition</a></li>
-      <li><a href="#">Winter edition</a></li>
-    </ul>
-    <ul class="link-list bordered">
-      <li class="header">2010</li>
-      <li><a href="#">Spring edition</a></li>
-      <li><a href="#">Summer edition</a></li>
-      <li><a href="#">Fall edition</a></li>
-      <li><a href="#">Winter edition</a></li>
-    </ul>
-    <ul class="link-list bordered">
-      <li class="header">2009</li>
-      <li><a href="#">Spring edition</a></li>
-      <li><a href="#">Summer edition</a></li>
-      <li><a href="#">Fall edition</a></li>
-      <li><a href="#">Winter edition</a></li>
-    </ul>
+
+    {% set allEntries = craft.entries.section('newsletters').limit(null) %}
+
+    {% for year, entries in allEntries | group("postDate.year") %}
+
+      <ul class="link-list bordered bordered">
+
+            <li class="header">{{ year }}</li>
+
+          {% for entry in entries %}
+
+            {% set asset = entry.newsletterFile.first() %}
+
+            <li><a href="{{ asset.url }}">{{ entry.title }}</a></li>
+
+            {% if loop.last %}
+
+              <li class="footer"><a class="animate-scroll" href="#PageHeader">Top</a></li>
+
+            {% endif %}
+
+          {% endfor %}
+
+      </ul>
+
+    {% endfor %}
+
   </div>
 
 </div>

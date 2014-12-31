@@ -5,6 +5,10 @@
 .interview {
   dt {
     color: $headline-color;
+    &:before {
+      content: "Q: ";
+      display: inline-block;
+    }
   }
   dd {
     margin-bottom: $space;

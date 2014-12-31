@@ -20,27 +20,46 @@
     sourceElement: entries
   }).order('name').limit(null) %}
 
-  {% set allTagsGrouped = allTags|group('name | first') %}
+  {# This is the original grouping code which groups by single letters #}
+  {# {% set allTagsGrouped = allTags|group('name|first|upper') %} #}
+
+  {# This code uses a plug-in that adds additional filters to Twig
+     See:
+     https://github.com/victor-in/Craft-TwigPCRE/
+     http://craftcms.stackexchange.com/questions/5404/how-can-i-group-a-list-of-tags-into-ranges-of-first-letters-a-e-f-j-etc
+  #}
+  {% set allTagsGrouped = allTags|group('name|first|upper|
+    preg_replace("/[A-E]/", "A-E", 1)|
+    preg_replace("/[F-J]/", "F-J", 1)|
+    preg_replace("/[K-O]/", "K-O", 1)|
+    preg_replace("/[P-T]/", "P-T", 1)|
+    preg_replace("/[U-Z]/", "U-Z", 1)') %}
 
   <header class="band band-snug band-flush-bottom">
+
     <nav id="AlphaNav" class="nav brick-nav brick-nav-full brick-nav-flush">
+
       <ul>
-        <li><a class="animate-scroll" href="#A">A–E</a></li>
-        <li><a class="animate-scroll" href="#F">F–J</a></li>
-        <li><a class="animate-scroll" href="#K">K–O</a></li>
-        <li><a class="animate-scroll" href="#P">P–T</a></li>
-        <li><a class="animate-scroll" href="#U">U–Z</a></li>
+
+        {% for letters in allTagsGrouped|keys %}
+
+          <li><a class="animate-scroll" href="#{{ letters }}">{{ letters }}</a></li>
+
+        {% endfor %}
+
       </ul>
+
     </nav>
+
   </header>
 
   <div class="page page-inset-large news-listing">
 
-    {% for letter, tags in allTagsGrouped %}
+    {% for letters, tags in allTagsGrouped %}
 
-      <ul id="{{ letter|upper }}" class="link-list bordered">
+      <ul id="{{ letters|upper }}" class="link-list bordered">
 
-        <li class="header">{{ letter|upper }}</li>
+        <li class="header">{{ letters|upper }}</li>
 
         {% for tag in tags %}
 
@@ -48,7 +67,7 @@
 
           {% if loop.last %}
 
-            <li class="footer"><a href="#AlphaNav">Top</a></li>
+            <li class="footer"><a class="animate-scroll" href="#AlphaNav">Top</a></li>
 
           {% endif %}
 

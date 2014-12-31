@@ -1,0 +1,7 @@
+{
+  buttons: ['html','bold','italic','unorderedlist','orderedlist','link'],
+  allowedTags: ['p', 'strong', 'em', 'a', 'ul', 'ol', 'li'],
+  plugins: ['fullscreen'],
+  toolbarFixedBox: true,
+  tabFocus: false
+}
