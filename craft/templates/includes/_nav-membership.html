@@ -1,7 +1,7 @@
 <nav class="nav section-nav collapse-nav">
   <ul>
     <li><a class="collapse-toggle" href="#">In this section: <b class="pointer"><span class="icon icon-down"></span></b></a></li>
-    <li id="sec-membership-front"><a href="{{ url('membership') }}">Membership <b class="pointer"><span class="icon icon-next"></span></b></a></li>
-    <li id="sec-our-members"><a href="{{ url('membership/members') }}">Our members <b class="pointer"><span class="icon icon-next"></span></b></a></li>
+    <li{% if craft.request.url == url('membership') %} class="current"{% endif %}><a href="{{ url('membership') }}">Membership <b class="pointer"><span class="icon icon-next"></span></b></a></li>
+    <li{% if craft.request.url == url('membership/members') %} class="current"{% endif %}><a href="{{ url('membership/members') }}">Our members <b class="pointer"><span class="icon icon-next"></span></b></a></li>
   </ul>
 </nav>

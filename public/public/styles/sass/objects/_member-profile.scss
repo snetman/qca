@@ -3,17 +3,23 @@
    ======================================================= */
 
 .interview {
+  * + * {
+    margin: $space 0 0 0;
+  }
   dt {
     color: $headline-color;
     &:before {
-      content: "Q: ";
-      display: inline-block;
+      content: "Q:";
+      float: left;
+      margin-right: .5em;
     }
   }
-  dd {
-    margin-bottom: $space;
-    &:last-child {
-      margin-bottom: 0;
+  p,
+  ul,
+  ol {
+    margin: $space 0 0 0;
+    &:first-child {
+      margin-top: 0;
     }
   }
 }

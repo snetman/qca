@@ -3508,18 +3508,26 @@ body {
 /* =======================================================
     Member profile
    ======================================================= */
+.interview * + * {
+  margin: 1.375rem 0 0 0;
+}
 .interview dt {
   color: #111111;
 }
 .interview dt:before {
-  content: "Q: ";
-  display: inline-block;
+  content: "Q:";
+  float: left;
+  margin-right: .5em;
 }
-.interview dd {
-  margin-bottom: 1.375rem;
+.interview p,
+.interview ul,
+.interview ol {
+  margin: 1.375rem 0 0 0;
 }
-.interview dd:last-child {
-  margin-bottom: 0;
+.interview p:first-child,
+.interview ul:first-child,
+.interview ol:first-child {
+  margin-top: 0;
 }
 
 .mem-price {
