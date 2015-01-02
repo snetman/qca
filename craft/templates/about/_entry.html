@@ -1,0 +1,31 @@
+{% extends "_layout" %}
+{% set title = entry.title %}
+{% set bodyClass = 'sec-about sec-about-front l-2col' %}
+{% set imageInfoLink = "http://amazon.com" %}
+
+{% block main %}
+<div class="l-main">
+
+  <header class="page-header">
+    <div class="main">
+      <h1>{{ title }}{% if entry.pageSubtitle|length %} <small>{{ entry.pageSubtitle }}</small>{% endif %}</h1>
+    </div>
+  </header>
+
+  <div class="page page-inset">
+
+    {% include 'includes/story-blocks/_story-blocks.html' %}
+
+  </div>
+  <!--/.page-->
+
+</div>
+<!--/.l-main-->
+{% endblock %}
+
+{% block aside %}
+<div class="l-aside">
+  {% include 'includes/_nav-about.html' %}
+</div>
+<!--/.l-aside-->
+{% endblock %}

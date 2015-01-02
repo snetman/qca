@@ -1,0 +1,127 @@
+{% extends "_layout" %}
+{% if entry.displayTitle %}
+  {% set title = entry.displayTitle %}
+{% else %}
+  {% set title = entry.title %}
+{% endif %}
+{% set bodyClass = 'sec-resources sec-resources-front l-1col' %}
+{% set imageInfoLink = "http://amazon.com" %}
+
+{% block main %}
+<div class="l-main">
+
+  <header class="page-header">
+    <div class="main">
+      <h1>{{ title }}{% if entry.pageSubtitle|length %} <small>{{ entry.pageSubtitle }}</small>{% endif %}</h1>
+    </div>
+  </header>
+
+  {% if entry.pageIntro %}
+
+    <div class="page page-inset">
+
+      {{ entry.pageIntro }}
+
+    </div>
+
+  {% endif %}
+
+
+  <div class="page page-inset">
+
+    {% set resources = craft.entries.section('resources').limit(null) %}
+
+    {% set resourcesGrouped = resources|group('type') %}
+
+    <nav id="ResourceNav" class="nav brick-nav brick-nav-full brick-nav-flush">
+      <ul>
+        <li class="is-active"><a class="is-active" href="#" data-resource-type="all">All</a></li>
+        {% for type in resourcesGrouped|keys %}
+          <li><a href="#" data-resource-type="{{ type }}">{{ type|capitalize ~ 's' }}</a></li>
+        {% endfor %}
+      </ul>
+    </nav>
+
+    <ul class="resource-list">
+
+      {% for resource in resources %}
+
+        <li class="resource" data-resource-type="{{ resource.type }}">
+
+          <div class="body">
+
+            <h3>{{ resource.title }}</h3>
+
+            {% switch resource.type %}
+
+              {% case "article" %}
+
+                <p>{{ resource.resourceAuthorFullname }}</p>
+
+                {% if resource.resourcePublicationInfo|length %}
+                  {{ resource.resourcePublicationInfo }}
+                {% endif %}
+
+                {% if resource.resourceUrl %}
+                  <p><a href="{{ resource.resourceUrl }}">Read article</a></p>
+                {% endif %}
+
+              {% case "book" %}
+
+                <p>{{ resource.resourceAuthorFullname }}</p>
+
+                {% if resource.resourcePublicationInfo|length %}
+                  {{ resource.resourcePublicationInfo }}
+                {% endif %}
+
+                {% if resource.resourceUrl %}
+                  <p><a href="{{ resource.resourceUrl }}">Read book</a></p>
+                {% endif %}
+
+              {% case "archive" %}
+
+                {% if resource.resourceDescription|length %}
+                  {{ resource.resourceDescription }}
+                {% endif %}
+
+                {% if resource.resourceUrl %}
+                  <p><a href="{{ resource.resourceUrl }}">Visit site</a></p>
+                {% endif %}
+
+              {% case "website" %}
+
+                {% if resource.resourceDescription|length %}
+                  {{ resource.resourceDescription }}
+                {% endif %}
+
+                {% if resource.resourceUrl %}
+                  <p><a href="{{ resource.resourceUrl }}">Visit site</a></p>
+                {% endif %}
+
+            {% endswitch %}
+
+          </div><!--/.body-->
+
+          <footer>
+            <span class="resource-type">{{ resource.type|capitalize }}</span>
+          </footer>
+
+        </li>
+      {% endfor %}
+
+    </ul>
+
+    <p><a class="animate-scroll" href="#ResourceNav">Back to top</a></p>
+
+  </div>
+  <!--/.page-->
+
+</div>
+<!--/.l-main-->
+{% endblock %}
+
+{% block aside %}
+{% endblock %}
+
+{% set baseUrl = craft.config.environmentVariables['baseUrl'] %}
+{% includeJsFile baseUrl ~ "public/scripts/jquery.resources.min.js" %}
