@@ -14,7 +14,42 @@
 
   <div class="page page-inset">
 
-    {% include 'includes/story-blocks/_story-blocks.html' %}
+    {% switch entry.type %}
+
+      {% case "officerListing" %}
+
+        {% if entry.pageIntro|length %}
+          {{ entry.pageIntro }}
+        {% endif %}
+
+        <ul class="g g-6up-max">
+
+          {% for block in entry.officerList %}
+
+            {% set officer = block.member.first() %}
+
+            <li>
+              <div class="block-switch">
+                <img class="b-figure" src="{{ officer.getPhotoUrl(200) }}" />
+                <dl class="b-body">
+                  <dt class="headline">{{ officer.fullName}}</dt>
+                  <dd>{{ block.role }}</dd>
+                  {% if block.showEmail %}
+                    <dd><a href="mailto:{{ officer.email }}">{{ officer.email }}</a></dd>
+                  {% endif %}
+                </dl>
+              </div>
+            </li>
+
+          {% endfor %}
+
+        </ul>
+
+      {% default %}
+
+        {% include 'includes/story-blocks/_story-blocks.html' %}
+
+    {% endswitch %}
 
   </div>
   <!--/.page-->
