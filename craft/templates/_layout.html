@@ -1,6 +1,13 @@
 {% include 'includes/_html-head.html' %}
 
-<body{% if bodyClass is defined %} class="{{ bodyClass }}"{% endif %}>
+{% set randomArtwork = craft.entries.section('artwork').order('RAND()').first() %}
+{% set backgroundImageUrl = randomArtwork.artImageBkg.first().url %}
+{% if siteTheme is not defined %}
+  {% set siteTheme = randomArtwork.artSiteTheme %}
+{% endif %}
+{% set imageInfoLink = randomArtwork.url %}
+
+<body{% if bodyClass is defined %} class="{{ bodyClass }} {{ siteTheme }}"{% endif %}{% if backgroundImageUrl is defined %} style="background-image: url({{ backgroundImageUrl }});"{% endif %}>
 
 {% include 'includes/_global-header.html' %}
 

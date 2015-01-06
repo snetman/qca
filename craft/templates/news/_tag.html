@@ -1,8 +1,7 @@
 {% extends "_layout-reversed" %}
 {% set titleA = "Tagged"|translate %}
 {% set title = [titleA,tag]|join(': ')  %}
-{% set bodyClass = 'sec-news sec-news-front l-2col-rev' %}
-{% set imageInfoLink = "http://amazon.com" %}
+{% set bodyClass = 'l-2col-rev' %}
 
 {% set tag = craft.tags.name(tag).first() %}
 

@@ -34,8 +34,8 @@
     color: $black;
 
     &:hover {
-      background-color: $blue;
-      color: $white;
+      background-color: $blue !important;
+      color: $white !important;
     }
 
     @include transition(.2s all linear);
@@ -72,7 +72,6 @@
     display: block;
     @include span(last 12);
     @include flexbox;
-    //border-bottom-left-radius: $radius;
 
     .main-nav {
       display: block;
@@ -97,19 +96,9 @@
 // You are here
 //
 
-.sec-about #nav-about,
-.sec-news #nav-news,
-.sec-home #nav-home,
-.sec-membership #nav-membership,
-.sec-resources #nav-resources {
-  a {
-    background-color: $white-overlay-highlight;
-    color: $green !important;
-    &:hover {
-      background-color: $blue;
-      color: $white !important;
-    }
-  }
+#nav .current a {
+  background-color: $white-overlay-highlight;
+  color: $green;
 }
 
 //
@@ -160,22 +149,17 @@
 //
 
 .theme-light {
+
   #nav {
     background-color: $black-overlay;
     a {
       color: $white;
-      &:hover {
-        color: $white;
-      }
     }
   }
-  &.sec-about #nav-about,
-  &.sec-news #nav-news,
-  &.sec-home #nav-home,
-  &.sec-membership #nav-membership,
-  &.sec-resources #nav-resources {
-    a {
-      background-color: $black-overlay-highlight;
-    }
+
+  #nav .current a {
+    background-color: $black-overlay-highlight;
+    color: $green;
   }
+
 }

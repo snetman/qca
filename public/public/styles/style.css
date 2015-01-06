@@ -2009,7 +2009,17 @@ td {
 .art-label {
   position: relative;
   max-width: 800px;
-  padding-right: 400px;
+  padding: 1.1rem 0.6875rem 1.375rem;
+  background-color: #fff;
+}
+@media (min-width: 46.75em) {
+  .art-label {
+    padding: 1.1rem 1.375rem 1.375rem;
+  }
+}
+.art-label.bordered {
+  border: 1px solid #e6e6e6;
+  border-top-width: 0;
 }
 .art-label .title,
 .art-label .artist,
@@ -2017,6 +2027,12 @@ td {
 .art-label .url {
   margin-bottom: 0;
   margin-right: 2.75rem;
+}
+.art-label .details,
+.art-label .details li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 .art-label .icon {
   position: absolute;
@@ -2896,8 +2912,8 @@ body {
   transition: all 0.2s linear;
 }
 #nav a:hover {
-  background-color: #1538e6;
-  color: #fff;
+  background-color: #1538e6 !important;
+  color: #fff !important;
 }
 #nav .main-nav {
   display: none;
@@ -2952,21 +2968,9 @@ body {
   }
 }
 
-.sec-about #nav-about a,
-.sec-news #nav-news a,
-.sec-home #nav-home a,
-.sec-membership #nav-membership a,
-.sec-resources #nav-resources a {
-  background-color: rgba(255, 255, 255, 0.2);
-  color: #1dc898 !important;
-}
-.sec-about #nav-about a:hover,
-.sec-news #nav-news a:hover,
-.sec-home #nav-home a:hover,
-.sec-membership #nav-membership a:hover,
-.sec-resources #nav-resources a:hover {
-  background-color: #1538e6;
-  color: #fff !important;
+#nav .current a {
+  background-color: #fff;
+  color: #1dc898;
 }
 
 #image-info-link {
@@ -3012,11 +3016,9 @@ body {
 .theme-light #nav a {
   color: #fff;
 }
-.theme-light #nav a:hover {
-  color: #fff;
-}
-.theme-light.sec-about #nav-about a, .theme-light.sec-news #nav-news a, .theme-light.sec-home #nav-home a, .theme-light.sec-membership #nav-membership a, .theme-light.sec-resources #nav-resources a {
-  background-color: rgba(17, 17, 17, 0.2);
+.theme-light #nav .current a {
+  background-color: #111111;
+  color: #1dc898;
 }
 
 /* =======================================================

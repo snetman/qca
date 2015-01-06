@@ -5,7 +5,6 @@
   {% set title = entry.title %}
 {% endif %}
 {% set bodyClass = 'l-1col' %}
-{% set imageInfoLink = "http://amazon.com" %}
 
 {% block main %}
 <div class="l-main">
@@ -21,20 +20,32 @@
     {% include 'includes/story-blocks/_story-blocks.html' %}
 
     <ul class="g g-3up-max">
-      <li>
-        <figure>
-          <img src="" />
-          <figcaption class="art-label page page-inset flush">
-            <h3 class="artist">First Lastname</h3>
-            <h5 class="title">Artwork Title Here</h5>
-            <p class="details">Medium here<br>
-              Dimensions &times; dimensions<br>
-              Year<br>
-            </p>
-            <p class="url"><a href="#">Visit site</a></p>
-          </figcaption>
-        </figure>
-      </li>
+
+      {% set artwork = craft.entries.section('artwork') %}
+
+      {% for entry in artwork %}
+
+        {% set asset = entry.artImageFull.first() %}
+
+        <li>
+          <figure>
+            <img src="{{ asset.url }}" />
+            <figcaption class="art-label bordered flush">
+              <h3 class="artist">{{ entry.artArtistFullname }}</h3>
+              <h5 class="title">{{ entry.title }}</h5>
+              <ul class="details">
+                {% if entry.artMedium %}<li>{{ entry.artMedium }}</li>{% endif %}
+                {% if entry.artDimensions %}<li>{{ entry.artDimensions|preg_replace('/x/', '&times;')|raw }}</li>{% endif %}
+                {% if entry.artYear %}<li>{{ entry.artYear }}</li>{% endif %}
+                {% if entry.artCreditLine %}<li>{{ entry.artCreditLine }}</li>{% endif %}
+                {% if entry.artArtistUrl %}<li><a href="{{ entry.artArtistUrl }}">Visit site</a></li>{% endif %}
+              </ul>
+            </figcaption>
+          </figure>
+        </li>
+
+      {% endfor %}
+
     </ul>
 
   </div>

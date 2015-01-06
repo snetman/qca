@@ -10,7 +10,7 @@
 
       {% for item in mainNav.navMenu %}
 
-        <li{% if item.itemId|length %} id="{{ item.itemId }}"{% endif %}>
+        <li{% if item.itemId|length %} id="{{ item.itemId }}"{% endif %}{% if craft.request.firstSegment == item.itemSectionSegment and item.itemSectionSegment|length %} class="current"{% endif %}>
 
           {% if item.itemEntryLink|length %}
             {% set itemLink = item.itemEntryLink.first().getUrl() %}
@@ -30,7 +30,7 @@
 
       {% for item in secondaryNav.navMenu %}
 
-        <li{% if item.itemId|length %} id="{{ item.itemId }}"{% endif %}>
+        <li{% if item.itemId|length %} id="{{ item.itemId }}"{% endif %}{% if craft.request.firstSegment == item.itemSectionSegment and item.itemSectionSegment|length %} class="current"{% endif %}>
 
           {% if item.itemEntryLink|length %}
             {% set itemLink = item.itemEntryLink.first().getUrl() %}

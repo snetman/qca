@@ -18,9 +18,9 @@ $white: #fff;
 // Overlays
 
 $black-overlay: rgba(17,17,17,.4); // $black
-$black-overlay-highlight: rgba(17,17,17,.2);
+$black-overlay-highlight: $black;//rgba(17,17,17,.2);
 $white-overlay: rgba(255,255,255,.4); // $white
-$white-overlay-highlight: rgba(255,255,255,.2);
+$white-overlay-highlight: $white;//rgba(255,255,255,.2);
 
 // General type
 

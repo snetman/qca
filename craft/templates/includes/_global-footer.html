@@ -2,9 +2,11 @@
 
     <ul class="main-nav">
 
-      {% for item in mobileNav.navMenu %}
+      <li{% if craft.request.url == siteUrl %} class="current"{% endif %}><a href="{{ siteUrl }}">Home</a></li>
 
-        <li{% if item.itemId|length %} id="{{ item.itemId }}"{% endif %}>
+      {% for item in mainNav.navMenu %}
+
+        <li{% if item.itemId|length %} id="{{ item.itemId }}"{% endif %}{% if craft.request.firstSegment == item.itemSectionSegment and item.itemSectionSegment|length %} class="current"{% endif %}>
 
           {% if item.itemEntryLink|length %}
             {% set itemLink = item.itemEntryLink.first().getUrl() %}
