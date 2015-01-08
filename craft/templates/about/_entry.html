@@ -33,8 +33,9 @@
                 <dl class="b-body">
                   <dt class="headline">{{ officer.fullName}}</dt>
                   <dd>{{ block.role }}</dd>
-                  {% if block.showEmail %}
-                    <dd><a href="mailto:{{ officer.email }}">{{ officer.email }}</a></dd>
+                  {% if block.showEmailLink %}
+                    {% set emailLink = 'mailto:' ~ officer.email %}
+                    <dd><a href="{{ emailLink|entities }}">Email</a></dd>
                   {% endif %}
                 </dl>
               </div>

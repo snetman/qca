@@ -28,11 +28,18 @@
           </small>
         {% endif %}
       </h1>
-      {% if subject.memberShowEmail %}
+
+      {# Hold this back until I figure out whether to hide or not from non-members #}
+
+      {#
+      {% if subject.memberShowEmailLink %}
+        {% set emailLink = 'mailto:' ~ subject.email %}
         <ul class="inline-list has-commas">
-          <li><a href="mailto:{{ subject.email }}">{{ subject.email }}</a></li>
+          <li><a href="{{ emailLink|entities }}">Email</a></li>
         </ul>
       {% endif %}
+      #}
+
     </div>
     <figure>
       <img src="{{ subject.getPhotoUrl(200) }}">

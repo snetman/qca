@@ -15,6 +15,22 @@
 
   {% include 'includes/_featured-profile.html' with {'hideAllLink':'true'} %}
 
+  {% if currentUser %}
+    <div class="page page-inset-large">
+      {% if currentUser.isInGroup('members') %}
+        <h1>Current user is logged in and a member</h1>
+      {% else %}
+        <h1>Current user is logged in and not a member</h1>
+      {% endif %}
+    </div>
+  {% else %}
+    <div class="page page-inset-large">
+      <p>If you are an active member of QCA, <a href="{{ loginUrl }}">log in to view the member directory</a>.</p>
+    </div>
+  {% endif %}
+
+
+
   {% set members = craft.users.group('members').memberIncludeMe('1').order('lastName').limit(null) %}
 
   {% set membersGrouped = members|group('lastName|first|upper|
@@ -61,8 +77,9 @@
               {% if member.memberInstitutionalAffiliation %}
                 <dd>{{ member.memberInstitutionalAffiliation }}</dd>
               {% endif %}
-              {% if member.memberShowEmail %}
-                <dd><a href="mailto:{{ member.email }}">{{ member.email }}</a></dd>
+              {% if member.memberShowEmailLink %}
+                {% set emailLink = 'mailto:' ~ member.email %}
+                <dd><a href="{{ emailLink|entities }}">Email</a></dd>
               {% endif %}
               {% set profile = craft.entries.section('memberProfiles').relatedTo(member) %}
               {% if profile|length %}

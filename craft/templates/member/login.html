@@ -1,0 +1,49 @@
+{% extends "_layout" %}
+{% set title = "Sign in" %}
+{% set bodyClass = 'l-1col' %}
+
+{% block main %}
+<div class="l-main">
+
+  <header class="page-header">
+    <div class="main">
+      <h1>{{ title }} <small>For QCA members</small></h1>
+    </div>
+  </header>
+
+  <div class="page page-inset-large">
+
+    <form method="post" accept-charset="UTF-8">
+      {{ getCsrfInput() }}
+      <input type="hidden" name="action" value="users/login">
+
+      {% if errorMessage is defined %}
+          <p class="has-error"><strong>{{ errorMessage }}</strong></p>
+      {% endif %}
+
+      <div class="form-group">
+        <label for="loginName">Email</label>
+        <input class="form-control" id="loginName" type="text" name="loginName"
+          value="{{ craft.session.rememberedUsername }}">
+      </div>
+      <div class="form-group">
+        <label for="password">Password <small><a href="{{ url('member/forgotpassword') }}">Forgot?</a></small></label>
+        <input class="form-control" id="password" type="password" name="password">
+      </div>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" name="rememberMe" value="1">
+          Remember me
+        </label>
+      </div>
+      <div class="form-group">
+        <input class="btn btn-primary" type="submit" value="Login">
+      </div>
+
+    </form>
+
+  </div>
+
+</div>
+<!--/.l-main-->
+{% endblock %}

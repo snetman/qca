@@ -1,0 +1,24 @@
+{% extends "_layout" %}
+{% set title = "Welcome to QCA" %}
+{% set bodyClass = 'l-1col' %}
+
+{% block main %}
+<div class="l-main">
+
+  <header class="page-header">
+    <div class="main">
+      <h1>{{ title }}</h1>
+    </div>
+  </header>
+
+  <div class="page page-inset">
+
+    <p>Thanks for confirming your email address. You’ll have to pay for your membership.</p>
+
+    <p><a href="{{ url('member/pay') }}" class="btn btn-primary">Pay for my membership</a></p>
+
+  </div>
+
+</div>
+<!--/.l-main-->
+{% endblock %}

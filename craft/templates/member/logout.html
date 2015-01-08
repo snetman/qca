@@ -1,0 +1,22 @@
+{% extends "_layout" %}
+{% set title = "You are now signed out." %}
+{% set bodyClass = 'l-1col' %}
+
+{% block main %}
+<div class="l-main">
+
+  <header class="page-header">
+    <div class="main">
+      <h1>{{ title }}</h1>
+    </div>
+  </header>
+
+  <div class="page page-inset-large">
+
+    <p>If you'd like to sign in again, <a href="{{ loginUrl }}">use our sign in form</a>.</p>
+
+  </div>
+
+</div>
+<!--/.l-main-->
+{% endblock %}

@@ -28,6 +28,8 @@
 
     <ul class="secondary-nav">
 
+      {#
+
       {% for item in secondaryNav.navMenu %}
 
         <li{% if item.itemId|length %} id="{{ item.itemId }}"{% endif %}{% if craft.request.firstSegment == item.itemSectionSegment and item.itemSectionSegment|length %} class="current"{% endif %}>
@@ -43,6 +45,16 @@
         </li>
 
       {% endfor %}
+
+      #}
+
+      {% if currentUser %}
+        <li><a href="{{ url('member/my-account') }}">My account</a></li>
+        <li><a href="{{ logoutUrl }}">Sign out</a></li>
+      {% else %}
+        <li id="join-btn"><a href="{{ url('membership') }}">Join&nbsp;QCA</a></li>
+        <li><a href="{{ loginUrl }}">Sign in</a></li>
+      {% endif %}
 
       <li id="nav-jump-btn"><a class="animate-scroll" href="#footer-nav"><span class="icon--menu reversable"></span></a></li>
 

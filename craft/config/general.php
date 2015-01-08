@@ -12,7 +12,12 @@ return array(
         'omitScriptNameInUrls' => true,
         'defaultImageQuality' => '65',
         'useEmailAsUsername' => true,
-        // 'devMode' => true,
+        'loginPath' => 'member/login',
+        'logoutPath' => 'member/logout',
+        'postLoginRedirect' => 'member/my-account',
+        'autoLoginAfterAccountActivation' => true,
+        'activateAccountFailurePath' => 'member/activation-failed',
+        'activateAccountSuccessPath' => 'member/activation-success',
     ),
 
     // Local
@@ -28,6 +33,7 @@ return array(
             'basePath'  => '/Users/snetman/sites/qca/public/',
             'baseUrl' => 'http://qca.craft.dev/',
         )
+
     ),
 
     // Staging

@@ -1,0 +1,147 @@
+{% extends "_layout" %}
+{% set title = "My account" %}
+{% set bodyClass = 'l-1col' %}
+
+{% block main %}
+
+{% requireLogin %}
+
+<div class="l-main">
+
+  <header class="band band-flush-bottom rounded">
+    <div class="main">
+      <span class="gamma headline">My account</span>
+    </div>
+  </header>
+
+  <header class="page-header square">
+    <div class="main">
+      <h1>First Lastname</h1>
+    </div>
+    <figure>
+      <img src="http://qca.craft.dev/cpresources/userphotos/george@lacma.org/300/clooney.jpg">
+    </figure>
+  </header>
+
+  <div class="page page-inset-large">
+    <p>Profile information is here, maybe in editable form already?</p>
+
+    <h2>Craft's user profile form</h2>
+
+<form method="post" accept-charset="UTF-8">
+    {{ getCsrfInput() }}
+    <input type="hidden" name="action" value="users/saveUser">
+    <input type="hidden" name="redirect" value="users/{{ currentUser.username }}">
+    <input type="hidden" name="userId" value="{{ currentUser.id }}">
+
+    {#
+    <label for="location">Location</label>
+    <input type="text" id="location" name="fields[location]" value="{{ currentUser.location }}">
+
+    <label for="bio">Bio</label>
+    <textarea id="bio" name="fields[bio]">{{ currentUser.bio }}</textarea>
+    #}
+
+    <input type="submit" value="Save Profile">
+</form>
+
+    <h2>My user profile form</h2>
+
+    <form>
+      <fieldset>
+        <legend>Personal info</legend>
+        <div class="form-group">
+          <label>First name*</label>
+          <input class="form-control" type="text" required>
+        </div>
+        <div class="form-group">
+          <label>Last name*</label>
+          <input class="form-control" type="text" required>
+        </div>
+        <div class="form-group">
+          <label>Email*</label>
+          <input class="form-control" type="email" placeholder="you@somewhere.com" required>
+        </div>
+        <div class="form-group">
+          <label>Change Password</label>
+          <input class="form-control" />
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>Contact info</legend>
+        <div class="form-group">
+          <label>Website or social profile</label>
+          <input class="form-control" type="text" placeholder="Enter a url here">
+        </div>
+        <div class="form-group">
+          <label>Phone/fax</label>
+          <input class="form-control" type="text" placeholder="Enter a url here">
+          <p class="help-block">Link to website, LinkedIn or social profile</p>
+        </div>
+        <div class="form-group">
+          <label>Mailing address</label>
+          <textarea class="form-control" rows="4">
+          </textarea>
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>Professional info</legend>
+        <div class="form-group">
+          <label>Institutional affiliation</label>
+          <input class="form-control" type="text">
+        </div>
+        <div class="form-group">
+          <label>Title</label>
+          <input class="form-control" type="text">
+          <p class="help-block">e.g., Curator, Artist, Professor</p>
+        </div>
+        <div class="form-group">
+          <label>Areas of research</label>
+          <textarea class="form-control" rows="3"></textarea>
+        </div>
+        <div class="form-group">
+          <label>Notable publications/exhibitions</label>
+          <textarea class="form-control" rows="6"></textarea>
+        </div>
+        <div class="form-group">
+          <label>Other comments</label>
+          <textarea class="form-control" rows="6"></textarea>
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>Preferences</legend>
+        <div class="form-group">
+          <label>On the "Our Members" page:</label>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" value="">
+              Include my name (and photo if I’ve uploaded one)
+            </label>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" value="">
+              Include my contact information
+            </label>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" value="">
+              Contact me for a future member profile
+            </label>
+          </div>
+        </div>
+      </fieldset>
+      <div class="form-group">
+        <a href="membership-form-2" class="btn btn-primary">Continue</a>
+      </div>
+
+    </form>
+
+
+  </div>
+  <!--/.page-->
+
+</div>
+<!--/.l-main-->
+{% endblock %}

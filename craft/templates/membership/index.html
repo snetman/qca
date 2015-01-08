@@ -32,9 +32,7 @@
             <div class="b-body">
               <h3 class="headline">{{ entry.title }}</h3>
               {{ entry.tierDescription }}
-              {% if entry.tierUrl %}
-                <p><a href="{{ entry.tierUrl }}" class="btn btn-primary">Join</a></p>
-              {% endif %}
+              <p><a href="{{ url('member/join') }}" class="btn btn-primary">Join</a></p>
             </div>
             <div class="b-figure">
               <b class="mem-price">${{ entry.tierPrice|number_format(0,'.',',') }}</b>
