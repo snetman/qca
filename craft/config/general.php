@@ -11,13 +11,13 @@ return array(
     '*' => array(
         'omitScriptNameInUrls' => true,
         'defaultImageQuality' => '65',
-        'useEmailAsUsername' => true,
-        'loginPath' => 'member/login',
-        'logoutPath' => 'member/logout',
-        'postLoginRedirect' => 'member/my-account',
+        'useEmailAsUsername' => false,
+        'loginPath' => 'account/login',
+        'logoutPath' => 'account/logout',
+        'postLoginRedirect' => 'account/edit',
         'autoLoginAfterAccountActivation' => true,
-        'activateAccountFailurePath' => 'member/activation-failed',
-        'activateAccountSuccessPath' => 'member/activation-success',
+        'activateAccountFailurePath' => 'account/activation-failed',
+        'activateAccountSuccessPath' => 'account/activation-success',
     ),
 
     // Local

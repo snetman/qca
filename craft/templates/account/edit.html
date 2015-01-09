@@ -41,7 +41,7 @@
     <form method="post" accept-charset="UTF-8" enctype="multipart/form-data">
         {{ getCsrfInput() }}
         <input type="hidden" name="action" value="users/saveUser">
-        <input type="hidden" name="redirect" value="member/my-account">
+        <input type="hidden" name="redirect" value="member/{{ currentUser.username }}">
         <input type="hidden" name="userId" value="{{ currentUser.id }}">
 
         {% macro errorList(errors) %}
@@ -95,6 +95,71 @@
             #}
 
         </fieldset><!--/.page-inset-->
+
+        <header class="band band-flush-bottom">
+          <div class="main">
+            <span class="headline">Change password</span>
+          </div>
+        </header>
+
+        <fieldset class="page page-inset">
+          <p>Fill in both fields below to change your password</p>
+          <div class="form-group">
+            <label for="password">Current Password</label>
+            <input type="password" class="form-control" id="currentPassword" name="password" />
+            {#
+            {% if account is defined %}
+                {{ errorList(account.getErrors('currentPassword')) }}
+            {% endif %}
+            #}
+          </div>
+          <div class="form-group">
+            <label for="newPassword">New Password</label>
+            <input type="password" class="form-control" id="newPassword" name="newPassword" />
+            {#
+            {% if account is defined %}
+                {{ errorList(account.getErrors('newPassword')) }}
+            {% endif %}
+            #}
+          </div>
+        </fieldset>
+
+        <header class="band band-flush-bottom">
+          <div class="main">
+            <span class="headline">Photo</span>
+          </div>
+        </header>
+
+        <fieldset class="page page-inset">
+
+        {# Check to see if the user has a photo  #}
+        {% if currentUser.photoUrl %}
+
+          <img src="{{ currentUser.getPhotoUrl(300) }}" />
+          <div class="form-group">
+            {# If a photo exists, give the option to change the user photo #}
+            <label>Replace this photo</label>
+            <input type="file" name="userPhoto" value="Change Photo">
+            <p class="help-block">Suggested size: 300 &times; 300 pixels</p>
+          </div>
+          <div class="form-group">
+            {# Setup a delete action #}
+            <a href="#" id="deleteUserPhotoAction">Delete photo</a>
+            {# Setup a hidden deleteUserPhoto field with no value #}
+            <input type="hidden" name="deleteUserPhoto" id="deleteUserPhotoInput" value="">
+          </div>
+
+        {% else %}
+
+            <div class="form-group">
+            {# If no photo exists, give the option to upload a new one #}
+              <label>Upload a photo for the member directory</label>
+              <input type="file" name="userPhoto" value="Upload">
+              <p class="help-block">Suggested size: 300 &times; 300 pixels</p>
+            </div>
+
+        {% endif %}
+        </fieldset>
 
         <header class="band band-flush-bottom">
           <div class="main">
@@ -160,26 +225,30 @@
             <label>On the "Our Members" page:</label>
             <div class="checkbox">
               <label>
-                <input type="checkbox" id="memberIncludeMe" name="fields[memberIncludeMe]" value="{{ currentUser.memberIncludeMe }}"{% if currentUser.memberIncludeMe %} checked="checked"{% endif %}>
+                <input type="checkbox" class="js-checkbox" data-target="#memberIncludeMe" value="1" {% if currentUser.memberIncludeMe %}checked="checked"{% endif %}>
                 Include me in the member directory visible to other members?
               </label>
+              <input type="hidden" class="js-lightswitch" id="memberIncludeMe" name="fields[memberIncludeMe]" value="{% if currentUser.memberIncludeMe %}1{% else %}0{% endif %}">
             </div>
             <div class="checkbox">
               <label>
-                <input type="checkbox" id="memberShowEmailLink" name="fields[memberShowEmailLink]" value="{{ currentUser.memberShowEmailLink }}"{% if currentUser.memberShowEmailLink %} checked="checked"{% endif %}>
+                <input type="checkbox" class="js-checkbox" data-target="#memberShowEmailLink" value="1" {% if currentUser.memberShowEmailLink %}checked="checked"{% endif %}>
                 Show a link to contact me via email in the member directory?
               </label>
+              <input type="hidden" class="js-lightswitch" id="memberShowEmailLink" name="fields[memberShowEmailLink]" value="{% if currentUser.memberShowEmailLink %}1{% else %}0{% endif %}">
             </div>
             <div class="checkbox">
               <label>
-                <input type="checkbox" id="memberContactMe" name="fields[memberContactMe]" value="{{ currentUser.memberContactMe }}"{% if currentUser.memberContactMe %} checked="checked"{% endif %}>
-                I'm interested in QCA officers contacting me for a future member profile?
+                <input type="checkbox" class="js-checkbox" data-target="#memberContactMe" value="1" {% if currentUser.memberContactMe %}checked="checked"{% endif %}>
+                I’m interested in being interviewed for a member profile.
               </label>
+              <input type="hidden" class="js-lightswitch" id="memberContactMe" name="fields[memberContactMe]" value="{% if currentUser.memberContactMe %}1{% else %}0{% endif %}">
             </div>
+
           </div>
         </fieldset>
 
-        <div class="page page-inset">
+        <div id="SubmitForm" class="page page-inset">
             <div class="form-group">
                 <input class="btn btn-primary" type="submit" value="Save changes">
             </div>
@@ -189,3 +258,33 @@
 </div>
 <!--/.l-main-->
 {% endblock %}
+
+{% set checkboxToLightboxJs %}
+  $('.js-checkbox').on('change', function(event) {
+    var $target = $(this).attr('data-target');
+
+    if($(this).prop('checked')) {
+        $( $target ).val(1);
+    } else {
+        $( $target ).val(0);
+    }
+  });
+{% endset %}
+
+{% set deleteUserPhotoJs %}
+
+    // Bind an action to the deleteUserPhotoAction click event
+    $("#deleteUserPhotoAction").on('click', function() {
+
+        // Add the value 'zap' to the deleteUserPhoto input
+        document.getElementById("deleteUserPhotoInput").value = 'zap';
+
+        return false;
+
+    });
+
+{% endset %}
+
+
+{% includeJs checkboxToLightboxJs %}
+{% includeJs deleteUserPhotoJs %}

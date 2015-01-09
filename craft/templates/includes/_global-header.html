@@ -47,12 +47,11 @@
       {% endfor %}
 
       #}
-
+      <li id="join-btn"><a href="{{ url('membership') }}">Join&nbsp;QCA</a></li>
       {% if currentUser %}
-        <li><a href="{{ url('member/my-account') }}">My account</a></li>
+        <li><a href="{{ url('member') ~ '/' ~ currentUser.username }}">My account</a></li>
         <li><a href="{{ logoutUrl }}">Sign out</a></li>
       {% else %}
-        <li id="join-btn"><a href="{{ url('membership') }}">Join&nbsp;QCA</a></li>
         <li><a href="{{ loginUrl }}">Sign in</a></li>
       {% endif %}
 

@@ -1,5 +1,10 @@
 {% extends "_layout" %}
-{% set title = "My account" %}
+{% set member = craft.users.username( craft.request.segment(2) ).first() %}
+{% if member|length %}
+  {% set title = member.fullName %}
+{% else %}
+  {% exit 404 %}
+{% endif %}
 {% set bodyClass = 'l-1col' %}
 
 {% block main %}
@@ -8,186 +13,24 @@
 
 <div class="l-main">
 
-  <header class="page-header square">
+  <header class="page-header">
     <div class="main">
       <h1>{{ member.fullName }}</h1>
     </div>
     <figure>
-      <img src="http://qca.craft.dev/cpresources/userphotos/george@lacma.org/300/clooney.jpg">
+      <img src="{{ member.getPhotoUrl(200) }}">
     </figure>
   </header>
 
-{#
   <div class="page page-inset-large">
-    <p>Profile information is here, maybe in editable form already?</p>
 
-    <h2>Craft's user profile form</h2>
+    <p>Profile info is shown here</p>
 
-<form method="post" accept-charset="UTF-8">
-    {{ getCsrfInput() }}
-    <input type="hidden" name="action" value="users/saveUser">
-    <input type="hidden" name="redirect" value="users/{{ currentUser.username }}">
-    <input type="hidden" name="userId" value="{{ currentUser.id }}">
-
-    <label for="location">Location</label>
-    <input type="text" id="location" name="fields[location]" value="{{ currentUser.location }}">
-
-    <label for="bio">Bio</label>
-    <textarea id="bio" name="fields[bio]">{{ currentUser.bio }}</textarea>
-
-    <input type="submit" value="Save Profile">
-</form>
+    {% if member.username == currentUser.username %}
+      <p>This is the current user and some kind of <a href="{{ url('account/edit') }}">edit my profile</a> button should be shown?</p>
+    {% endif %}
 
   </div>
-  <!--/.page-->
-#}
-    <form method="post" accept-charset="UTF-8" enctype="multipart/form-data">
-        {{ getCsrfInput() }}
-        <input type="hidden" name="action" value="users/saveUser">
-        <input type="hidden" name="redirect" value="member/my-account">
-        <input type="hidden" name="userId" value="{{ currentUser.id }}">
-
-        {% macro errorList(errors) %}
-        {% if errors %}
-            <ul class="errors inline-list has-commas">
-                {% for error in errors %}
-                    <li class="has-error"><strong>{{ error }}</strong>{% if not loop.last %},{% endif %}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-        {% endmacro %}
-
-        <header class="band band-flush-bottom">
-          <div class="main">
-            <span class="headline">Personal info</span>
-          </div>
-        </header>
-
-        <fieldset class="page page-inset">
-
-            <div class="form-group">
-                <label for="firstName">First name<b class="required">*</b></label>
-                <input class="form-control" id="firstName" type="text" name="firstName" value="{{ currentUser.firstName}}">
-            </div>
-
-            <div class="form-group">
-                <label for="lastName">Last name<b class="required">*</b></label>
-                <input class="form-control" id="lastName" type="text" name="lastName" value="{{ currentUser.lastName }}">
-            </div>
-
-            {#
-            <div class="form-group">
-                <label for="email">Email<b class="required">*</b></label>
-                <input class="form-control" id="email" type="text" name="email" value="{{ currentUser.email }}">
-                {% if account is defined %}
-                    {{ errorList(account.getErrors('email')) }}
-                {% endif %}
-            </div>
-
-            <label for="password">Current Password</label>
-            <input type="text" class="form-control" id="currentPassword" name="password" />
-            {% if account is defined %}
-                {{ errorList(account.getErrors('currentPassword')) }}
-            {% endif %}
-
-            <label for="newPassword">New Password</label>
-            <input type="text" class="form-control" id="newPassword" name="newPassword" />
-            {% if account is defined %}
-                {{ errorList(account.getErrors('newPassword')) }}
-            {% endif %}
-            #}
-
-        </fieldset><!--/.page-inset-->
-
-        <header class="band band-flush-bottom">
-          <div class="main">
-            <span class="headline">Contact info</span>
-          </div>
-        </header>
-
-        <fieldset class="page page-inset">
-          <div class="form-group">
-            <label>Website or social profile</label>
-            <input class="form-control" type="text" id="memberUrl" name="fields[memberUrl]" placeholder="http://myurlhere.com" value="{{ currentUser.memberUrl}}">
-            <p class="help-block">e.g., personal site, LinkedIn or social profile</p>
-          </div>
-          <div class="form-group">
-            <label>Phone</label>
-            <input class="form-control" type="text" id="memberPhone" name="fields[memberPhone]" placeholder="XXX-XXX-XXXX" value="{{ currentUser.memberPhone}}">
-          </div>
-          <div class="form-group">
-            <label>Mailing address</label>
-            <textarea class="form-control" rows="4" id="memberAddress" name="fields[memberAddress]" value="{{ currentUser.memberAddress }}">
-            </textarea>
-          </div>
-        </fieldset>
-
-        <header class="band band-flush-bottom">
-          <div class="main">
-            <span class="headline">Professional info</span>
-          </div>
-        </header>
-
-        <fieldset class="page page-inset">
-          <div class="form-group">
-            <label>Institutional affiliation</label>
-            <input class="form-control" type="text" id="memberInstitutionalAffiliation" name="fields[memberInstitutionalAffiliation]" value="{{ currentUser.memberInstitutionalAffiliation }}">
-          </div>
-          <div class="form-group">
-            <label>Title</label>
-            <input class="form-control" type="text" id="memberTitle" name="fields[memberTitle]" value="{{ currentUser.memberTitle }}">
-            <p class="help-block">e.g., Curator, Artist, Professor</p>
-          </div>
-          <div class="form-group">
-            <label>Areas of research</label>
-            <textarea class="form-control" rows="3" id="memberAreasOfResearch" name="fields[memberAreasOfResearch]" value="{{ currentUser.memberAreasOfResearch }}"></textarea>
-          </div>
-          <div class="form-group">
-            <label>Notable publications/exhibitions</label>
-            <textarea class="form-control" rows="6" id="memberPublicationsExhibitions" name="fields[memberPublicationsExhibitions]" value="{{ currentUser.memberPublicationsExhibitions }}"></textarea>
-          </div>
-          <div class="form-group">
-            <label>Other comments</label>
-            <textarea class="form-control" rows="6" id="memberComments" name="fields[memberComments]" value="{{ currentUser.memberComments }}"></textarea>
-          </div>
-        </fieldset>
-
-        <header class="band band-flush-bottom">
-          <div class="main">
-            <span class="headline">Preferences</span>
-          </div>
-        </header>
-
-        <fieldset class="page page-inset">
-          <div class="form-group">
-            <label>On the "Our Members" page:</label>
-            <div class="checkbox">
-              <label>
-                <input type="checkbox" id="memberIncludeMe" name="fields[memberIncludeMe]" value="{{ currentUser.memberIncludeMe }}"{% if currentUser.memberIncludeMe %} checked="checked"{% endif %}>
-                Include me in the member directory visible to other members?
-              </label>
-            </div>
-            <div class="checkbox">
-              <label>
-                <input type="checkbox" id="memberShowEmailLink" name="fields[memberShowEmailLink]" value="{{ currentUser.memberShowEmailLink }}"{% if currentUser.memberShowEmailLink %} checked="checked"{% endif %}>
-                Show a link to contact me via email in the member directory?
-              </label>
-            </div>
-            <div class="checkbox">
-              <label>
-                <input type="checkbox" id="memberContactMe" name="fields[memberContactMe]" value="{{ currentUser.memberContactMe }}"{% if currentUser.memberContactMe %} checked="checked"{% endif %}>
-                I'm interested in QCA officers contacting me for a future member profile?
-              </label>
-            </div>
-          </div>
-        </fieldset>
-
-        <div class="page page-inset">
-            <div class="form-group">
-                <input class="btn btn-primary" type="submit" value="Save changes">
-            </div>
-        </div><!--/.page-inset-->
-    </form>
 
 </div>
 <!--/.l-main-->

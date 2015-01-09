@@ -14,7 +14,7 @@
     <form method="post" accept-charset="UTF-8" enctype="multipart/form-data">
         {{ getCsrfInput() }}
         <input type="hidden" name="action" value="users/saveUser">
-        <input type="hidden" name="redirect" value="member/activation-required">
+        <input type="hidden" name="redirect" value="account/activation-required">
 
         {% macro errorList(errors) %}
         {% if errors %}
@@ -35,7 +35,7 @@
         </header>
 
         <fieldset class="page page-inset">
-            {#
+
             <div class="form-group">
                 <label for="username">Username<b class="required">*</b></label>
                 <input class="form-control" id="username" type="text" name="username"
@@ -45,7 +45,6 @@
                 {{ errorList(account.getErrors('username')) }}
                 {% endif %}
             </div>
-            #}
 
             <div class="form-group">
                 <label for="firstName">First name<b class="required">*</b></label>
