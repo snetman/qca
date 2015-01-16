@@ -12,7 +12,10 @@
     }
   }
   &-inset-small {
-    padding: .8*$space-half $space-half $space-half;
+    padding: $space-half;
+    @include breakpoint($bp-med) {
+      padding: $space-half $space;
+    }
   }
   &-inset-large {
     padding: .8*$space $space-half $space;

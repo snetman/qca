@@ -1,0 +1,9 @@
+{% extends "_layout" %}
+{% set title = "My account" %}
+{% set bodyClass = 'l-1col' %}
+
+{% requireLogin %}
+
+{% set path = 'member/' ~ currentUser.username %}
+
+{% redirect path %}

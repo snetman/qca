@@ -44,6 +44,13 @@
         <input type="hidden" name="redirect" value="member/{{ currentUser.username }}">
         <input type="hidden" name="userId" value="{{ currentUser.id }}">
 
+        <div class="page page-inset-small">
+          <div class="btn-group btn-group-full">
+            <input class="btn btn-primary" type="submit" value="Save changes" />
+            <a href="{{ url( 'member/' ~ currentUser.username ) }}" class="btn">Cancel</a>
+          </div>
+        </div>
+
         {% macro errorList(errors) %}
         {% if errors %}
             <ul class="errors inline-list has-commas">
@@ -135,12 +142,12 @@
         {# Check to see if the user has a photo  #}
         {% if currentUser.photoUrl %}
 
-          <img src="{{ currentUser.getPhotoUrl(300) }}" />
+          <img class="bordered" src="{{ currentUser.getPhotoUrl(300) }}" />
           <div class="form-group">
             {# If a photo exists, give the option to change the user photo #}
-            <label>Replace this photo</label>
+            <label>Replace this photo:</label>
             <input type="file" name="userPhoto" value="Change Photo">
-            <p class="help-block">Suggested size: 300 &times; 300 pixels</p>
+            <p class="help-block">Maximum size: 300 &times; 300 pixels</p>
           </div>
           <div class="form-group">
             {# Setup a delete action #}
@@ -208,10 +215,15 @@
             <label>Notable publications/exhibitions</label>
             <textarea class="form-control" rows="6" id="memberPublicationsExhibitions" name="fields[memberPublicationsExhibitions]" value="{{ currentUser.memberPublicationsExhibitions }}"></textarea>
           </div>
+
+          {# Other comments are only collected for passing on to officers
+
           <div class="form-group">
             <label>Other comments</label>
             <textarea class="form-control" rows="6" id="memberComments" name="fields[memberComments]" value="{{ currentUser.memberComments }}"></textarea>
           </div>
+
+          #}
         </fieldset>
 
         <header class="band band-flush-bottom">
@@ -248,11 +260,12 @@
           </div>
         </fieldset>
 
-        <div id="SubmitForm" class="page page-inset">
-            <div class="form-group">
-                <input class="btn btn-primary" type="submit" value="Save changes">
-            </div>
-        </div><!--/.page-inset-->
+        <div class="page page-inset-small">
+          <div class="btn-group btn-group-full">
+            <input class="btn btn-primary" type="submit" value="Save changes" />
+            <a href="{{ url( 'member/' ~ currentUser.username ) }}" class="btn">Cancel</a>
+          </div>
+        </div>
     </form>
 
 </div>

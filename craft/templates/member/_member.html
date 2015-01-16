@@ -15,20 +15,47 @@
 
   <header class="page-header">
     <div class="main">
-      <h1>{{ member.fullName }}</h1>
+      <h1>{{ member.fullName }}
+        {% if member.memberTitle or member.memberInstitutionalAffiliation %}
+          <small>
+            {% if not member.memberInstitutionalAffiliation %}
+              {{ member.memberTitle }}
+            {% elseif not member.memberTitle %}
+              {{ member.memberInstitutionalAffiliation }}
+            {% else %}
+              {{ member.memberTitle }}, {{ member.memberInstitutionalAffiliation }}
+            {% endif %}
+          </small>
+        {% endif %}
+      </h1>
     </div>
     <figure>
       <img src="{{ member.getPhotoUrl(200) }}">
     </figure>
   </header>
 
+  {% if member.username == currentUser.username %}
+    <div class="page page-inset-small">
+      <div class="btn-group btn-group-full">
+        <a href="{{ url('account/edit') }}" class="btn btn-primary">Edit my account</a>
+      </div>
+    </div>
+  {% endif %}
+
   <div class="page page-inset-large">
 
-    <p>Profile info is shown here</p>
-
-    {% if member.username == currentUser.username %}
-      <p>This is the current user and some kind of <a href="{{ url('account/edit') }}">edit my profile</a> button should be shown?</p>
-    {% endif %}
+    <dl>
+      <dt>Website or social profile</dt>
+      <dd><p><a href="{{ member.memberUrl }}">{{ member.memberUrl }}</a></p></dd>
+      <dt>Phone</dt>
+      <dd><p>{{ member.memberPhone }}</p></dd>
+      <dt>Mailing address</dt>
+      <dd>{{ member.memberAddress|markdown }}</dd>
+      <dt>Areas of research</dt>
+      <dd><p>{{ member.memberAreasOfResearch }}</p></dd>
+      <dt>Motable publications/exhibitions</dt>
+      <dd><p>{{ member.memberPublicationsExhibitions }}</p></dd>
+    </dl>
 
   </div>
 

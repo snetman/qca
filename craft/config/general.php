@@ -14,7 +14,7 @@ return array(
         'useEmailAsUsername' => false,
         'loginPath' => 'account/login',
         'logoutPath' => 'account/logout',
-        'postLoginRedirect' => 'account/edit',
+        'postLoginRedirect' => 'account/my-account',
         'autoLoginAfterAccountActivation' => true,
         'activateAccountFailurePath' => 'account/activation-failed',
         'activateAccountSuccessPath' => 'account/activation-success',

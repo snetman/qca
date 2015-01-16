@@ -9,6 +9,10 @@ img, video, object {
 	height: auto;
 }
 
+.bordered {
+	border: $border-width $border-style $border-color;
+}
+
 iframe {
 	margin-bottom: $space;
 }
