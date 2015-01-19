@@ -35,26 +35,45 @@
   </header>
 
   {% if member.username == currentUser.username %}
-    <div class="page page-inset-small">
-      <div class="btn-group btn-group-full">
-        <a href="{{ url('account/edit') }}" class="btn btn-primary">Edit my account</a>
+    <div class="page">
+      <div class="btn-group btn-group-full btn-group-flush">
+        <a href="{{ url('account/edit') }}" class="btn btn-large btn-primary">Edit my account</a>
       </div>
     </div>
   {% endif %}
 
-  <div class="page page-inset-large">
+  <header class="band band-flush-bottom">
+    <div class="main">
+      <span class="headline">Contact info</span>
+    </div>
+  </header>
 
-    <dl>
+  <div class="page page-inset">
+
+    <dl class="divided">
       <dt>Website or social profile</dt>
-      <dd><p><a href="{{ member.memberUrl }}">{{ member.memberUrl }}</a></p></dd>
+      <dd><a href="{{ member.memberUrl }}">{{ member.memberUrl }}</a></dd>
       <dt>Phone</dt>
-      <dd><p>{{ member.memberPhone }}</p></dd>
+      <dd>{{ member.memberPhone }}</dd>
       <dt>Mailing address</dt>
-      <dd>{{ member.memberAddress|markdown }}</dd>
+      <dd>{{ member.memberAddress }}</dd>
+    </dl>
+
+  </div>
+
+  <header class="band band-flush-bottom">
+    <div class="main">
+      <span class="headline">Professional info</span>
+    </div>
+  </header>
+
+  <div class="page page-inset">
+
+    <dl class="divided">
       <dt>Areas of research</dt>
-      <dd><p>{{ member.memberAreasOfResearch }}</p></dd>
-      <dt>Motable publications/exhibitions</dt>
-      <dd><p>{{ member.memberPublicationsExhibitions }}</p></dd>
+      <dd>{{ member.memberAreasOfResearch }}</dd>
+      <dt>Notable publications/exhibitions</dt>
+      <dd>{{ member.memberPublicationsExhibitions }}</dd>
     </dl>
 
   </div>

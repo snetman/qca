@@ -35,11 +35,23 @@ ol {
 dl {
 	overflow: hidden;
 	margin: 0 0 $space;
+  &.divided {
+    dt {
+      border-top: $border-width $border-style $border-color;
+      padding-top: 1em;
+    }
+    dt:first-child {
+      border-top-width: 0;
+    }
+  }
 }
 
 dt {
 	@extend .as-h3;
   margin-bottom: pem(6,18);
+  dd + & {
+    margin-top: $space;
+  }
 }
 
 dd {

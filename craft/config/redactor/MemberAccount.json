@@ -1,0 +1,6 @@
+{
+	buttons: ['bold', 'italic', 'unorderedlist', 'orderedlist'],
+  allowedTags: ['p', 'strong', 'em', 'ul', 'ol', 'li', 'br'],
+	toolbarFixedBox: true,
+  tabFocus: false
+}
