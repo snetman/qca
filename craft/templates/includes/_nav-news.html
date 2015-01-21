@@ -1,49 +1,56 @@
-<header class="band band-flush-bottom band-inset-small">
-  <div class="main">
-    <span class="headline as-h4">Tags</a>
+{% set newsFront = craft.entries.section('newsFront').first() %}
+{% for block in newsFront.newsSidebar %}
+
+  {% if block.blockTitle %}
+    <header class="band band-flush-bottom band-inset-small">
+      <div class="main">
+        <span class="headline as-h4">{{ block.blockTitle }}</span>
+      </div>
+    </header>
+  {% endif %}
+
+  <div class="page page-inset-small">
+
+    {% switch block.type %}
+
+      {% case "textBlock" %}
+
+        {{ block.blockContent }}
+
+      {% case "widgetBlock" %}
+
+        {{ block.blockWidgetCode|raw }}
+
+      {% case "tagBlock" %}
+
+        {# grab the entries in the news section #}
+        {% set entries = craft.entries.section('news') %}
+
+        {# Grab the related tags for those entries #}
+        {% set maxTags = block.blockMaximumTags.label %}
+
+        {% set allTags = craft.tags.relatedTo({
+          sourceElement: entries
+        }).order('dateUpdated').limit( maxTags ) %}
+
+        <ul class="link-list bordered">
+
+          {% for tag in allTags %}
+
+            <li><a href="{{ url('news/tags')}}/{{ tag.name | url_encode }}">{{ tag.name }}</a></li>
+
+            {% if loop.last %}
+
+              <li class="footer"><a href="{{ url('news/tags') }}">All tags</a></li>
+
+            {% endif %}
+
+          {% endfor %}
+
+        </ul>
+
+    {% endswitch %}
+
   </div>
-</header>
 
-
-<div class="page page-inset-small">
-  <ul class="link-list bordered">
-
-    {# grab the entries in the news section #}
-    {% set entries = craft.entries.section('news') %}
-
-    {# Grab the related tags for those entries #}
-    {% set allTags = craft.tags.relatedTo({
-      sourceElement: entries
-    }).order('dateUpdated').limit(5) %}
-
-    {% for tag in allTags %}
-
-      <li><a href="{{ url('news/tags')}}/{{ tag.name | url_encode }}">{{ tag.name }}</a></li>
-
-      {% if loop.last %}
-
-        <li class="footer"><a href="{{ url('news/tags') }}">All tags</a></li>
-
-      {% endif %}
-
-    {% endfor %}
-
-  </ul>
-</div>
-<!-- /.page -->
-
-<div class="page page-inset-small">
-  <div class="wire-medium">Facebook widget here</div>
-</div>
-<!-- /.page -->
-
-<header class="band band-flush-bottom band-inset-small">
-  <div class="main">
-    <span class="headline as-h4">Newsletters</a>
-  </div>
-</header>
-
-<div class="page page-inset-small">
-  <p>To download past editions of the QCA newsletter, please visit <a href="{{ url('news/newsletters') }}">our newsletter archive</a>.</p>
-</div>
-<!-- /.page -->
+{% endfor %}

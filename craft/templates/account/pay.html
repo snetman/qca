@@ -1,51 +1,44 @@
 {% extends "_layout" %}
-{% set title = "Join QCA" %}
+{% set title = "Pay for your membership" %}
 {% set bodyClass = 'l-1col' %}
 
 {% block main %}
+
+{% requireLogin %}
+
 <div class="l-main">
 
   <header class="page-header">
     <div class="main">
-      <h1>Join QCA</h1>
+      <h1>{{ title }}</h1>
     </div>
   </header>
 
-  <header class="band band-flush-bottom">
-    <div class="main">
-      <span class="headline">Step 2: Pay for your membeship</span>
+  <form>
+
+    <div class="page page-inset">
+      <p>Please verify that the appropriate membership tier is selected below:</p>
+
+      <div class="form-group">
+        <label>Tier:</label>
+        <select class="select-group">
+          {% set memberTier = currentUser.memberMembershipTier.first() %}
+          {% for entry in craft.entries.section('membershipTiers') %}
+            <option value="{{ entry.tierPrice|number_format(0,'.',',') }}"{% if entry.id == memberTier.id %} selected{% endif %}>{{ entry.title }} – ${{ entry.tierPrice|number_format(0,'.',',') }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
     </div>
-    <!-- <a href="membership-form" class="action">Back</a> -->
-  </header>
+    <!--/.page-->
 
-  <div class="page page-inset">
-    <p>Choose your membership length and pay via Paypal.</p>
-    <form>
-      <div class="form-group">
-        <label>Membership type:</label>
-        <select class="select-group">
-          <option selected>Regular</option>
-          <option>Student</option>
-          <option>Underemployed</option>
-          <option>Institutional</option>
-        </select>
+    <div class="page">
+      <div class="btn-group btn-group-full btn-group-flush">
+        <input class="btn btn-primary btn-large" type="submit" value="Pay now" />
       </div>
-      <div class="form-group">
-        <label>Membership lenth:</label>
-        <select class="select-group">
-          <option>1 year — $30</option>
-          <option>2 year — $60</option>
-          <option>3 year — $90</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <!--<button type="submit" class="btn btn-primary">Pay via Paypal</button>-->
-        <a href="thanks" class="btn btn-primary">Pay via Paypal</a>
-      </div>
-    </form>
+    </div>
 
-  </div>
-  <!--/.page-->
+  </form>
 
 </div>
 <!--/.l-main-->

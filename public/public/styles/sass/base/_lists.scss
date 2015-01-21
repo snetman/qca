@@ -4,7 +4,8 @@
 
 ul {
 	list-style: disc;
-	margin: 0 0 $space 1.2em;
+	margin: 0 0 $space 0;
+  padding-left: 1.5em;
 
 	ul {
 		margin-bottom: 0;
@@ -13,7 +14,8 @@ ul {
 
 ol {
   list-style: decimal;
-	margin: 0 0 $space 1em;
+	margin: 0 0 $space 0;
+  padding-left: 1.75em;
 
 	ol {
   	margin-bottom: 0;
@@ -44,6 +46,9 @@ dl {
       border-top-width: 0;
     }
   }
+  p {
+    margin-top: 0;
+  }
 }
 
 dt {
@@ -56,4 +61,7 @@ dt {
 
 dd {
 	margin-left: 0;
+  > *:last-child {
+    margin-bottom: 0;
+  }
 }

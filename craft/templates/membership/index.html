@@ -32,7 +32,7 @@
             <div class="b-body">
               <h3 class="headline">{{ entry.title }}</h3>
               {{ entry.tierDescription }}
-              <p><a href="{{ url('account/create') }}" class="btn btn-primary">Join</a></p>
+              <p><a href="{{ url( 'account/create?t=' ~ entry.id ) }}" class="btn btn-primary">Join</a></p>
             </div>
             <div class="b-figure">
               <b class="mem-price">${{ entry.tierPrice|number_format(0,'.',',') }}</b>

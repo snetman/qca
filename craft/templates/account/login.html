@@ -11,15 +11,28 @@
     </div>
   </header>
 
-  <div class="page page-inset-large">
+  {# If a special message should be displayed, pull it from the query parameter #}
+  {% set message = craft.request.getParam('m') %}
+  {% if message is defined %}
+    {% switch message %}
+      {% case "passchanged" %}
+        <div class="page page-alert">
+          <p><strong>Your password has been changed.</strong> Please log in with it below.</p>
+        </div>
+    {% endswitch %}
+  {% endif %}
 
-    <form method="post" accept-charset="UTF-8">
-      {{ getCsrfInput() }}
-      <input type="hidden" name="action" value="users/login">
+  <form method="post" accept-charset="UTF-8">
+    {{ getCsrfInput() }}
+    <input type="hidden" name="action" value="users/login">
 
-      {% if errorMessage is defined %}
-          <p class="has-error"><strong>{{ errorMessage }}</strong></p>
-      {% endif %}
+    {% if errorMessage is defined %}
+      <div class="page page-alert has-error">
+        <p><strong>Whoops!</strong> {{ errorMessage }} If you forgot your password, <a href="{{ url('account/forgotpassword') }}">you can reset it here</a>.</p>
+      </div>
+    {% endif %}
+
+    <fieldset class="page page-inset">
 
       <div class="form-group">
         <label for="loginName">Email or username</label>
@@ -30,19 +43,22 @@
         <label for="password">Password <small><a href="{{ url('account/forgotpassword') }}">Forgot?</a></small></label>
         <input class="form-control" id="password" type="password" name="password">
       </div>
-      <div class="checkbox">
+      <div class="checkbox flush">
         <label>
           <input type="checkbox" name="rememberMe" value="1">
           Remember me
         </label>
       </div>
-      <div class="form-group">
-        <input class="btn btn-primary" type="submit" value="Login">
+
+    </fieldset>
+
+    <fieldset class="page">
+      <div class="btn-group btn-group-full btn-group-flush">
+        <input class="btn btn-large btn-primary" type="submit" value="Login">
       </div>
+    </fieldset>
 
-    </form>
-
-  </div>
+  </form>
 
 </div>
 <!--/.l-main-->

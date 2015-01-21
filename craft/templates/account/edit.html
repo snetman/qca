@@ -14,260 +14,262 @@
     </div>
   </header>
 
-{#
-  <div class="page page-inset-large">
-    <p>Profile information is here, maybe in editable form already?</p>
+  {% if account is defined %}
+    <div class="page page-alert has-error">
+      <p><strong>Whoops!</strong> There are errors below.</p>
+    </div>
+  {% endif %}
 
-    <h2>Craft's user profile form</h2>
+  <form method="post" accept-charset="UTF-8" enctype="multipart/form-data">
+      {{ getCsrfInput() }}
+      <input type="hidden" name="action" value="users/saveUser">
+      <input type="hidden" name="redirect" value="member/{{ currentUser.username }}?m=updated">
+      <input type="hidden" name="userId" value="{{ currentUser.id }}">
 
-<form method="post" accept-charset="UTF-8">
-    {{ getCsrfInput() }}
-    <input type="hidden" name="action" value="users/saveUser">
-    <input type="hidden" name="redirect" value="users/{{ currentUser.username }}">
-    <input type="hidden" name="userId" value="{{ currentUser.id }}">
-
-    <label for="location">Location</label>
-    <input type="text" id="location" name="fields[location]" value="{{ currentUser.location }}">
-
-    <label for="bio">Bio</label>
-    <textarea id="bio" name="fields[bio]">{{ currentUser.bio }}</textarea>
-
-    <input type="submit" value="Save Profile">
-</form>
-
-  </div>
-  <!--/.page-->
-#}
-    <form method="post" accept-charset="UTF-8" enctype="multipart/form-data">
-        {{ getCsrfInput() }}
-        <input type="hidden" name="action" value="users/saveUser">
-        <input type="hidden" name="redirect" value="member/{{ currentUser.username }}">
-        <input type="hidden" name="userId" value="{{ currentUser.id }}">
-
-        <div class="page">
-          <div class="btn-group btn-group-full btn-group-flush">
-            <input class="btn btn-primary btn-large" type="submit" value="Save changes" />
-            <a href="{{ url( 'member/' ~ currentUser.username ) }}" class="btn btn-large">Cancel</a>
-          </div>
+      <div class="page">
+        <div class="btn-group btn-group-full btn-group-flush">
+          <input class="btn btn-primary btn-large" type="submit" value="Save changes" />
+          <a href="{{ url( 'member/' ~ currentUser.username ) }}" class="btn btn-large">Cancel</a>
         </div>
+      </div>
 
-        {% macro errorList(errors) %}
-        {% if errors %}
-            <ul class="errors inline-list has-commas">
-                {% for error in errors %}
-                    <li class="has-error"><strong>{{ error }}</strong>{% if not loop.last %},{% endif %}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-        {% endmacro %}
+      {% macro errorList(errors) %}
+      {% if errors %}
+          <ul class="errors inline-list has-commas">
+              {% for error in errors %}
+                  <li class="has-error"><strong>{{ error }}</strong>{% if not loop.last %},{% endif %}</li>
+              {% endfor %}
+          </ul>
+      {% endif %}
+      {% endmacro %}
+      {% from _self import errorList %}
 
-        <header class="band band-flush-bottom">
-          <div class="main">
-            <span class="headline">Personal info</span>
-          </div>
-        </header>
+      <header class="band band-flush-bottom">
+        <div class="main">
+          <span class="headline">Personal info</span>
+        </div>
+      </header>
 
-        <fieldset class="page page-inset">
+      <fieldset class="page page-inset">
 
-            <div class="form-group">
-                <label for="firstName">First name<b class="required">*</b></label>
-                <input class="form-control" id="firstName" type="text" name="firstName" value="{{ currentUser.firstName}}">
-            </div>
-
-            <div class="form-group">
-                <label for="lastName">Last name<b class="required">*</b></label>
-                <input class="form-control" id="lastName" type="text" name="lastName" value="{{ currentUser.lastName }}">
-            </div>
-
-            {#
-            <div class="form-group">
-                <label for="email">Email<b class="required">*</b></label>
-                <input class="form-control" id="email" type="text" name="email" value="{{ currentUser.email }}">
-                {% if account is defined %}
-                    {{ errorList(account.getErrors('email')) }}
-                {% endif %}
-            </div>
-
-            <label for="password">Current Password</label>
-            <input type="text" class="form-control" id="currentPassword" name="password" />
-            {% if account is defined %}
-                {{ errorList(account.getErrors('currentPassword')) }}
-            {% endif %}
-
-            <label for="newPassword">New Password</label>
-            <input type="text" class="form-control" id="newPassword" name="newPassword" />
-            {% if account is defined %}
-                {{ errorList(account.getErrors('newPassword')) }}
-            {% endif %}
-            #}
-
-        </fieldset><!--/.page-inset-->
-
-        <header class="band band-flush-bottom">
-          <div class="main">
-            <span class="headline">Change password</span>
-          </div>
-        </header>
-
-        <fieldset class="page page-inset">
-          <p>Fill in both fields below to change your password</p>
           <div class="form-group">
-            <label for="password">Current Password</label>
-            <input type="password" class="form-control" id="currentPassword" name="password" />
-            {#
-            {% if account is defined %}
-                {{ errorList(account.getErrors('currentPassword')) }}
-            {% endif %}
-            #}
+              <label for="firstName">First name<b class="required">*</b></label>
+              <input class="form-control" id="firstName" type="text" name="firstName" value="{{ currentUser.firstName}}">
           </div>
+
           <div class="form-group">
-            <label for="newPassword">New Password</label>
-            <input type="password" class="form-control" id="newPassword" name="newPassword" />
-            {#
-            {% if account is defined %}
-                {{ errorList(account.getErrors('newPassword')) }}
-            {% endif %}
-            #}
+              <label for="lastName">Last name<b class="required">*</b></label>
+              <input class="form-control" id="lastName" type="text" name="lastName" value="{{ currentUser.lastName }}">
           </div>
-        </fieldset>
 
-        <header class="band band-flush-bottom">
-          <div class="main">
-            <span class="headline">Photo</span>
+          {#
+          <div class="form-group">
+              <label for="email">Email<b class="required">*</b></label>
+              <input class="form-control" id="email" type="text" name="email" value="{{ currentUser.email }}">
+              {% if account is defined %}
+                  {{ errorList(account.getErrors('email')) }}
+              {% endif %}
           </div>
-        </header>
 
-        <fieldset class="page page-inset">
+          <label for="password">Current Password</label>
+          <input type="text" class="form-control" id="currentPassword" name="password" />
+          {% if account is defined %}
+              {{ errorList(account.getErrors('currentPassword')) }}
+          {% endif %}
 
-        {# Check to see if the user has a photo  #}
+          <label for="newPassword">New Password</label>
+          <input type="text" class="form-control" id="newPassword" name="newPassword" />
+          {% if account is defined %}
+              {{ errorList(account.getErrors('newPassword')) }}
+          {% endif %}
+          #}
+
+      </fieldset><!--/.page-inset-->
+
+      <header class="band band-flush-bottom">
+        <div class="main">
+          <span class="headline">Change password</span>
+        </div>
+      </header>
+
+      <fieldset class="page page-inset">
+        <p>Fill in both fields below to change your password</p>
+        <div class="form-group">
+          <label for="password">Current Password</label>
+          <input type="password" class="form-control" id="currentPassword" name="password" />
+          {% if account is defined %}
+            {{ errorList(account.getErrors('currentPassword')) }}
+          {% endif %}
+        </div>
+        <div class="form-group">
+          <label for="newPassword">New Password</label>
+          <input type="password" class="form-control" id="newPassword" name="newPassword" />
+          <p class="help-block">Must be 6 characters or longer</p>
+          {% if account is defined %}
+            {{ errorList(account.getErrors('newPassword')) }}
+          {% endif %}
+        </div>
+      </fieldset>
+
+      <header class="band band-flush-bottom">
+        <div class="main">
+          <span class="headline">Photo</span>
+        </div>
+      </header>
+
+      <fieldset class="page page-inset">
+
         {% if currentUser.photoUrl %}
 
-          <img class="bordered" src="{{ currentUser.getPhotoUrl(300) }}" />
           <div class="form-group">
-            {# If a photo exists, give the option to change the user photo #}
-            <label>Replace this photo:</label>
-            <input type="file" name="userPhoto" value="Change Photo">
-            <p class="help-block">Maximum size: 300 &times; 300 pixels</p>
+            <img class="bordered" src="{{ currentUser.getPhotoUrl(200) }}" />
           </div>
+
           <div class="form-group">
-            {# Setup a delete action #}
-            <a href="#" id="deleteUserPhotoAction">Delete photo</a>
-            {# Setup a hidden deleteUserPhoto field with no value #}
-            <input type="hidden" name="deleteUserPhoto" id="deleteUserPhotoInput" value="">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" name="deleteUserPhoto" value="1"> Remove photo
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Replace photo:</label>
+            <input type="file" name="userPhoto" value="Upload">
+            <p class="help-block">Suggested size: 300 &times; 300 pixels</p>
           </div>
 
         {% else %}
 
-            <div class="form-group">
-            {# If no photo exists, give the option to upload a new one #}
-              <label>Upload a photo for the member directory</label>
-              <input type="file" name="userPhoto" value="Upload">
-              <p class="help-block">Suggested size: 300 &times; 300 pixels</p>
-            </div>
+          {% set asset = globalMembers.memberDefaultPhoto.first() %}
+
+          <div class="form-group">
+            <img class="bordered" src="{{ asset.getUrl('avatarImage') }}" />
+          </div>
+
+          <div class="form-group">
+            <label>Replace photo:</label>
+            <input type="file" name="userPhoto" value="Upload">
+            <p class="help-block">Suggested size: 300 &times; 300 pixels</p>
+          </div>
 
         {% endif %}
-        </fieldset>
 
-        <header class="band band-flush-bottom">
-          <div class="main">
-            <span class="headline">Contact info</span>
-          </div>
-        </header>
+      </fieldset>
 
-        <fieldset class="page page-inset">
-          <div class="form-group">
-            <label>Website or social profile</label>
-            <input class="form-control" type="text" id="memberUrl" name="fields[memberUrl]" placeholder="http://myurlhere.com" value="{{ currentUser.memberUrl}}">
-            <p class="help-block">e.g., personal site, LinkedIn or social profile</p>
-          </div>
-          <div class="form-group">
-            <label>Phone</label>
-            <input class="form-control" type="text" id="memberPhone" name="fields[memberPhone]" placeholder="XXX-XXX-XXXX" value="{{ currentUser.memberPhone}}">
-          </div>
-          <div class="form-group">
-            <label>Mailing address</label>
-            <textarea class="form-control" rows="4" id="memberAddress" name="fields[memberAddress]" value="{{ currentUser.memberAddress }}">
-            </textarea>
-          </div>
-        </fieldset>
+      <header class="band band-flush-bottom">
+        <div class="main">
+          <span class="headline">Contact info</span>
+        </div>
+      </header>
 
-        <header class="band band-flush-bottom">
-          <div class="main">
-            <span class="headline">Professional info</span>
-          </div>
-        </header>
+      <fieldset class="page page-inset">
+        <div class="form-group">
+          <label>Website or social profile</label>
+          <input class="form-control" type="text" id="memberUrl" name="fields[memberUrl]" placeholder="http://myurlhere.com" value="{{ currentUser.memberUrl}}">
+          <p class="help-block">e.g., personal site, LinkedIn or social profile</p>
+        </div>
+        <div class="form-group">
+          <label>Phone</label>
+          <input class="form-control" type="text" id="memberPhone" name="fields[memberPhone]" placeholder="XXX-XXX-XXXX" value="{{ currentUser.memberPhone}}">
+        </div>
+        <div class="form-group">
+          <label>Mailing address</label>
+          <textarea class="form-control" rows="4" id="memberAddress" name="fields[memberAddress]" value="{{ currentUser.memberAddress }}">
+          </textarea>
+          <p class="help-block">To insert a line break, hold the “Shift” key while you press return.</p>
+        </div>
+      </fieldset>
 
-        <fieldset class="page page-inset">
-          <div class="form-group">
-            <label>Institutional affiliation</label>
-            <input class="form-control" type="text" id="memberInstitutionalAffiliation" name="fields[memberInstitutionalAffiliation]" value="{{ currentUser.memberInstitutionalAffiliation }}">
-          </div>
-          <div class="form-group">
-            <label>Title</label>
-            <input class="form-control" type="text" id="memberTitle" name="fields[memberTitle]" value="{{ currentUser.memberTitle }}">
-            <p class="help-block">e.g., Curator, Artist, Professor</p>
-          </div>
-          <div class="form-group">
-            <label>Areas of research</label>
-            <textarea class="form-control" rows="3" id="memberAreasOfResearch" name="fields[memberAreasOfResearch]" value="{{ currentUser.memberAreasOfResearch }}"></textarea>
-          </div>
-          <div class="form-group">
-            <label>Notable publications/exhibitions</label>
-            <textarea class="form-control" rows="6" id="memberPublicationsExhibitions" name="fields[memberPublicationsExhibitions]" value="{{ currentUser.memberPublicationsExhibitions }}"></textarea>
-          </div>
+      <header class="band band-flush-bottom">
+        <div class="main">
+          <span class="headline">Professional info</span>
+        </div>
+      </header>
 
-          {# Other comments are only collected for passing on to officers
-
-          <div class="form-group">
-            <label>Other comments</label>
-            <textarea class="form-control" rows="6" id="memberComments" name="fields[memberComments]" value="{{ currentUser.memberComments }}"></textarea>
-          </div>
-
-          #}
-        </fieldset>
-
-        <header class="band band-flush-bottom">
-          <div class="main">
-            <span class="headline">Preferences</span>
-          </div>
-        </header>
-
-        <fieldset class="page page-inset">
-          <div class="form-group">
-            <label>On the "Our Members" page:</label>
-            <div class="checkbox">
-              <label>
-                <input type="checkbox" class="js-checkbox" data-target="#memberIncludeMe" value="1" {% if currentUser.memberIncludeMe %}checked="checked"{% endif %}>
-                Include me in the member directory visible to other members?
-              </label>
-              <input type="hidden" class="js-lightswitch" id="memberIncludeMe" name="fields[memberIncludeMe]" value="{% if currentUser.memberIncludeMe %}1{% else %}0{% endif %}">
-            </div>
-            <div class="checkbox">
-              <label>
-                <input type="checkbox" class="js-checkbox" data-target="#memberShowEmailLink" value="1" {% if currentUser.memberShowEmailLink %}checked="checked"{% endif %}>
-                Show a link to contact me via email in the member directory?
-              </label>
-              <input type="hidden" class="js-lightswitch" id="memberShowEmailLink" name="fields[memberShowEmailLink]" value="{% if currentUser.memberShowEmailLink %}1{% else %}0{% endif %}">
-            </div>
-            <div class="checkbox">
-              <label>
-                <input type="checkbox" class="js-checkbox" data-target="#memberContactMe" value="1" {% if currentUser.memberContactMe %}checked="checked"{% endif %}>
-                I’m interested in being interviewed for a member profile.
-              </label>
-              <input type="hidden" class="js-lightswitch" id="memberContactMe" name="fields[memberContactMe]" value="{% if currentUser.memberContactMe %}1{% else %}0{% endif %}">
-            </div>
-
-          </div>
-        </fieldset>
-
-        <div class="page">
-          <div class="btn-group btn-group-full btn-group-flush">
-            <input class="btn btn-primary btn-large" type="submit" value="Save changes" />
-            <a href="{{ url( 'member/' ~ currentUser.username ) }}" class="btn btn-large">Cancel</a>
-          </div>
+      <fieldset class="page page-inset">
+        <div class="form-group">
+          <label>Institutional affiliation</label>
+          <input class="form-control" type="text" id="memberInstitutionalAffiliation" name="fields[memberInstitutionalAffiliation]" value="{{ currentUser.memberInstitutionalAffiliation }}">
+        </div>
+        <div class="form-group">
+          <label>Title</label>
+          <input class="form-control" type="text" id="memberTitle" name="fields[memberTitle]" value="{{ currentUser.memberTitle }}">
+          <p class="help-block">e.g., Curator, Artist, Professor</p>
+        </div>
+        <div class="form-group">
+          <label>Areas of research</label>
+          <textarea class="form-control" rows="3" id="memberAreasOfResearch" name="fields[memberAreasOfResearch]" value="{{ currentUser.memberAreasOfResearch }}"></textarea>
+        </div>
+        <div class="form-group">
+          <label>Notable publications/exhibitions</label>
+          <textarea class="form-control" rows="6" id="memberPublicationsExhibitions" name="fields[memberPublicationsExhibitions]" value="{{ currentUser.memberPublicationsExhibitions }}"></textarea>
         </div>
 
-    </form>
+      </fieldset>
+
+      <header class="band band-flush-bottom">
+        <div class="main">
+          <span class="headline">Preferences</span>
+        </div>
+      </header>
+
+      <fieldset class="page page-inset">
+        <div class="form-group">
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" class="js-checkbox" data-target="#memberIncludeMe" value="1" {% if currentUser.memberIncludeMe %}checked="checked"{% endif %}>
+              Include me in the <a href="{{ url('membership/members') }}">member directory</a> that is visible to other members?
+            </label>
+            <input type="hidden" class="js-lightswitch" id="memberIncludeMe" name="fields[memberIncludeMe]" value="{% if currentUser.memberIncludeMe %}1{% else %}0{% endif %}">
+          </div>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" class="js-checkbox" data-target="#memberShowEmail" value="1" {% if currentUser.memberShowEmail %}checked="checked"{% endif %}>
+              Allow other members to view my email address?
+            </label>
+            <input type="hidden" class="js-lightswitch" id="memberShowEmail" name="fields[memberShowEmail]" value="{% if currentUser.memberShowEmail %}1{% else %}0{% endif %}">
+          </div>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" class="js-checkbox" data-target="#memberContactMe" value="1" {% if currentUser.memberContactMe %}checked="checked"{% endif %}>
+              I’m interested in being interviewed for a member profile.
+            </label>
+            <input type="hidden" class="js-lightswitch" id="memberContactMe" name="fields[memberContactMe]" value="{% if currentUser.memberContactMe %}1{% else %}0{% endif %}">
+          </div>
+        </div>
+      </fieldset>
+
+      <header class="band band-flush-bottom">
+        <div class="main">
+          <span class="headline">Membership</span>
+        </div>
+      </header>
+
+      <div class="page page-inset">
+
+        <dl class="divided">
+          {% set memberTier = currentUser.memberMembershipTier.first() %}
+          {% if memberTier is defined %}
+            <dt>Membership tier</dt>
+            <dd>{{ memberTier.title }}</dd>
+          {% endif %}
+          {% if currentUser.memberRenewalDate %}
+            <dt>Renewal date</dt>
+            <dd>{{ currentUser.memberRenewalDate|date('m.d.y') }}</dd>
+          {% endif %}
+        </dl>
+
+      </div>
+
+      <div class="page">
+        <div class="btn-group btn-group-full btn-group-flush">
+          <input class="btn btn-primary btn-large" type="submit" value="Save changes" />
+          <a href="{{ url( 'member/' ~ currentUser.username ) }}" class="btn btn-large">Cancel</a>
+        </div>
+      </div>
+
+  </form>
 
 </div>
 <!--/.l-main-->
@@ -290,6 +292,7 @@
   });
 {% endset %}
 
+{#
 {% set deleteUserPhotoJs %}
 
     // Bind an action to the deleteUserPhotoAction click event
@@ -303,24 +306,23 @@
     });
 
 {% endset %}
+#}
 
 {% set redactorJs %}
 
   $('#memberAreasOfResearch').redactor({
     buttons: ['bold', 'italic', 'unorderedlist', 'orderedlist'],
-    allowedTags: ['strong', 'em', 'ul', 'ol', 'li', 'br'],
+    allowedTags: ['p', 'strong', 'em', 'ul', 'ol', 'li', 'br'],
     tabKey: false,
-    linebreaks: true,
     initCallback: function(){
       this.code.set( '{{ currentUser.memberAreasOfResearch|escape("js") }}' );
     }
   });
 
   $('#memberAddress').redactor({
-    buttons: ['bold', 'italic', 'unorderedlist', 'orderedlist'],
-    allowedTags: ['strong', 'em', 'ul', 'ol', 'li', 'br'],
+    toolbar: false,
+    allowedTags: ['p', 'strong', 'em', 'br'],
     tabKey: false,
-    linebreaks: true,
     initCallback: function(){
       this.code.set( '{{ currentUser.memberAddress|escape("js") }}' );
     }
@@ -328,9 +330,8 @@
 
   $('#memberPublicationsExhibitions').redactor({
     buttons: ['bold', 'italic', 'unorderedlist', 'orderedlist'],
-    allowedTags: ['strong', 'em', 'ul', 'ol', 'li', 'br'],
+    allowedTags: ['p', 'strong', 'em', 'ul', 'ol', 'li', 'br'],
     tabKey: false,
-    linebreaks: true,
     initCallback: function(){
       this.code.set( '{{ currentUser.memberPublicationsExhibitions|escape("js") }}' );
     }
@@ -345,6 +346,10 @@
     background-color: #f5f5f5;
     color: #666666;
     border-color: #e6e6e6;
+  }
+  .redactor-editor:focus {
+    background-color: #ffffff;
+    border-color: #1dc898;
   }
   .redactor-editor p,
   .redactor-editor li {
@@ -362,10 +367,12 @@
     background: #1538e6;
     color: #fff;
   }
+  .redactor-box {
+    margin-bottom: 0;
+  }
 {% endset %}
 
 {% includeJs checkboxToLightboxJs %}
-{% includeJs deleteUserPhotoJs %}
 {% includeJs redactorJs %}
 {% includeCss redactorCss %}
 

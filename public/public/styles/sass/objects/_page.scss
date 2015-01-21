@@ -23,6 +23,29 @@
       padding: .8*$space-double $space $space-double;
     }
   }
+  &-alert {
+    padding: ($space-half * .75) $space-half;
+    background-color: $info;
+    color: $black;
+
+    @include breakpoint($bp-med) {
+      padding: {
+        left: $space;
+        right: $space;
+      }
+    }
+  }
+  &.page-alert.has-error {
+    background-color: $error;
+    color: $white;
+    a {
+      color: $white;
+      text-decoration: underline;
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
 
   + .page {
     margin-top: 2px;

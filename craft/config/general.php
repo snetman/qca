@@ -18,6 +18,8 @@ return array(
         'autoLoginAfterAccountActivation' => true,
         'activateAccountFailurePath' => 'account/activation-failed',
         'activateAccountSuccessPath' => 'account/activation-success',
+        'setPasswordPath' => 'account/setpassword',
+        'setPasswordSuccessPath' => 'account/login?m=passchanged',
     ),
 
     // Local

@@ -29,7 +29,13 @@
 
             <li>
               <div class="block-switch">
-                <img class="b-figure" src="{{ officer.getPhotoUrl(200) }}" />
+                {% if officer.photoUrl %}
+                  <img class="b-figure" src="{{ officer.getPhotoUrl(200) }}">
+                {% else %}
+                  {% set asset = globalMembers.memberDefaultPhoto.first() %}
+                  <img class="b-figure" src="{{ asset.getUrl('avatarImage') }}" alt="avatar" />
+                {% endif %}
+
                 <dl class="b-body">
                   <dt class="headline">{{ officer.fullName}}</dt>
                   <dd>{{ block.role }}</dd>

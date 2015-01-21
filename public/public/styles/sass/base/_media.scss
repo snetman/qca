@@ -7,10 +7,10 @@
 img, video, object {
 	max-width: 100%;
 	height: auto;
-}
-
-.bordered {
-	border: $border-width $border-style $border-color;
+	&.bordered {
+		border: $border-width $border-style $border-color;
+		padding: 5px;
+	}
 }
 
 iframe {
@@ -33,6 +33,7 @@ figure {
 	}
 
 	&.fig-left {
+		padding: 5px;
 		float: left;
 		margin-right: gutter(12);
 		width: span(4 of 12);

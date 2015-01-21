@@ -11,73 +11,147 @@
 
 {% requireLogin %}
 
-<div class="l-main">
+{% if member.memberIncludeMe or member.username == currentUser.username %}
 
-  <header class="page-header">
-    <div class="main">
-      <h1>{{ member.fullName }}
-        {% if member.memberTitle or member.memberInstitutionalAffiliation %}
-          <small>
-            {% if not member.memberInstitutionalAffiliation %}
-              {{ member.memberTitle }}
-            {% elseif not member.memberTitle %}
-              {{ member.memberInstitutionalAffiliation }}
-            {% else %}
-              {{ member.memberTitle }}, {{ member.memberInstitutionalAffiliation }}
-            {% endif %}
-          </small>
-        {% endif %}
-      </h1>
-    </div>
-    <figure>
-      <img src="{{ member.getPhotoUrl(200) }}">
-    </figure>
-  </header>
+  <div class="l-main">
 
-  {% if member.username == currentUser.username %}
-    <div class="page">
-      <div class="btn-group btn-group-full btn-group-flush">
-        <a href="{{ url('account/edit') }}" class="btn btn-large btn-primary">Edit my account</a>
+    <header class="page-header">
+      <div class="main">
+        <h1>{{ member.fullName }}
+          {% if member.memberTitle or member.memberInstitutionalAffiliation %}
+            <small>
+              {% if not member.memberInstitutionalAffiliation %}
+                {{ member.memberTitle }}
+              {% elseif not member.memberTitle %}
+                {{ member.memberInstitutionalAffiliation }}
+              {% else %}
+                {{ member.memberTitle }}, {{ member.memberInstitutionalAffiliation }}
+              {% endif %}
+            </small>
+          {% endif %}
+        </h1>
       </div>
-    </div>
-  {% endif %}
+      <figure>
+        {% if member.photoUrl %}
+          <img src="{{ member.getPhotoUrl(200) }}">
+        {% else %}
+          {% set asset = globalMembers.memberDefaultPhoto.first() %}
+          <img src="{{ asset.getUrl('avatarImage') }}" alt="avatar" />
+        {% endif %}
+      </figure>
+    </header>
 
-  <header class="band band-flush-bottom">
-    <div class="main">
-      <span class="headline">Contact info</span>
-    </div>
-  </header>
+    {% if member.username == currentUser.username %}
 
-  <div class="page page-inset">
+      {# If a special message should be displayed, pull it from the query parameter #}
+      {% set message = craft.request.getParam('m') %}
+      {% if message is defined %}
+        {% switch message %}
+          {% case "updated" %}
+            <div class="page page-alert">
+              <p><strong>Account updated.</strong></p>
+            </div>
+        {% endswitch %}
+      {% endif %}
 
-    <dl class="divided">
-      <dt>Website or social profile</dt>
-      <dd><a href="{{ member.memberUrl }}">{{ member.memberUrl }}</a></dd>
-      <dt>Phone</dt>
-      <dd>{{ member.memberPhone }}</dd>
-      <dt>Mailing address</dt>
-      <dd>{{ member.memberAddress }}</dd>
-    </dl>
+      {# If the membership is past its renewal date, display a message #}
+      {% if currentUser.memberRenewalDate|length and now >= currentUser.memberRenewalDate %}
+        <div class="page page-inset page-alert">
+          {{ globalMembers.memberPaymentDueMessage }}
+          <p><a class="btn btn-primary" href="{{ url('account/pay') }}">Renew now</a></p>
+        </div>
+      {% endif %}
+
+      <div class="page">
+        <div class="btn-group btn-group-full btn-group-flush">
+          <a href="{{ url('account/edit') }}" class="btn btn-large btn-primary">Edit my account</a>
+        </div>
+      </div>
+
+    {% endif %}
+
+    {% if member.memberShowEmail or member.memberUrl|length or member.memberPhone|length or member.memberAddress|length %}
+
+      <header class="band band-flush-bottom">
+        <div class="main">
+          <span class="headline">Contact info</span>
+        </div>
+      </header>
+
+      <div class="page page-inset">
+
+        <dl class="divided">
+          {% if member.memberUrl|length %}
+            <dt>Website or social profile</dt>
+            <dd><a href="{{ member.memberUrl }}">{{ member.memberUrl }}</a></dd>
+          {% endif %}
+          {% if member.email|length and member.memberShowEmail %}
+            <dt>Email</dt>
+            <dd><a href="mailto:{{ member.email }}">{{ member.email }}</a></dd>
+          {% endif %}
+          {% if member.memberPhone|length %}
+            <dt>Phone</dt>
+            <dd>{{ member.memberPhone }}</dd>
+          {% endif %}
+          {% if member.memberAddress|length %}
+            <dt>Mailing address</dt>
+            <dd>{{ member.memberAddress }}</dd>
+          {% endif %}
+        </dl>
+
+      </div>
+
+    {% endif %}
+
+    {% if member.memberAreasOfResearch|length or member.memberPublicationsExhibitions|length %}
+
+      <header class="band band-flush-bottom">
+        <div class="main">
+          <span class="headline">Professional info</span>
+        </div>
+      </header>
+
+      <div class="page page-inset">
+
+        <dl class="divided">
+          {% if member.memberAreasOfResearch|length %}
+            <dt>Areas of research</dt>
+            <dd>{{ member.memberAreasOfResearch }}</dd>
+          {% endif %}
+          {% if member.memberPublicationsExhibitions %}
+            <dt>Notable publications/exhibitions</dt>
+            <dd>{{ member.memberPublicationsExhibitions }}</dd>
+          {% endif %}
+        </dl>
+
+      </div>
+
+    {% endif %}
+
+    {# If there's a related profile for this member, display a link to it #}
+    {% set profile = craft.entries.section('memberProfiles').relatedTo(member) %}
+    {% if profile|length %}
+
+      <header class="band band-flush-bottom">
+        <div class="main">
+          <span class="headline">Profile</span>
+        </div>
+      </header>
+
+      <div class="page page-inset">
+        <p><a href="{{ profile.first().url }}">View profile</a></p>
+
+      </div>
+
+    {% endif %}
 
   </div>
+  <!--/.l-main-->
 
-  <header class="band band-flush-bottom">
-    <div class="main">
-      <span class="headline">Professional info</span>
-    </div>
-  </header>
+{% else %}
 
-  <div class="page page-inset">
+  {% exit 404 %}
 
-    <dl class="divided">
-      <dt>Areas of research</dt>
-      <dd>{{ member.memberAreasOfResearch }}</dd>
-      <dt>Notable publications/exhibitions</dt>
-      <dd>{{ member.memberPublicationsExhibitions }}</dd>
-    </dl>
+{% endif %}
 
-  </div>
-
-</div>
-<!--/.l-main-->
 {% endblock %}

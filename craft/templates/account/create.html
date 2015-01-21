@@ -11,175 +11,222 @@
     </div>
   </header>
 
-    <form method="post" accept-charset="UTF-8" enctype="multipart/form-data">
-        {{ getCsrfInput() }}
-        <input type="hidden" name="action" value="users/saveUser">
-        <input type="hidden" name="redirect" value="account/activation-required">
+  {% if account is defined %}
+    <div class="page page-alert has-error">
+      <p><strong>Whoops!</strong> There are errors below.</p>
+    </div>
+  {% endif %}
 
-        {% macro errorList(errors) %}
-        {% if errors %}
-            <ul class="errors inline-list has-commas">
-                {% for error in errors %}
-                    <li class="has-error"><strong>{{ error }}</strong>{% if not loop.last %},{% endif %}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-        {% endmacro %}
+  <form method="post" accept-charset="UTF-8" enctype="multipart/form-data">
+      {{ getCsrfInput() }}
+      <input type="hidden" name="action" value="users/saveUser">
+      <input type="hidden" name="redirect" value="account/activation-required">
 
-        {% from _self import errorList %}
+      {% macro errorList(errors) %}
+      {% if errors %}
+          <ul class="errors inline-list has-commas">
+              {% for error in errors %}
+                  <li class="has-error"><strong>{{ error }}</strong>{% if not loop.last %},{% endif %}</li>
+              {% endfor %}
+          </ul>
+      {% endif %}
+      {% endmacro %}
 
-        <header class="band band-flush-bottom">
-          <div class="main">
-            <span class="headline">Personal info</span>
-          </div>
-        </header>
+      {% from _self import errorList %}
 
-        <fieldset class="page page-inset">
+      {# Fetch the selected membership tier from the url 't' parameter and store it in the created profile #}
+      {% set tier = craft.request.getParam('t') %}
+      {% if tier|length %}
+        <input type="hidden" name="fields[memberMembershipTier][]" value="{{ tier }}">
+      {% else %}
+        <input type="hidden" name="fields[memberMembershipTier][]" value="61"> {# '61' is the entry id for the Regular memberhsip tier #}
+      {% endif %}
 
-            <div class="form-group">
-                <label for="username">Username<b class="required">*</b></label>
-                <input class="form-control" id="username" type="text" name="username"
-                {%- if account is defined %} value="{{ account.username }}"{% endif -%}>
+      <header class="band band-flush-bottom">
+        <div class="main">
+          <span class="headline">Personal info</span>
+        </div>
+      </header>
 
-                {% if account is defined %}
-                {{ errorList(account.getErrors('username')) }}
-                {% endif %}
-            </div>
+      <fieldset class="page page-inset">
 
-            <div class="form-group">
-                <label for="firstName">First name<b class="required">*</b></label>
-                <input class="form-control" id="firstName" type="text" name="firstName"
-                {%- if account is defined %} value="{{ account.firstName }}"{% endif -%}>
-
-                {% if account is defined %}
-                {{ errorList(account.getErrors('firstName')) }}
-                {% endif %}
-            </div>
-
-            <div class="form-group">
-                <label for="lastName">Last name<b class="required">*</b></label>
-                <input class="form-control" id="lastName" type="text" name="lastName"
-                {%- if account is defined %} value="{{ account.lastName }}"{% endif -%}>
-
-                {% if account is defined %}
-                {{ errorList(account.getErrors('lastName')) }}
-                {% endif %}
-            </div>
-
-            <div class="form-group">
-                <label for="email">Email<b class="required">*</b></label>
-                <input class="form-control" id="email" type="text" name="email"
-                {%- if account is defined %} value="{{ account.email }}"{% endif %}>
-
-                {% if account is defined %}
-                {{ errorList(account.getErrors('email')) }}
-                {% endif %}
-            </div>
-
-            <div class="form-group">
-                <label for="password">Password<b class="required">*</b></label>
-                <input class="form-control" id="password" type="password" name="password">
-                <p class="help-block">Must be 6 characters or longer</p>
-                {% if account is defined %}
-                {{ errorList(account.getErrors('password')) }}
-                {% endif %}
-            </div>
-
-            <!-- Retype password field here? -->
-
-        </fieldset><!--/.page-inset-->
-
-        <header class="band band-flush-bottom">
-          <div class="main">
-            <span class="headline">Contact info</span>
-          </div>
-        </header>
-
-        <fieldset class="page page-inset">
           <div class="form-group">
-            <label>Website or social profile</label>
-            <input class="form-control" type="text" id="memberUrl" name="fields[memberUrl]" placeholder="http://myurlhere.com"{%- if account is defined %} value="{{ account.memberUrl}}"{% endif -%}>
-            <p class="help-block">e.g., personal site, LinkedIn or social profile</p>
-          </div>
-          <div class="form-group">
-            <label>Phone</label>
-            <input class="form-control" type="text" id="memberPhone" name="fields[memberPhone]" placeholder="XXX-XXX-XXXX"{%- if account is defined %} value="{{ account.memberPhone}}"{% endif -%}>
-          </div>
-          <div class="form-group">
-            <label>Mailing address</label>
-            <textarea class="form-control" rows="4" id="memberAddress" name="fields[memberAddress]"{%- if account is defined %} value="{{ account.memberAddress }}"{% endif %}>
-            </textarea>
-          </div>
-        </fieldset>
+              <label for="username">Username<b class="required">*</b></label>
+              <input class="form-control" id="username" type="text" name="username"
+              {%- if account is defined %} value="{{ account.username }}"{% endif -%}>
 
-        <header class="band band-flush-bottom">
-          <div class="main">
-            <span class="headline">Professional info</span>
+              {% if account is defined %}
+              {{ errorList(account.getErrors('username')) }}
+              {% endif %}
           </div>
-        </header>
 
-        <fieldset class="page page-inset">
           <div class="form-group">
-            <label>Institutional affiliation</label>
-            <input class="form-control" type="text" id="memberInstitutionalAffiliation" name="fields[memberInstitutionalAffiliation]"{% if account is defined %} value="{{ account.memberInstitutionalAffiliation }}"{% endif %}>
-          </div>
-          <div class="form-group">
-            <label>Title</label>
-            <input class="form-control" type="text" id="memberTitle" name="fields[memberTitle]"{% if account is defined %} value="{{ account.memberTitle }}"{% endif %}>
-            <p class="help-block">e.g., Curator, Artist, Professor</p>
-          </div>
-          <div class="form-group">
-            <label>Areas of research</label>
-            <textarea class="form-control" rows="3" id="memberAreasOfResearch" name="fields[memberAreasOfResearch]"{% if account is defined %} value="{{ account.memberAreasOfResearch }}"{% endif %}></textarea>
-          </div>
-          <div class="form-group">
-            <label>Notable publications/exhibitions</label>
-            <textarea class="form-control" rows="6" id="memberPublicationsExhibitions" name="fields[memberPublicationsExhibitions]"{% if account is defined %} value="{{ account.memberPublicationsExhibitions }}"{% endif %}></textarea>
-          </div>
-          <div class="form-group">
-            <label>Other comments</label>
-            <textarea class="form-control" rows="6" id="memberComments" name="fields[memberComments]"{% if account is defined %} value="{{ account.memberComments }}"{% endif %}></textarea>
-          </div>
-        </fieldset>
+              <label for="firstName">First name<b class="required">*</b></label>
+              <input class="form-control" id="firstName" type="text" name="firstName"
+              {%- if account is defined %} value="{{ account.firstName }}"{% endif -%}>
 
-        <header class="band band-flush-bottom">
-          <div class="main">
-            <span class="headline">Preferences</span>
+              {% if account is defined %}
+              {{ errorList(account.getErrors('firstName')) }}
+              {% endif %}
           </div>
-        </header>
 
-        <fieldset class="page page-inset">
           <div class="form-group">
-            <label>On the "Our Members" page:</label>
-            <div class="checkbox">
-              <label>
-                <input type="checkbox" id="memberIncludeMe" name="fields[memberIncludeMe]" value="1" {% if account is defined and account.memberIncludeMe %}checked="checked"{% endif %}>
-                Include me in the member directory visible to other members?
-              </label>
-            </div>
-            <div class="checkbox">
-              <label>
-                <input type="checkbox" id="memberShowEmailLink" name="fields[memberShowEmailLink]" value="1" {% if account is defined and account.memberShowEmailLink %}checked="checked"{% endif %}>
-                Show a link to contact me via email in the member directory?
-              </label>
-            </div>
-            <div class="checkbox">
-              <label>
-                <input type="checkbox" id="memberContactMe" name="fields[memberContactMe]" value="1" {% if account is defined and account.memberContactMe %}checked="checked"{% endif %}>
-                I'm interested in QCA officers contacting me for a future member profile?
-              </label>
-            </div>
-          </div>
-        </fieldset>
+              <label for="lastName">Last name<b class="required">*</b></label>
+              <input class="form-control" id="lastName" type="text" name="lastName"
+              {%- if account is defined %} value="{{ account.lastName }}"{% endif -%}>
 
-        <div class="page">
-          <div class="btn-group btn-group-full btn-group-flush">
-            <input class="btn btn-primary btn-large" type="submit" value="Create account" />
-            <a href="{{ url( 'membership' ) }}" class="btn btn-large">Cancel</a>
+              {% if account is defined %}
+              {{ errorList(account.getErrors('lastName')) }}
+              {% endif %}
           </div>
+
+          <div class="form-group">
+              <label for="email">Email<b class="required">*</b></label>
+              <input class="form-control" id="email" type="text" name="email"
+              {%- if account is defined %} value="{{ account.email }}"{% endif %}>
+
+              {% if account is defined %}
+              {{ errorList(account.getErrors('email')) }}
+              {% endif %}
+          </div>
+
+          <div class="form-group">
+              <label for="password">Password<b class="required">*</b></label>
+              <input class="form-control" id="password" type="password" name="password">
+              <p class="help-block">Must be 6 characters or longer</p>
+              {% if account is defined %}
+              {{ errorList(account.getErrors('password')) }}
+              {% endif %}
+          </div>
+
+          <!-- Retype password field here? -->
+
+      </fieldset><!--/.page-inset-->
+
+      <header class="band band-flush-bottom">
+        <div class="main">
+          <span class="headline">Photo</span>
+        </div>
+      </header>
+
+      <fieldset class="page page-inset">
+
+        {% set asset = globalMembers.memberDefaultPhoto.first() %}
+
+        <div class="form-group">
+          <img class="bordered" src="{{ asset.getUrl('avatarImage') }}" />
         </div>
 
-    </form>
+        <div class="form-group">
+          <label>Replace photo:</label>
+          <input type="file" name="userPhoto" value="Upload">
+          <p class="help-block">Suggested size: 300 &times; 300 pixels</p>
+        </div>
+
+      </fieldset>
+
+
+      <header class="band band-flush-bottom">
+        <div class="main">
+          <span class="headline">Contact info</span>
+        </div>
+      </header>
+
+      <fieldset class="page page-inset">
+        <div class="form-group">
+          <label>Website or social profile</label>
+          <input class="form-control" type="text" id="memberUrl" name="fields[memberUrl]" placeholder="http://myurlhere.com"{%- if account is defined %} value="{{ account.memberUrl}}"{% endif -%}>
+          <p class="help-block">e.g., personal site, LinkedIn or social profile</p>
+        </div>
+        <div class="form-group">
+          <label>Phone</label>
+          <input class="form-control" type="text" id="memberPhone" name="fields[memberPhone]" placeholder="XXX-XXX-XXXX"{%- if account is defined %} value="{{ account.memberPhone}}"{% endif -%}>
+        </div>
+        <div class="form-group">
+          <label>Mailing address</label>
+          <textarea class="form-control" rows="4" id="memberAddress" name="fields[memberAddress]"{%- if account is defined %} value="{{ account.memberAddress }}"{% endif %}>
+          </textarea>
+          <p class="help-block">To insert a line break, hold the “Shift” key while you press return.</p>
+        </div>
+      </fieldset>
+
+      <header class="band band-flush-bottom">
+        <div class="main">
+          <span class="headline">Professional info</span>
+        </div>
+      </header>
+
+      <fieldset class="page page-inset">
+        <div class="form-group">
+          <label>Institutional affiliation</label>
+          <input class="form-control" type="text" id="memberInstitutionalAffiliation" name="fields[memberInstitutionalAffiliation]"{% if account is defined %} value="{{ account.memberInstitutionalAffiliation }}"{% endif %}>
+        </div>
+        <div class="form-group">
+          <label>Title</label>
+          <input class="form-control" type="text" id="memberTitle" name="fields[memberTitle]"{% if account is defined %} value="{{ account.memberTitle }}"{% endif %}>
+          <p class="help-block">e.g., Curator, Artist, Professor</p>
+        </div>
+        <div class="form-group">
+          <label>Areas of research</label>
+          <textarea class="form-control" rows="3" id="memberAreasOfResearch" name="fields[memberAreasOfResearch]"{% if account is defined %} value="{{ account.memberAreasOfResearch }}"{% endif %}></textarea>
+        </div>
+        <div class="form-group">
+          <label>Notable publications/exhibitions</label>
+          <textarea class="form-control" rows="6" id="memberPublicationsExhibitions" name="fields[memberPublicationsExhibitions]"{% if account is defined %} value="{{ account.memberPublicationsExhibitions }}"{% endif %}></textarea>
+        </div>
+
+      </fieldset>
+
+      <header class="band band-flush-bottom">
+        <div class="main">
+          <span class="headline">Preferences</span>
+        </div>
+      </header>
+
+      <fieldset class="page page-inset">
+        <div class="form-group">
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" id="memberIncludeMe" name="fields[memberIncludeMe]" value="1" {% if account is defined and account.memberIncludeMe %}checked="checked"{% endif %}>
+              Include me in the <a href="{{ url('membership/members') }}">member directory</a> that is visible to other members?
+            </label>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" id="memberShowEmail" name="fields[memberShowEmail]" value="1" {% if account is defined and account.memberShowEmail %}checked="checked"{% endif %}>
+              Allow other members to view my email address?
+            </label>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" id="memberContactMe" name="fields[memberContactMe]" value="1" {% if account is defined and account.memberContactMe %}checked="checked"{% endif %}>
+              I’m interested in being interviewed for a member profile.
+            </label>
+          </div>
+        </div>
+      </fieldset>
+
+      <header class="band band-flush-bottom">
+        <div class="main">
+          <span class="headline">Comments</span>
+        </div>
+      </header>
+
+      <fieldset class="page page-inset">
+        <div class="form-group">
+          <label>If you’d like to share any other comments with QCA’s officers, include them here:</label>
+          <textarea class="form-control" rows="3" id="memberComments" name="fields[memberComments]"{% if account is defined %} value="{{ account.memberComments }}"{% endif %}></textarea>
+        </div>
+      </fieldset>
+
+      <div class="page">
+        <div class="btn-group btn-group-full btn-group-flush">
+          <input class="btn btn-primary btn-large" type="submit" value="Create account" />
+          <a href="{{ url( 'membership' ) }}" class="btn btn-large">Cancel</a>
+        </div>
+      </div>
+
+  </form>
 
 </div>
 <!--/.l-main-->
@@ -204,19 +251,17 @@
 
   $('#memberAreasOfResearch').redactor({
     buttons: ['bold', 'italic', 'unorderedlist', 'orderedlist'],
-    allowedTags: ['strong', 'em', 'ul', 'ol', 'li', 'br'],
+    allowedTags: ['p', 'strong', 'em', 'ul', 'ol', 'li', 'br'],
     tabKey: false,
-    linebreaks: true,
     initCallback: function(){
       this.code.set( '{{ memberAreasOfResearchPlaceholder }}' );
     }
   });
 
   $('#memberAddress').redactor({
-    buttons: ['bold', 'italic', 'unorderedlist', 'orderedlist'],
-    allowedTags: ['strong', 'em', 'ul', 'ol', 'li', 'br'],
+    toolbar: false,
+    allowedTags: ['p', 'strong', 'em', 'br'],
     tabKey: false,
-    linebreaks: true,
     initCallback: function(){
       this.code.set( '{{ memberAddressPlaceholder }}' );
     }
@@ -224,9 +269,8 @@
 
   $('#memberPublicationsExhibitions').redactor({
     buttons: ['bold', 'italic', 'unorderedlist', 'orderedlist'],
-    allowedTags: ['strong', 'em', 'ul', 'ol', 'li', 'br'],
+    allowedTags: ['p', 'strong', 'em', 'ul', 'ol', 'li', 'br'],
     tabKey: false,
-    linebreaks: true,
     initCallback: function(){
       this.code.set( '{{ memberPublicationsExhibitionsPlaceholder }}' );
     }
@@ -241,6 +285,10 @@
     background-color: #f5f5f5;
     color: #666666;
     border-color: #e6e6e6;
+  }
+  .redactor-editor:focus {
+    background-color: #ffffff;
+    border-color: #1dc898;
   }
   .redactor-editor p,
   .redactor-editor li {
@@ -257,6 +305,9 @@
   .redactor-toolbar li a.redactor-act {
     background: #1538e6;
     color: #fff;
+  }
+  .redactor-box {
+    margin-bottom: 0;
   }
 {% endset %}
 

@@ -32,7 +32,7 @@
       {# Hold this back until I figure out whether to hide or not from non-members #}
 
       {#
-      {% if subject.memberShowEmailLink %}
+      {% if subject.memberShowEmail %}
         {% set emailLink = 'mailto:' ~ subject.email %}
         <ul class="inline-list has-commas">
           <li><a href="{{ emailLink|entities }}">Email</a></li>
@@ -42,7 +42,12 @@
 
     </div>
     <figure>
-      <img src="{{ subject.getPhotoUrl(200) }}">
+      {% if subject.photoUrl %}
+        <img src="{{ subject.getPhotoUrl(200) }}">
+      {% else %}
+        {% set asset = globalMembers.memberDefaultPhoto.first() %}
+        <img src="{{ asset.getUrl('avatarImage') }}" alt="avatar" />
+      {% endif %}
     </figure>
   </header>
 
@@ -57,6 +62,10 @@
       <dd>{{ block.answer }}</dd>
     {% endfor %}
     </dl>
+
+    {% if subject.memberIncludeMe and currentUser %}
+      <p><a href="{{ url( 'member/' ~ subject.username ) }}">More about {{ subject.firstName }}</a></p>
+    {% endif %}
 
   </div>
   <!--/.page-->

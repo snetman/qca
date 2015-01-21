@@ -512,7 +512,7 @@ th {
 }
 
 .has-error {
-  color: #f00;
+  color: #e82130;
 }
 
 .is-nicely-hidden {
@@ -571,6 +571,14 @@ a:hover {
   text-decoration: underline;
 }
 a:focus {
+  color: #1538e6;
+}
+a.incognito {
+  color: inherit;
+  text-decoration: none;
+}
+a.incognito:hover, a.incognito:active {
+  text-decoration: underline;
   color: #1538e6;
 }
 
@@ -757,7 +765,8 @@ sub, sup {
    ======================================================= */
 ul {
   list-style: disc;
-  margin: 0 0 1.375rem 1.2em;
+  margin: 0 0 1.375rem 0;
+  padding-left: 1.5em;
 }
 ul ul {
   margin-bottom: 0;
@@ -765,7 +774,8 @@ ul ul {
 
 ol {
   list-style: decimal;
-  margin: 0 0 1.375rem 1em;
+  margin: 0 0 1.375rem 0;
+  padding-left: 1.75em;
 }
 ol ol {
   margin-bottom: 0;
@@ -793,6 +803,9 @@ dl.divided dt {
 dl.divided dt:first-child {
   border-top-width: 0;
 }
+dl p {
+  margin-top: 0;
+}
 
 dt {
   margin-bottom: 0.33333em;
@@ -804,6 +817,9 @@ dd + dt {
 dd {
   margin-left: 0;
 }
+dd > *:last-child {
+  margin-bottom: 0;
+}
 
 /* =======================================================
     Media elements
@@ -812,9 +828,9 @@ img, video, object {
   max-width: 100%;
   height: auto;
 }
-
-.bordered {
+img.bordered, video.bordered, object.bordered {
   border: 1px solid #e6e6e6;
+  padding: 5px;
 }
 
 iframe {
@@ -836,6 +852,7 @@ figure.fig-right {
   width: 31.42857%;
 }
 figure.fig-left {
+  padding: 5px;
   float: left;
   margin-right: 2.85714%;
   width: 31.42857%;
@@ -1003,6 +1020,11 @@ input[type="date"] {
   font-weight: normal;
   cursor: pointer;
 }
+.radio.flush,
+.checkbox.flush {
+  margin-bottom: 0;
+  margin-top: 0;
+}
 
 .radio input[type="radio"],
 .radio-inline input[type="radio"],
@@ -1093,7 +1115,7 @@ input[type="checkbox"],
 }
 
 .has-error {
-  border-color: #f00;
+  border-color: #e82130;
 }
 
 /*  Static form control text
@@ -1110,7 +1132,7 @@ input[type="checkbox"],
   display: block;
   margin: 5px 0 0;
   font-size: 0.875em;
-  color: #cacaca;
+  color: #aaaaaa;
 }
 
 /*  Inline forms
@@ -2346,14 +2368,11 @@ body {
 
 [class*='block-'] .headline {
   margin-bottom: 0;
-}
-[class*='block-'] .headline a {
-  color: inherit;
-  text-decoration: none;
-}
-[class*='block-'] .headline a:hover, [class*='block-'] .headline a:active {
-  text-decoration: underline;
-  color: #1538e6;
+  /*
+  a {
+    @include incognitolink;
+  }
+  */
 }
 
 /* =======================================================
@@ -3819,6 +3838,28 @@ Markup:
   .page-inset-large {
     padding: 2.2rem 1.375rem 2.75rem;
   }
+}
+.page-alert {
+  padding: 0.51563rem 0.6875rem;
+  background-color: #fbe201;
+  color: #111111;
+}
+@media (min-width: 46.75em) {
+  .page-alert {
+    padding-left: 1.375rem;
+    padding-right: 1.375rem;
+  }
+}
+.page.page-alert.has-error {
+  background-color: #e82130;
+  color: #fff;
+}
+.page.page-alert.has-error a {
+  color: #fff;
+  text-decoration: underline;
+}
+.page.page-alert.has-error a:hover {
+  text-decoration: none;
 }
 .page + .page {
   margin-top: 2px;

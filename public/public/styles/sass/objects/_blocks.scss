@@ -193,9 +193,11 @@
 
 [class*='block-'] .headline {
   margin-bottom: 0;
+  /*
   a {
     @include incognitolink;
   }
+  */
 }
 
 // End blocks

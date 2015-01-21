@@ -1,5 +1,9 @@
 {% extends "_layout-reversed" %}
-{% set title = "QCA Newsletters" %}
+{% if entry.displayTitle %}
+  {% set title = entry.displayTitle %}
+{% else %}
+  {% set title = entry.title %}
+{% endif %}
 {% set bodyClass = 'l-2col-rev' %}
 
 {% block main %}
@@ -7,11 +11,15 @@
 
   <header id="PageHeader" class="page-header">
     <div class="main">
-      <h1>{{ title }} <small>Download past editions of our newsletter</small></h1>
+      <h1>{{ title }}{% if entry.pageSubtitle|length %} <small>{{ entry.pageSubtitle }}</small>{% endif %}</h1>
     </div>
   </header>
 
   <div class="page page-inset-large news-listing">
+
+    {% if entry.pageIntro %}
+      {{ entry.pageIntro }}
+    {% endif %}
 
     {% set allEntries = craft.entries.section('newsletters').limit(null) %}
 

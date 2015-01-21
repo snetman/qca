@@ -5,6 +5,12 @@
 {% block main %}
 <div class="l-main">
 
+  <header class="band band-flush-bottom rounded">
+    <div class="main">
+      <span class="gamma headline">{{ entry.postDate.format('m.d.y') }}</span>
+    </div>
+  </header>
+
   <div class="page page-inset-large news-article">
     <header>
       <h1>{{ title }}</h1>
@@ -15,10 +21,8 @@
 
     </div>
     <footer>
-      <span class="date">{{ entry.postDate.format('m.d.y') }}</span>
-
+      <h4>Tags:</h4>
       {% include 'includes/_news-taglist.html' %}
-
     </footer>
   </div>
 

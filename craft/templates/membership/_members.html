@@ -1,5 +1,9 @@
 {% extends "_layout" %}
-{% set title = "Our members" %}
+{% if entry.displayTitle %}
+  {% set title = entry.displayTitle %}
+{% else %}
+  {% set title = entry.title %}
+{% endif %}
 {% set bodyClass = 'l-2col' %}
 
 {% block main %}
@@ -7,98 +11,115 @@
 
   <header class="page-header">
     <div class="main">
-      <h1>Our members</h1>
+      <h1>{{ title }}{% if entry.pageSubtitle|length %} <small>{{ entry.pageSubtitle }}</small>{% endif %}</h1>
     </div>
   </header>
 
-  {% set featuredProfile = craft.entries.section('membershipFront').first().featuredProfile.first() %}
+  {% set featuredProfile = entry.featuredProfile.first() %}
 
   {% include 'includes/_featured-profile.html' with {'hideAllLink':'true'} %}
 
-  {% if currentUser %}
-    <div class="page page-inset-large">
-      {% if currentUser.isInGroup('members') %}
-        <h1>Current user is logged in and a member</h1>
-      {% else %}
-        <h1>Current user is logged in and not a member</h1>
-      {% endif %}
+  <header class="band band-flush-bottom">
+    <div class="main">
+      <span class="headline">Member directory</span>
     </div>
-  {% else %}
-    <div class="page page-inset-large">
-      <p>If you are an active member of QCA, <a href="{{ loginUrl }}">log in to view the member directory</a>.</p>
-    </div>
-  {% endif %}
-
-
-
-  {% set members = craft.users.group('members').memberIncludeMe('1').order('lastName').limit(null) %}
-
-  {% set membersGrouped = members|group('lastName|first|upper|
-    preg_replace("/[A-E]/", "A-E", 1)|
-    preg_replace("/[F-J]/", "F-J", 1)|
-    preg_replace("/[K-O]/", "K-O", 1)|
-    preg_replace("/[P-T]/", "P-T", 1)|
-    preg_replace("/[U-Z]/", "U-Z", 1)') %}
-
-  <header class="band band-snug band-flush-bottom">
-    <nav id="AlphaNav" class="nav brick-nav brick-nav-full brick-nav-flush">
-      <ul>
-        {% for letters in membersGrouped|keys %}
-
-          <li><a class="animate-scroll" href="#{{ letters }}">{{ letters }}</a></li>
-
-        {% endfor %}
-      </ul>
-    </nav>
   </header>
 
-  <div class="page page-inset-large">
+  {% if currentUser %}
 
-    <div class="g g-6up-max">
+    {% if currentUser.memberRenewalDate|length and now >= currentUser.memberRenewalDate %}
+      <div class="page page-inset page-alert">
+        {{ globalMembers.memberPaymentDueMessage }}
+        <p><a class="btn btn-primary" href="{{ url('account/pay') }}">Renew now</a></p>
+      </div>
+    {% endif %}
 
-      {% for letters, members in membersGrouped %}
+    {% if currentUser.isInGroup('members') %}
 
-        {# Don't insert explicit letter group headers
-        <div class="block-letters" id="{{ letters }}">
-          <h1>{{ letters }}</h1>
-          <a href="#AlphaNav" class="animate-scroll">Top</a>
+      {% set members = craft.users.group('members').memberIncludeMe('1').order('lastName').limit(null) %}
+
+      {% set membersGrouped = members|group('lastName|first|upper|
+        preg_replace("/[A-E]/", "A-E", 1)|
+        preg_replace("/[F-J]/", "F-J", 1)|
+        preg_replace("/[K-O]/", "K-O", 1)|
+        preg_replace("/[P-T]/", "P-T", 1)|
+        preg_replace("/[U-Z]/", "U-Z", 1)') %}
+
+      <header class="band band-snug band-flush-bottom">
+        <nav id="AlphaNav" class="nav brick-nav brick-nav-full brick-nav-flush">
+          <ul>
+            {% for letters in membersGrouped|keys %}
+
+              <li><a class="animate-scroll" href="#{{ letters }}">{{ letters }}</a></li>
+
+            {% endfor %}
+          </ul>
+        </nav>
+      </header>
+
+      <div class="page page-inset-large">
+
+        <div class="g g-6up-max">
+
+          {% for letters, members in membersGrouped %}
+
+            {# Don't insert explicit letter group headers
+            <div class="block-letters" id="{{ letters }}">
+              <h1>{{ letters }}</h1>
+              <a href="#AlphaNav" class="animate-scroll">Top</a>
+            </div>
+            #}
+
+            {% for member in members %}
+
+              <div {% if loop.first %}id="{{ letters }}" {% endif %}class="block-switch">
+                <a class="b-figure" href="{{ url( 'member/' ~ member.username ) }}">
+                  {% if member.photoUrl %}
+                    <img src="{{ member.getPhotoUrl(200) }}">
+                  {% else %}
+                    {% set asset = globalMembers.memberDefaultPhoto.first() %}
+                    <img src="{{ asset.getUrl('avatarImage') }}" alt="avatar" />
+                  {% endif %}
+                </a>
+                <dl class="b-body">
+                  <dt class="headline"><a href="{{ url( 'member/' ~ member.username ) }}">{{ member.fullName }}</a></dt>
+                  {% if member.memberTitle %}
+                    <dd>{{ member.memberTitle }}</dd>
+                  {% endif %}
+                  {% if member.memberInstitutionalAffiliation %}
+                    <dd>{{ member.memberInstitutionalAffiliation }}</dd>
+                  {% endif %}
+                  {% set profile = craft.entries.section('memberProfiles').relatedTo(member) %}
+                  {% if profile|length %}
+                    <dd><a href="{{ profile.first().url }}">View profile</a></dd>
+                  {% endif %}
+                </dl>
+              </div>
+              <!--/.block-switch-->
+
+            {% endfor %}
+
+          {% endfor %}
+
         </div>
-        #}
+        <!--/.g-->
 
-        {% for member in members %}
+      </div>
+      <!--/.page-->
 
-          <div {% if loop.first %}id="{{ letters }}" {% endif %}class="block-switch">
-            <img class="b-figure" src="{{ member.getPhotoUrl(200) }}" />
-            <dl class="b-body">
-              <dt class="headline">{{ member.fullName }}</dt>
-              {% if member.memberTitle %}
-                <dd>{{ member.memberTitle }}</dd>
-              {% endif %}
-              {% if member.memberInstitutionalAffiliation %}
-                <dd>{{ member.memberInstitutionalAffiliation }}</dd>
-              {% endif %}
-              {% if member.memberShowEmailLink %}
-                {% set emailLink = 'mailto:' ~ member.email %}
-                <dd><a href="{{ emailLink|entities }}">Email</a></dd>
-              {% endif %}
-              {% set profile = craft.entries.section('memberProfiles').relatedTo(member) %}
-              {% if profile|length %}
-                <dd><a href="{{ profile.first().url }}">View profile</a></dd>
-              {% endif %}
-            </dl>
-          </div>
-          <!--/.block-switch-->
+    {% endif %}
 
-        {% endfor %}
+  {% else %}
 
-      {% endfor %}
-
+    <div class="page page-inset-large">
+      {% if entry.directoryPrompt %}
+        {{ entry.directoryPrompt }}
+      {% else %}
+        <p><a href="{{ loginUrl }}">Log in to view the member directory</a>.</p>
+      {% endif %}
     </div>
-    <!--/.g-->
 
-  </div>
-  <!--/.page-->
-
+  {% endif %}
 
 </div>
 <!--/.l-main-->
