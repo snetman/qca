@@ -28,8 +28,6 @@
 
     <ul class="secondary-nav">
 
-      {#
-
       {% for item in secondaryNav.navMenu %}
 
         <li{% if item.itemId|length %} id="{{ item.itemId }}"{% endif %}{% if craft.request.firstSegment == item.itemSectionSegment and item.itemSectionSegment|length %} class="current"{% endif %}>
@@ -46,11 +44,17 @@
 
       {% endfor %}
 
-      #}
-      <li id="join-btn"><a href="{{ url('membership') }}">Join&nbsp;QCA</a></li>
       {% if currentUser %}
-        <li><a href="{{ url('member') ~ '/' ~ currentUser.username }}">My account</a></li>
-        <li><a href="{{ logoutUrl }}">Sign out</a></li>
+
+        <li class="drop">
+          <a href="{{ url('member') ~ '/' ~ currentUser.username }}" class="drop-toggle"><span class="icon--account reversable"></span></a>
+          <ul class="drop-menu drop-right is-hidden">
+            <li><a href="{{ url('member') ~ '/' ~ currentUser.username }}">My&nbsp;account</a></li>
+            <li><a href="{{ logoutUrl }}">Sign&nbsp;out</a></li>
+          </ul>
+        </li>
+        <!--/.drop-->
+
       {% else %}
         <li><a href="{{ loginUrl }}">Sign in</a></li>
       {% endif %}

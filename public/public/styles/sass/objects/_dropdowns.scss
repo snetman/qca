@@ -23,8 +23,9 @@ Markup:
 
   // The toggle
 
-  > a {
-
+  > .drop-toggle.is-active {
+    background-color: $white !important;
+    color: $black !important;
   }
 
   // The dropdown menu
@@ -37,45 +38,69 @@ Markup:
     position: absolute;
     top: 100%;
     left: 0;
-    margin-top: pem(4);
+    // margin-top: pem(4);
     z-index: 999;
 
     &.drop-right {
       left: auto;
-      right: $space-quarter;
+      // right: $space-quarter;
+      right: 0;
     }
 
     // Look and feel
 
-    border: 1px solid $border-color;
-    border-radius: $space-quarter;
-    padding: $space-quarter 0;
-    min-width: 8em;
+    // border: 1px solid $border-color;
+    // border-radius: $space-quarter;
+    // padding: $space-quarter 0;
+    padding: 0;
+    //min-width: 8em;
     max-width: 10em;
-    background-color: $white;
+    background-color: $black;
     box-shadow: 0 4px 8px rgba(0,0,0,.2);
 
     > li {
       display: block;
+      width: 100%;
+      /*
       &.divider {
         height: $border-width;
         background-color: $border-color;
         margin: $space-quarter 0;
         overflow: hidden;
       }
+      */
 
       > a {
         display: block;
         padding: $space-quarter $space-half;
-        background-color: $white;
-        color: $body-color;
+        background-color: $white !important;
+        color: $black !important;
         text-align: left;
         text-decoration: none;
+        width: 100%;
         &:hover {
-          background-color: $gray-light;
-          color: $headline-color;
+          background-color: $blue;
+          // color: $headline-color;
         }
       }
+    }
+  }
+}
+
+//
+// Theming
+//
+
+.theme-light .drop {
+  > .drop-toggle.is-active {
+  background-color: $black !important;
+  color: $white !important;
+  }
+  .drop-menu > li > a {
+    background-color: $black !important;
+    color: $white !important;
+    &:hover {
+      background-color: $blue;
     }
   }
 }

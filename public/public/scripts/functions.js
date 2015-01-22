@@ -68,7 +68,7 @@ $(document).ready(function() {
   $droplink = $('.drop-toggle');
 
   $droplink.click(function(){
-    $(this).siblings('.drop-menu').toggleClass('is-hidden');
+    $(this).toggleClass('is-active').siblings('.drop-menu').toggleClass('is-hidden');
     return false;
   });
 
