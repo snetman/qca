@@ -1135,6 +1135,14 @@ input[type="checkbox"],
   color: #aaaaaa;
 }
 
+.error-block {
+  clear: both;
+  display: block;
+  margin: 5px 0 0;
+  font-size: 0.875em;
+  color: #e82130;
+}
+
 /*  Inline forms
    ======================================================= */
 @media (min-width: 46.75em) {
