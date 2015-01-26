@@ -360,6 +360,14 @@ input[type="checkbox"],
   color: $form-help-color;
 }
 
+.error-block {
+  clear: both;
+  display: block; // account for any element using error-block
+  margin: 5px 0 0;
+  font-size: $font-size-small;
+  color: $error;
+}
+
 
 /*  Inline forms
    ======================================================= */

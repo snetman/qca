@@ -21,8 +21,10 @@
 
     </div>
     <footer>
-      <h4>Tags:</h4>
-      {% include 'includes/_news-taglist.html' %}
+      {% if entry.newsTags|length %}
+        <h4>Tags:</h4>
+        {% include 'includes/_news-taglist.html' %}
+      {% endif %}
     </footer>
   </div>
 

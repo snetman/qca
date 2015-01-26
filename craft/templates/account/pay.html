@@ -21,10 +21,10 @@
 
       <div class="form-group">
         <label>Tier:</label>
-        <select class="select-group">
+        <select class="select-group" id="TierSelect">
           {% set memberTier = currentUser.memberMembershipTier.first() %}
           {% for entry in craft.entries.section('membershipTiers') %}
-            <option value="{{ entry.tierPrice|number_format(0,'.',',') }}"{% if entry.id == memberTier.id %} selected{% endif %}>{{ entry.title }} – ${{ entry.tierPrice|number_format(0,'.',',') }}</option>
+            <option value="{{ entry.tierUrl }}"{% if entry.id == memberTier.id %} selected{% endif %}>{{ entry.title }} – ${{ entry.tierPrice|number_format(0,'.',',') }}</option>
           {% endfor %}
         </select>
       </div>
@@ -34,7 +34,7 @@
 
     <div class="page">
       <div class="btn-group btn-group-full btn-group-flush">
-        <input class="btn btn-primary btn-large" type="submit" value="Pay now" />
+        <a id="PayButton" class="btn btn-primary btn-large" href="{{ memberTier.tierUrl }}">Pay now</a>
       </div>
     </div>
 
@@ -43,3 +43,17 @@
 </div>
 <!--/.l-main-->
 {% endblock %}
+
+{% set tierSelectJs %}
+
+  $buttonUrl = $('#TierSelect').val();
+  $('#PayButton').attr('href', $buttonUrl);
+
+  $('#TierSelect').on('change', function(event) {
+    var $buttonUrl = $(this).val();
+    $('#PayButton').attr('href', $buttonUrl);
+  });
+
+{% endset %}
+
+{% includeJs tierSelectJs %}

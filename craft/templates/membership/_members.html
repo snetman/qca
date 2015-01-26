@@ -34,7 +34,9 @@
       </div>
     {% endif %}
 
-    {% if currentUser.isInGroup('members') %}
+
+    {# Allow members and editors to view the directory #}
+    {% if currentUser.isInGroup('members') or currentUser.isInGroup('editors') %}
 
       {% set members = craft.users.group('members').memberIncludeMe('1').order('lastName').limit(null) %}
 

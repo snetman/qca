@@ -45,6 +45,9 @@
     opacity: .65;
     box-shadow: none;
   }
+
+  @include transition(.2s all linear);
+
 }
 
 // Alternate buttons

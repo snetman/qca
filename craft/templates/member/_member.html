@@ -87,7 +87,8 @@
           {% endif %}
           {% if member.email|length and member.memberShowEmail %}
             <dt>Email</dt>
-            <dd><a href="mailto:{{ member.email }}">{{ member.email }}</a></dd>
+            {% set emailLink = 'mailto:' ~ member.email %}
+            <dd><a href="{{ emailLink|entities }}">{{ member.email|entities }}</a></dd>
           {% endif %}
           {% if member.memberPhone|length %}
             <dt>Phone</dt>

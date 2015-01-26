@@ -1135,6 +1135,14 @@ input[type="checkbox"],
   color: #aaaaaa;
 }
 
+.error-block {
+  clear: both;
+  display: block;
+  margin: 5px 0 0;
+  font-size: 0.875em;
+  color: #e82130;
+}
+
 /*  Inline forms
    ======================================================= */
 @media (min-width: 46.75em) {
@@ -2392,6 +2400,10 @@ body {
   background: #aaaaaa;
   background-image: none;
   color: #fff;
+  -moz-transition: all 0.2s linear;
+  -o-transition: all 0.2s linear;
+  -webkit-transition: all 0.2s linear;
+  transition: all 0.2s linear;
 }
 .btn:hover, .btn:focus {
   background-color: #111111;
@@ -2578,6 +2590,83 @@ body {
   /*.home & {
     margin-bottom: 0;
   }*/
+}
+
+/* =======================================================
+    Dropdowns
+   ======================================================= */
+/*
+Markup:
+
+<div class="dropdown">
+  <a href="#" class="btn">&darr;</a>
+  <ul class="dropdown-menu" role="menu">
+    <li><a href="#">Action</a></li>
+    <li><a href="#">Another action</a></li>
+    <li><a href="#">Something else here</a></li>
+    <li class="divider"></li>
+    <li><a href="#">Separated link</a></li>
+  </ul>
+</div>
+*/
+.drop {
+  position: relative;
+}
+.drop > .drop-toggle.is-active {
+  background-color: #fff !important;
+  color: #111111 !important;
+}
+.drop .drop-menu {
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 999;
+  padding: 0;
+  max-width: 10em;
+  background-color: #111111;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.drop .drop-menu.drop-right {
+  left: auto;
+  right: 0;
+}
+.drop .drop-menu > li {
+  display: block;
+  width: 100%;
+  /*
+  &.divider {
+    height: $border-width;
+    background-color: $border-color;
+    margin: $space-quarter 0;
+    overflow: hidden;
+  }
+  */
+}
+.drop .drop-menu > li > a {
+  display: block;
+  padding: 0.34375rem 0.6875rem;
+  background-color: #fff !important;
+  color: #111111 !important;
+  text-align: left;
+  text-decoration: none;
+  width: 100%;
+}
+.drop .drop-menu > li > a:hover {
+  background-color: #1538e6;
+}
+
+.theme-light .drop > .drop-toggle.is-active {
+  background-color: #111111 !important;
+  color: #fff !important;
+}
+.theme-light .drop .drop-menu > li > a {
+  background-color: #111111 !important;
+  color: #fff !important;
+}
+.theme-light .drop .drop-menu > li > a:hover {
+  background-color: #1538e6;
 }
 
 /* =======================================================
@@ -3138,6 +3227,10 @@ body {
 
 .icon--arrow-left {
   background-position: -160px 0;
+}
+
+.icon--account {
+  background-position: -192px 0;
 }
 
 /* =======================================================

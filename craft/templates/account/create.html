@@ -23,13 +23,11 @@
       <input type="hidden" name="redirect" value="account/activation-required">
 
       {% macro errorList(errors) %}
-      {% if errors %}
-          <ul class="errors inline-list has-commas">
-              {% for error in errors %}
-                  <li class="has-error"><strong>{{ error }}</strong>{% if not loop.last %},{% endif %}</li>
-              {% endfor %}
-          </ul>
-      {% endif %}
+        {% if errors %}
+          {% for error in errors %}
+            <p class="error-block">{{ error }}</p>
+          {% endfor %}
+        {% endif %}
       {% endmacro %}
 
       {% from _self import errorList %}
