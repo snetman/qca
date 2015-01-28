@@ -20,6 +20,7 @@ return array(
         'activateAccountSuccessPath' => 'account/activation-success',
         'setPasswordPath' => 'account/setpassword',
         'setPasswordSuccessPath' => 'account/login?m=passchanged',
+        'purgePendingUsersDuration' => 'P3D',
     ),
 
     // Local

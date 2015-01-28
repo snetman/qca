@@ -52,6 +52,14 @@
       <fieldset class="page page-inset">
 
           <div class="form-group">
+              <label for="firstName">Username<b class="required">*</b></label>
+              <input class="form-control" id="username" type="text" name="username" value="{{ currentUser.username}}">
+              {% if account is defined %}
+                  {{ errorList(account.getErrors('username')) }}
+              {% endif %}
+          </div>
+
+          <div class="form-group">
               <label for="firstName">First name<b class="required">*</b></label>
               <input class="form-control" id="firstName" type="text" name="firstName" value="{{ currentUser.firstName}}">
           </div>
@@ -209,7 +217,7 @@
 
       <header class="band band-flush-bottom">
         <div class="main">
-          <span class="headline">Preferences</span>
+          <span class="headline">Privacy and preferences</span>
         </div>
       </header>
 
@@ -218,7 +226,7 @@
           <div class="checkbox">
             <label>
               <input type="checkbox" class="js-checkbox" data-target="#memberIncludeMe" value="1" {% if currentUser.memberIncludeMe %}checked="checked"{% endif %}>
-              Include me in the <a href="{{ url('membership/members') }}">member directory</a> that is visible to other members?
+              Include me (and the information I’ve entered above) in the <a target="_blank" href="{{ url('membership/members') }}">member directory</a> that is visible to other members?
             </label>
             <input type="hidden" class="js-lightswitch" id="memberIncludeMe" name="fields[memberIncludeMe]" value="{% if currentUser.memberIncludeMe %}1{% else %}0{% endif %}">
           </div>
