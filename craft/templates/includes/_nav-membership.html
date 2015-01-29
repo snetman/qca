@@ -14,7 +14,7 @@
 
 <nav class="nav section-nav collapse-nav">
   <ul>
-    <li><a class="collapse-toggle" href="#">In this section: <b class="pointer"><span class="icon icon-down"></span></b></a></li>
+    <li><a class="collapse-toggle" href="#">In this section&hellip; <b class="pointer"><span class="icon--up reversable"></span></b></a></li>
     <li{% if craft.request.url == url('membership') %} class="current"{% endif %}><a href="{{ url('membership') }}">{{ membershipTitle }} <b class="pointer"><span class="icon icon-next"></span></b></a></li>
     <li{% if craft.request.url == url('membership/members') %} class="current"{% endif %}><a href="{{ url('membership/members') }}">{{ directoryTitle }} <b class="pointer"><span class="icon icon-next"></span></b></a></li>
   </ul>

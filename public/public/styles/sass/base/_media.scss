@@ -11,6 +11,9 @@ img, video, object {
 		border: $border-width $border-style $border-color;
 		padding: 5px;
 	}
+	&[class*='outlined--'] {
+		border: 1px solid #333333;
+	}
 }
 
 iframe {

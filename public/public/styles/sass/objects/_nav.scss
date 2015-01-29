@@ -163,6 +163,10 @@ Markup:
       display: block;
     }
 
+    .collapse-toggle .pointer {
+      @include transition(.2s all linear);
+    }
+
     &.is-collapsed {
       > ul > li {
         display: none;
@@ -170,6 +174,11 @@ Markup:
       > ul > li:first-child {
         display: block;
         border-bottom-width: 0;
+      }
+      .collapse-toggle .pointer {
+        -ms-transform: rotate(180deg);
+        -webkit-transform: rotate(180deg);
+        transform: rotate(180deg);
       }
     }
 

@@ -2,10 +2,10 @@
 
 <nav class="nav section-nav collapse-nav">
   <ul>
-    <li><a class="collapse-toggle" href="#">In this section: <b class="pointer"><span class="icon icon-down"></span></b></a></li>
+    <li><a class="collapse-toggle" href="#">In this section&hellip; <b class="pointer"><span class="icon--up reversable"></span></b></a></li>
     {% nav entry in entries %}
       <li{% if craft.request.url == entry.url %} class="current"{% endif %}>
-        <a href="{{ entry.url }}">{% if entry.shortTitle %}{{ entry.shortTitle }}{% else %}{{ entry.title }}{% endif %} <b class="pointer"><span class="icon icon-next"></span></b></a>
+        <a href="{{ entry.url }}">{% if entry.shortTitle %}{{ entry.shortTitle }}{% else %}{{ entry.title }}{% endif %}</a>
         {% ifchildren %}
           <ul>
             {% children %}
